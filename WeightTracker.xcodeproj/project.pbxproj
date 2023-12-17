@@ -10,13 +10,14 @@
 		4D13AFA62B2F584D007484AE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D13AFA52B2F584D007484AE /* AppDelegate.swift */; };
 		4D13AFA82B2F584D007484AE /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D13AFA72B2F584D007484AE /* SceneDelegate.swift */; };
 		4D13AFAA2B2F584D007484AE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D13AFA92B2F584D007484AE /* ViewController.swift */; };
-		4D13AFAD2B2F584D007484AE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4D13AFAB2B2F584D007484AE /* Main.storyboard */; };
 		4D13AFB02B2F584D007484AE /* WeightTracker.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4D13AFAE2B2F584D007484AE /* WeightTracker.xcdatamodeld */; };
 		4D13AFB22B2F584F007484AE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4D13AFB12B2F584F007484AE /* Assets.xcassets */; };
 		4D13AFB52B2F584F007484AE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4D13AFB32B2F584F007484AE /* LaunchScreen.storyboard */; };
 		4D13AFC02B2F584F007484AE /* WeightTrackerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D13AFBF2B2F584F007484AE /* WeightTrackerTests.swift */; };
 		4D13AFCA2B2F584F007484AE /* WeightTrackerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D13AFC92B2F584F007484AE /* WeightTrackerUITests.swift */; };
 		4D13AFCC2B2F584F007484AE /* WeightTrackerUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D13AFCB2B2F584F007484AE /* WeightTrackerUITestsLaunchTests.swift */; };
+		4D13AFDD2B2F5B70007484AE /* WeightMonitorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D13AFDC2B2F5B70007484AE /* WeightMonitorViewController.swift */; };
+		4D13AFE02B2F603B007484AE /* UIColor+getAppColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D13AFDF2B2F603B007484AE /* UIColor+getAppColor.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -41,7 +42,6 @@
 		4D13AFA52B2F584D007484AE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4D13AFA72B2F584D007484AE /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		4D13AFA92B2F584D007484AE /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		4D13AFAC2B2F584D007484AE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		4D13AFAF2B2F584D007484AE /* WeightTracker.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = WeightTracker.xcdatamodel; sourceTree = "<group>"; };
 		4D13AFB12B2F584F007484AE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4D13AFB42B2F584F007484AE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -51,6 +51,8 @@
 		4D13AFC52B2F584F007484AE /* WeightTrackerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WeightTrackerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4D13AFC92B2F584F007484AE /* WeightTrackerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightTrackerUITests.swift; sourceTree = "<group>"; };
 		4D13AFCB2B2F584F007484AE /* WeightTrackerUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightTrackerUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		4D13AFDC2B2F5B70007484AE /* WeightMonitorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightMonitorViewController.swift; sourceTree = "<group>"; };
+		4D13AFDF2B2F603B007484AE /* UIColor+getAppColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+getAppColor.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,10 +103,11 @@
 		4D13AFA42B2F584D007484AE /* WeightTracker */ = {
 			isa = PBXGroup;
 			children = (
+				4D13AFDE2B2F6010007484AE /* Extensions */,
+				4D13AFD82B2F5A02007484AE /* Scenes */,
 				4D13AFA52B2F584D007484AE /* AppDelegate.swift */,
 				4D13AFA72B2F584D007484AE /* SceneDelegate.swift */,
 				4D13AFA92B2F584D007484AE /* ViewController.swift */,
-				4D13AFAB2B2F584D007484AE /* Main.storyboard */,
 				4D13AFB12B2F584F007484AE /* Assets.xcassets */,
 				4D13AFB32B2F584F007484AE /* LaunchScreen.storyboard */,
 				4D13AFB62B2F584F007484AE /* Info.plist */,
@@ -128,6 +131,30 @@
 				4D13AFCB2B2F584F007484AE /* WeightTrackerUITestsLaunchTests.swift */,
 			);
 			path = WeightTrackerUITests;
+			sourceTree = "<group>";
+		};
+		4D13AFD82B2F5A02007484AE /* Scenes */ = {
+			isa = PBXGroup;
+			children = (
+				4D13AFDB2B2F5B07007484AE /* WeightMonitor */,
+			);
+			path = Scenes;
+			sourceTree = "<group>";
+		};
+		4D13AFDB2B2F5B07007484AE /* WeightMonitor */ = {
+			isa = PBXGroup;
+			children = (
+				4D13AFDC2B2F5B70007484AE /* WeightMonitorViewController.swift */,
+			);
+			path = WeightMonitor;
+			sourceTree = "<group>";
+		};
+		4D13AFDE2B2F6010007484AE /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				4D13AFDF2B2F603B007484AE /* UIColor+getAppColor.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -236,7 +263,6 @@
 			files = (
 				4D13AFB52B2F584F007484AE /* LaunchScreen.storyboard in Resources */,
 				4D13AFB22B2F584F007484AE /* Assets.xcassets in Resources */,
-				4D13AFAD2B2F584D007484AE /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -263,7 +289,9 @@
 			files = (
 				4D13AFAA2B2F584D007484AE /* ViewController.swift in Sources */,
 				4D13AFA62B2F584D007484AE /* AppDelegate.swift in Sources */,
+				4D13AFE02B2F603B007484AE /* UIColor+getAppColor.swift in Sources */,
 				4D13AFB02B2F584D007484AE /* WeightTracker.xcdatamodeld in Sources */,
+				4D13AFDD2B2F5B70007484AE /* WeightMonitorViewController.swift in Sources */,
 				4D13AFA82B2F584D007484AE /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -301,14 +329,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		4D13AFAB2B2F584D007484AE /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				4D13AFAC2B2F584D007484AE /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		4D13AFB32B2F584F007484AE /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -372,7 +392,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -429,7 +449,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -451,7 +471,6 @@
 				INFOPLIST_FILE = WeightTracker/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
@@ -480,7 +499,6 @@
 				INFOPLIST_FILE = WeightTracker/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
