@@ -9,16 +9,17 @@ import Foundation
 import UIKit
 
 enum AppColor {
-    case appBackground, appBlack40, appBlack60, appMainText, appPurple
+    case appGrayBackground, appBlack40, appBlack60, appMainText, appPurple,
+         appGeneralBackground
     
     func getColor() -> UIColor {
         switch self {
-        case .appBackground:
-            guard let appBackground = UIColor(named: "appBackground") else {
-                assertionFailure("appBackground not found")
-                return .gray
+        case .appGrayBackground:
+            guard let appGrayBackground = UIColor(named: "appGrayBackground") else {
+                assertionFailure("appGrayBackground not found")
+                return .white
             }
-            return appBackground
+            return appGrayBackground
         case .appBlack40:
             guard let appBlack40 = UIColor(named: "appBlack40") else {
                 assertionFailure("appBlack40 color not found")
@@ -34,21 +35,21 @@ enum AppColor {
         case .appMainText:
             guard let appMainText = UIColor(named: "appMainText") else {
                 assertionFailure("appMainText color not found")
-                return UIColor.white
+                return UIColor.black
             }
             return appMainText
         case .appPurple:
             guard let appPurple = UIColor(named: "appPurple") else {
                 assertionFailure("appPurple not found")
-                return UIColor.blue
+                return UIColor.purple
             }
             return appPurple
+        case .appGeneralBackground:
+            guard let appGeneralBackground = UIColor(named: "appGeneralBackground") else {
+                assertionFailure("appGeneralBackground not found")
+                return UIColor.white
+            }
+            return appGeneralBackground
         }
-    }
-}
-
-extension UIColor {
-    static func getAppColors(_ colorName: AppColor) -> UIColor {
-        colorName.getColor()
     }
 }

@@ -17,7 +17,7 @@
 		4D13AFCA2B2F584F007484AE /* WeightTrackerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D13AFC92B2F584F007484AE /* WeightTrackerUITests.swift */; };
 		4D13AFCC2B2F584F007484AE /* WeightTrackerUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D13AFCB2B2F584F007484AE /* WeightTrackerUITestsLaunchTests.swift */; };
 		4D13AFDD2B2F5B70007484AE /* WeightMonitorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D13AFDC2B2F5B70007484AE /* WeightMonitorViewController.swift */; };
-		4D13AFE02B2F603B007484AE /* UIColor+getAppColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D13AFDF2B2F603B007484AE /* UIColor+getAppColor.swift */; };
+		4D13AFE02B2F603B007484AE /* UIColor+appColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D13AFDF2B2F603B007484AE /* UIColor+appColors.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,7 +52,7 @@
 		4D13AFC92B2F584F007484AE /* WeightTrackerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightTrackerUITests.swift; sourceTree = "<group>"; };
 		4D13AFCB2B2F584F007484AE /* WeightTrackerUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightTrackerUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		4D13AFDC2B2F5B70007484AE /* WeightMonitorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightMonitorViewController.swift; sourceTree = "<group>"; };
-		4D13AFDF2B2F603B007484AE /* UIColor+getAppColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+getAppColor.swift"; sourceTree = "<group>"; };
+		4D13AFDF2B2F603B007484AE /* UIColor+appColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+appColors.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -152,7 +152,7 @@
 		4D13AFDE2B2F6010007484AE /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				4D13AFDF2B2F603B007484AE /* UIColor+getAppColor.swift */,
+				4D13AFDF2B2F603B007484AE /* UIColor+appColors.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -289,7 +289,7 @@
 			files = (
 				4D13AFAA2B2F584D007484AE /* ViewController.swift in Sources */,
 				4D13AFA62B2F584D007484AE /* AppDelegate.swift in Sources */,
-				4D13AFE02B2F603B007484AE /* UIColor+getAppColor.swift in Sources */,
+				4D13AFE02B2F603B007484AE /* UIColor+appColors.swift in Sources */,
 				4D13AFB02B2F584D007484AE /* WeightTracker.xcdatamodeld in Sources */,
 				4D13AFDD2B2F5B70007484AE /* WeightMonitorViewController.swift in Sources */,
 				4D13AFA82B2F584D007484AE /* SceneDelegate.swift in Sources */,
