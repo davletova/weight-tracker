@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		4D13AFA62B2F584D007484AE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D13AFA52B2F584D007484AE /* AppDelegate.swift */; };
 		4D13AFA82B2F584D007484AE /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D13AFA72B2F584D007484AE /* SceneDelegate.swift */; };
-		4D13AFAA2B2F584D007484AE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D13AFA92B2F584D007484AE /* ViewController.swift */; };
 		4D13AFB02B2F584D007484AE /* WeightTracker.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4D13AFAE2B2F584D007484AE /* WeightTracker.xcdatamodeld */; };
 		4D13AFB22B2F584F007484AE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4D13AFB12B2F584F007484AE /* Assets.xcassets */; };
 		4D13AFB52B2F584F007484AE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4D13AFB32B2F584F007484AE /* LaunchScreen.storyboard */; };
@@ -18,10 +17,12 @@
 		4D13AFCC2B2F584F007484AE /* WeightTrackerUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D13AFCB2B2F584F007484AE /* WeightTrackerUITestsLaunchTests.swift */; };
 		4D13AFDD2B2F5B70007484AE /* WeightMonitorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D13AFDC2B2F5B70007484AE /* WeightMonitorViewController.swift */; };
 		4D13AFE02B2F603B007484AE /* UIColor+appColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D13AFDF2B2F603B007484AE /* UIColor+appColors.swift */; };
-		4D13AFE42B30062D007484AE /* Weight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D13AFE32B30062D007484AE /* Weight.swift */; };
+		4D13AFE42B30062D007484AE /* WeightRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D13AFE32B30062D007484AE /* WeightRecord.swift */; };
 		4D13AFE72B300989007484AE /* WeightMonitorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D13AFE62B300989007484AE /* WeightMonitorViewModel.swift */; };
 		4D13AFE92B300B37007484AE /* WeightMonitortViewControllerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D13AFE82B300B37007484AE /* WeightMonitortViewControllerCell.swift */; };
 		4D13AFEB2B304211007484AE /* Date+FormatDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D13AFEA2B304211007484AE /* Date+FormatDate.swift */; };
+		4D13AFF12B30A8FA007484AE /* WeightsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D13AFF02B30A8FA007484AE /* WeightsStore.swift */; };
+		4D13AFF32B30B18C007484AE /* Context+SafeSave.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D13AFF22B30B18C007484AE /* Context+SafeSave.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,7 +46,6 @@
 		4D13AFA22B2F584D007484AE /* WeightTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeightTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4D13AFA52B2F584D007484AE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4D13AFA72B2F584D007484AE /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		4D13AFA92B2F584D007484AE /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		4D13AFAF2B2F584D007484AE /* WeightTracker.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = WeightTracker.xcdatamodel; sourceTree = "<group>"; };
 		4D13AFB12B2F584F007484AE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4D13AFB42B2F584F007484AE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -57,10 +57,12 @@
 		4D13AFCB2B2F584F007484AE /* WeightTrackerUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightTrackerUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		4D13AFDC2B2F5B70007484AE /* WeightMonitorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightMonitorViewController.swift; sourceTree = "<group>"; };
 		4D13AFDF2B2F603B007484AE /* UIColor+appColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+appColors.swift"; sourceTree = "<group>"; };
-		4D13AFE32B30062D007484AE /* Weight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Weight.swift; sourceTree = "<group>"; };
+		4D13AFE32B30062D007484AE /* WeightRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightRecord.swift; sourceTree = "<group>"; };
 		4D13AFE62B300989007484AE /* WeightMonitorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightMonitorViewModel.swift; sourceTree = "<group>"; };
 		4D13AFE82B300B37007484AE /* WeightMonitortViewControllerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightMonitortViewControllerCell.swift; sourceTree = "<group>"; };
 		4D13AFEA2B304211007484AE /* Date+FormatDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+FormatDate.swift"; sourceTree = "<group>"; };
+		4D13AFF02B30A8FA007484AE /* WeightsStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightsStore.swift; sourceTree = "<group>"; };
+		4D13AFF22B30B18C007484AE /* Context+SafeSave.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Context+SafeSave.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,16 +113,15 @@
 		4D13AFA42B2F584D007484AE /* WeightTracker */ = {
 			isa = PBXGroup;
 			children = (
+				4D13AFEE2B30A855007484AE /* CoreData */,
 				4D13AFE52B300639007484AE /* Models */,
 				4D13AFDE2B2F6010007484AE /* Extensions */,
 				4D13AFD82B2F5A02007484AE /* Scenes */,
 				4D13AFA52B2F584D007484AE /* AppDelegate.swift */,
 				4D13AFA72B2F584D007484AE /* SceneDelegate.swift */,
-				4D13AFA92B2F584D007484AE /* ViewController.swift */,
 				4D13AFB12B2F584F007484AE /* Assets.xcassets */,
 				4D13AFB32B2F584F007484AE /* LaunchScreen.storyboard */,
 				4D13AFB62B2F584F007484AE /* Info.plist */,
-				4D13AFAE2B2F584D007484AE /* WeightTracker.xcdatamodeld */,
 			);
 			path = WeightTracker;
 			sourceTree = "<group>";
@@ -165,6 +166,7 @@
 			children = (
 				4D13AFDF2B2F603B007484AE /* UIColor+appColors.swift */,
 				4D13AFEA2B304211007484AE /* Date+FormatDate.swift */,
+				4D13AFF22B30B18C007484AE /* Context+SafeSave.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -172,9 +174,26 @@
 		4D13AFE52B300639007484AE /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				4D13AFE32B30062D007484AE /* Weight.swift */,
+				4D13AFE32B30062D007484AE /* WeightRecord.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		4D13AFEE2B30A855007484AE /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				4D13AFEF2B30A8B6007484AE /* Store */,
+				4D13AFAE2B2F584D007484AE /* WeightTracker.xcdatamodeld */,
+			);
+			path = CoreData;
+			sourceTree = "<group>";
+		};
+		4D13AFEF2B30A8B6007484AE /* Store */ = {
+			isa = PBXGroup;
+			children = (
+				4D13AFF02B30A8FA007484AE /* WeightsStore.swift */,
+			);
+			path = Store;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -307,7 +326,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4D13AFAA2B2F584D007484AE /* ViewController.swift in Sources */,
+				4D13AFF12B30A8FA007484AE /* WeightsStore.swift in Sources */,
 				4D13AFA62B2F584D007484AE /* AppDelegate.swift in Sources */,
 				4D13AFE02B2F603B007484AE /* UIColor+appColors.swift in Sources */,
 				4D13AFE72B300989007484AE /* WeightMonitorViewModel.swift in Sources */,
@@ -316,7 +335,8 @@
 				4D13AFA82B2F584D007484AE /* SceneDelegate.swift in Sources */,
 				4D13AFE92B300B37007484AE /* WeightMonitortViewControllerCell.swift in Sources */,
 				4D13AFEB2B304211007484AE /* Date+FormatDate.swift in Sources */,
-				4D13AFE42B30062D007484AE /* Weight.swift in Sources */,
+				4D13AFE42B30062D007484AE /* WeightRecord.swift in Sources */,
+				4D13AFF32B30B18C007484AE /* Context+SafeSave.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

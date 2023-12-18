@@ -49,7 +49,7 @@ class WeightMonitortViewControllerCell: UITableViewCell {
         return image
     }()
     
-    func configure(weight: Weight, lastWeight: Double?) {
+    func configure(weight: WeightRecord, lastWeight: Double?) {
         weightLabel.text = String(format: "%.1f", locale: .current, weight.value) + " кг"
         dateLabel.text = weight.date.formatDayMonth()
         

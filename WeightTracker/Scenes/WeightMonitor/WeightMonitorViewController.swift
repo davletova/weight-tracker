@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 class WeightMonitorViewController: UIViewController {
-    private let rowHeight = 46
+    private let rowHeight: CGFloat = 46
     private let cellIdentifier = "cell"
    
     private lazy var titleLabel: UILabel = {
@@ -158,6 +158,7 @@ class WeightMonitorViewController: UIViewController {
         let table = UITableView()
         table.translatesAutoresizingMaskIntoConstraints = false
         table.separatorStyle = .none
+        table.rowHeight = rowHeight
         
         table.register(WeightMonitortViewControllerCell.self, forCellReuseIdentifier: cellIdentifier)
         table.dataSource = self
@@ -235,8 +236,8 @@ extension WeightMonitorViewController: UITableViewDataSource {
 }
 
 var weights = [
-    Weight(value: 56.3, date: Date()),
-    Weight(value: 56.9, date: Date()),
-    Weight(value: 54.9, date: Date()),
-    Weight(value: 56.1, date: Date()),
+    WeightRecord(value: 56.3, date: Date()),
+    WeightRecord(value: 56.9, date: Date()),
+    WeightRecord(value: 54.9, date: Date()),
+    WeightRecord(value: 56.1, date: Date()),
 ]

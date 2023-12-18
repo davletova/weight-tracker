@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Weight {
+struct WeightRecord {
     var value: Double
     var date: Date
 }
