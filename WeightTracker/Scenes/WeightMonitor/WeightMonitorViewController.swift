@@ -11,9 +11,9 @@ import UIKit
 class WeightMonitorViewController: UIViewController {
     private lazy var titleLabel: UILabel = {
         let title = UILabel()
-        title.text = "Мониторинг"
+        title.text = "Монитор веса"
         title.font = UIFont.systemFont(ofSize: 20, weight: .semibold)
-        title.textColor = .black
+        title.textColor = .appMainText
         title.textAlignment = .center
         
         title.translatesAutoresizingMaskIntoConstraints = false
@@ -26,6 +26,7 @@ class WeightMonitorViewController: UIViewController {
         currentWeightView.backgroundColor = .appGrayBackground
         currentWeightView.layer.cornerRadius = 12
         currentWeightView.translatesAutoresizingMaskIntoConstraints = false
+        currentWeightView.clipsToBounds = true
         
         let title = UILabel()
         title.text = "Текущий вес"
@@ -52,7 +53,7 @@ class WeightMonitorViewController: UIViewController {
         let metricSystem = UILabel()
         metricSystem.text = "Метрическая система"
         metricSystem.font = .systemFont(ofSize: 17, weight: .medium)
-        metricSystem.textColor = .appBlack40
+        metricSystem.textColor = .appMainText
         metricSystem.translatesAutoresizingMaskIntoConstraints = false
         
         let scaleImage = UIImageView(image: UIImage(named: "scales"))
@@ -92,7 +93,7 @@ class WeightMonitorViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
+        view.backgroundColor = .appGeneralBackground
         
         view.addSubview(titleLabel)
         view.addSubview(currentWeight)
