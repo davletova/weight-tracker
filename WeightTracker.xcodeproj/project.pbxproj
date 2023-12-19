@@ -23,6 +23,7 @@
 		4D13AFEB2B304211007484AE /* Date+FormatDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D13AFEA2B304211007484AE /* Date+FormatDate.swift */; };
 		4D13AFF12B30A8FA007484AE /* WeightsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D13AFF02B30A8FA007484AE /* WeightsStore.swift */; };
 		4D13AFF32B30B18C007484AE /* Context+SafeSave.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D13AFF22B30B18C007484AE /* Context+SafeSave.swift */; };
+		4D13AFF62B3153DD007484AE /* EditWeightRecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D13AFF52B3153DD007484AE /* EditWeightRecordViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,6 +64,7 @@
 		4D13AFEA2B304211007484AE /* Date+FormatDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+FormatDate.swift"; sourceTree = "<group>"; };
 		4D13AFF02B30A8FA007484AE /* WeightsStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightsStore.swift; sourceTree = "<group>"; };
 		4D13AFF22B30B18C007484AE /* Context+SafeSave.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Context+SafeSave.swift"; sourceTree = "<group>"; };
+		4D13AFF52B3153DD007484AE /* EditWeightRecordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditWeightRecordViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -146,6 +148,7 @@
 		4D13AFD82B2F5A02007484AE /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				4D13AFF42B30BEA2007484AE /* EditWeightRecord */,
 				4D13AFDB2B2F5B07007484AE /* WeightMonitor */,
 			);
 			path = Scenes;
@@ -194,6 +197,14 @@
 				4D13AFF02B30A8FA007484AE /* WeightsStore.swift */,
 			);
 			path = Store;
+			sourceTree = "<group>";
+		};
+		4D13AFF42B30BEA2007484AE /* EditWeightRecord */ = {
+			isa = PBXGroup;
+			children = (
+				4D13AFF52B3153DD007484AE /* EditWeightRecordViewController.swift */,
+			);
+			path = EditWeightRecord;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -329,6 +340,7 @@
 				4D13AFF12B30A8FA007484AE /* WeightsStore.swift in Sources */,
 				4D13AFA62B2F584D007484AE /* AppDelegate.swift in Sources */,
 				4D13AFE02B2F603B007484AE /* UIColor+appColors.swift in Sources */,
+				4D13AFF62B3153DD007484AE /* EditWeightRecordViewController.swift in Sources */,
 				4D13AFE72B300989007484AE /* WeightMonitorViewModel.swift in Sources */,
 				4D13AFB02B2F584D007484AE /* WeightTracker.xcdatamodeld in Sources */,
 				4D13AFDD2B2F5B70007484AE /* WeightMonitorViewController.swift in Sources */,

@@ -15,9 +15,15 @@ extension Date {
         return stringDate
     }
     
-    func formatFullDate() -> String {
+    func formatShortFullDate() -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd.MM.YY"
+        return dateFormatter.string(from: self)
+    }
+    
+    func formatFullDate() -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd LLL YYYY"
         return dateFormatter.string(from: self)
     }
 }

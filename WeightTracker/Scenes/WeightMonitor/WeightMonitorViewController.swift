@@ -26,7 +26,7 @@ class WeightMonitorViewController: UIViewController {
     
     private lazy var currentWeight: UIView = {
         let currentWeightView = UIView(frame: CGRect(x: 0, y: 0, width: 340, height: 130))
-        currentWeightView.backgroundColor = .appGrayBackground
+        currentWeightView.backgroundColor = .appLightGray
         currentWeightView.layer.cornerRadius = 12
         currentWeightView.translatesAutoresizingMaskIntoConstraints = false
         currentWeightView.clipsToBounds = true
@@ -167,6 +167,16 @@ class WeightMonitorViewController: UIViewController {
         return table
     }()
     
+    private lazy var addButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(named: "plus"), for: .normal)
+        button.tintColor = .appPurple
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.addTarget(self, action: #selector(tapCreateRecordButton), for: .touchUpInside)
+        
+        return button
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .appGeneralBackground
@@ -177,6 +187,7 @@ class WeightMonitorViewController: UIViewController {
         view.addSubview(columnHeaderView)
         view.addSubview(line)
         view.addSubview(weightsTable)
+        view.addSubview(addButton)
         
         setupConstraint()
     }
@@ -208,6 +219,11 @@ class WeightMonitorViewController: UIViewController {
             weightsTable.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
             weightsTable.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
             weightsTable.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            
+            addButton.heightAnchor.constraint(equalToConstant: 72),
+            addButton.widthAnchor.constraint(equalToConstant: 72),
+            addButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
+            addButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -16),
         ])
     }
 }
@@ -232,6 +248,12 @@ extension WeightMonitorViewController: UITableViewDataSource {
         cell.configure(weight: weights[indexPath.row], lastWeight: lastWeight)
         
         return cell
+    }
+    
+    @objc func tapCreateRecordButton() {
+        let editWeightRecordVC = EditWeightRecordViewController()
+        editWeightRecordVC.modalPresentationStyle = .popover
+        self.present(editWeightRecordVC, animated: true)
     }
 }
 
