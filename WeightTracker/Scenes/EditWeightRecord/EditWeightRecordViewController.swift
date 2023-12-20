@@ -1,8 +1,18 @@
 import Foundation
 import UIKit
 
+private let headerCellIdentifier = "headerCell"
+private let datePickerCellIdentifier = "datePickerCell"
+private let weightCellIdentifier = "weightCell"
+
+enum CollectionSectionType: Int {
+    case header = 0
+    case datePicker = 1
+    case weight = 2
+}
+
 class EditWeightRecordViewController: UIViewController {
-    private var date = Date()
+    var viewModel: EditWeightRecordViewModel
     
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
@@ -15,94 +25,46 @@ class EditWeightRecordViewController: UIViewController {
         return label
     }()
     
-    private lazy var dateLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Дата"
-        label.font = .systemFont(ofSize: 17, weight: .medium)
-        label.textColor = .appMainText
-        label.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(label)
+    private lazy var collectionView: UICollectionView = {
+        let collectionView = UICollectionView(
+            frame: .zero,
+            collectionViewLayout: UICollectionViewFlowLayout()
+        )
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.allowsMultipleSelection = true
         
-        return label
+        collectionView.dataSource = self
+        collectionView.delegate = self
+        collectionView.register(DateHeaderCollectionCell.self, forCellWithReuseIdentifier: headerCellIdentifier)
+        collectionView.register(DatePickerCollectionCell.self, forCellWithReuseIdentifier: datePickerCellIdentifier)
+        collectionView.register(WeightInputCollectionCell.self, forCellWithReuseIdentifier: weightCellIdentifier)
+        
+        view.addSubview(collectionView)
+        
+        return collectionView
     }()
     
-    private lazy var dateButton: UIButton = {
-        var container = AttributeContainer()
-        container.font = .systemFont(ofSize: 17, weight: .regular)
-        container.foregroundColor = .black
-        
-        var configuration = UIButton.Configuration.plain()
-        configuration.attributedTitle = AttributedString(formatDate(date: date), attributes: container)
-        configuration.image = UIImage(named: "arrow.right")
-        configuration.imagePlacement = .trailing
-        configuration.imagePadding = 8
-        configuration.baseForegroundColor = .appPurple
-        
-        let button = UIButton(configuration: configuration, primaryAction: nil)
+    private lazy var addButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("Добавить", for: .normal)
+        button.titleLabel?.textColor = .appMainText
+        button.backgroundColor = .appPurple
+        button.layer.cornerRadius = 12
+        button.addTarget(self, action: #selector(addRecord), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.addTarget(self, action: #selector(baz), for: .touchUpInside)
         view.addSubview(button)
         
         return button
     }()
     
-    private lazy var weightInput: UITextField = {
-        let input = UITextField(frame: CGRect(x: 0, y: 0, width: 288, height: 75))
-        input.leftView = UIView(frame: CGRectMake(0, 0, 16, input.frame.height))
-        input.leftViewMode = .always
-        input.translatesAutoresizingMaskIntoConstraints = false
-        input.font = .systemFont(ofSize: 34, weight: .bold)
-        input.textColor = .appMainText
-        input.borderStyle = .line
-        input.layer.borderColor = UIColor.appLightGray.cgColor
-        input.layer.borderWidth = 1
-        
-        let attributes = [
-            NSAttributedString.Key.font: UIFont.systemFont(ofSize: 17, weight: .medium),
-            NSAttributedString.Key.foregroundColor: UIColor.appBlack40,
-        ]
-        let attributedString = NSAttributedString(string: "Введите вес", attributes: attributes)
-        input.attributedPlaceholder = attributedString
-        
-        view.addSubview(input)
-        
-        return input
-    }()
+    init(viewModel: EditWeightRecordViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
     
-    private lazy var unit: UILabel = {
-        let label = UILabel()
-        label.text = "кг"
-        label.font = .systemFont(ofSize: 17, weight: .medium)
-        label.textColor = .appBlack40
-        label.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(label)
-        
-        return label
-    }()
-    
-    private lazy var datePicker: UIDatePicker = {
-        var datePicker = UIDatePicker()
-        var datePickerCalendar = Calendar(identifier: .gregorian)
-        datePickerCalendar.firstWeekday = 2
-        datePicker.calendar = datePickerCalendar
-        datePicker.preferredDatePickerStyle = .wheels
-        datePicker.isHidden = true
-        datePicker.addAction(
-            UIAction { action in
-                guard let datepicker = action.sender as? UIDatePicker else {
-                    print("cant convert ")
-                    return
-                }
-                self.date = datepicker.date
-            },
-            for: .valueChanged
-        )
-        datePicker.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(datePicker)
-        
-        return datePicker
-    }()
-    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -110,6 +72,10 @@ class EditWeightRecordViewController: UIViewController {
         view.backgroundColor = .appGeneralBackground
         
         setupConstraint()
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
+        tapGesture.cancelsTouchesInView = false
+        view.addGestureRecognizer(tapGesture)
     }
     
     func setupConstraint() {
@@ -118,24 +84,20 @@ class EditWeightRecordViewController: UIViewController {
             titleLabel.heightAnchor.constraint(equalToConstant: 24),
             titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             
-            datePicker.bottomAnchor.constraint(equalTo: view.centerYAnchor),
-            datePicker.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            datePicker.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            addButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
+            addButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
+            addButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -16),
+            addButton.heightAnchor.constraint(equalToConstant: 48),
             
-            weightInput.heightAnchor.constraint(equalToConstant: 72),
-            weightInput.topAnchor.constraint(equalTo: datePicker.isHidden ? view.centerYAnchor : datePicker.bottomAnchor),
-            weightInput.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            weightInput.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            collectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            collectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+           
+            collectionView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: view.bounds.height / 5),
+            collectionView.bottomAnchor.constraint(equalTo: addButton.topAnchor, constant: -16),
             
-            unit.centerYAnchor.constraint(equalTo: weightInput.centerYAnchor),
-            unit.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
-            
-            dateLabel.bottomAnchor.constraint(equalTo: datePicker.isHidden ? weightInput.topAnchor : datePicker.topAnchor, constant: -16),
-            dateLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
-            
-            dateButton.heightAnchor.constraint(equalToConstant: 20),
-            dateButton.bottomAnchor.constraint(equalTo: datePicker.isHidden ? weightInput.topAnchor : datePicker.topAnchor, constant: -16),
-            dateButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+//            collectionView.bottomAnchor.constraint(lessThanOrEqualTo: view.safeAreaLayoutGuide.bottomAnchor),
+//            collectionView.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor),
+//            collectionView.heightAnchor.constraint(lessThanOrEqualToConstant: 350),
         ])
     }
     
@@ -146,24 +108,91 @@ class EditWeightRecordViewController: UIViewController {
         return date.formatFullDate()
     }
     
-    @objc func baz() {
-        print("baaaaaaz")
-        datePicker.isHidden = false
-        self.view.layoutIfNeeded()
-//        var datePicker = UIDatePicker()
-//        var datePickerCalendar = Calendar(identifier: .gregorian)
-//        datePickerCalendar.firstWeekday = 2
-//        datePicker.calendar = datePickerCalendar
-//        datePicker.addAction(
-//            UIAction { action in
-//                guard let datepicker = action.sender as? UIDatePicker else {
-//                    print("cant convert ")
-//                    return
-//                }
-//                self.date = datepicker.date
-//            },
-//            for: .valueChanged
-//        )
-        
+    @objc func addRecord() {
+        print("dasdsa")
+        viewModel.addRecord()
+    }
+    
+    @objc private func hideKeyboard() {
+        self.view.endEditing(true)
     }
 }
+
+extension EditWeightRecordViewController: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        viewModel.isDatePickerOpen ? 3 : 2
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard var sectionType = CollectionSectionType(rawValue: indexPath.row) else {
+            assertionFailure("invalid section")
+            return UICollectionViewCell()
+        }
+        
+        if !viewModel.isDatePickerOpen && indexPath.row == 1 {
+            sectionType = .weight
+        }
+        
+        switch sectionType {
+        case .header:
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: headerCellIdentifier, for: indexPath) as! DateHeaderCollectionCell
+            cell.configure(date: formatDate(date: viewModel.date))
+            cell.delegate = viewModel
+            return cell
+        case .datePicker:
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: datePickerCellIdentifier, for: indexPath) as! DatePickerCollectionCell
+            cell.delegate = viewModel
+            return cell
+        case .weight:
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: weightCellIdentifier, for: indexPath) as! WeightInputCollectionCell
+            cell.configure(unit: "кг")
+            cell.delegate = viewModel
+            return cell
+        }
+    }
+}
+
+extension EditWeightRecordViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(
+        _ collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        sizeForItemAt indexPath: IndexPath
+    ) -> CGSize {
+        guard var sectionType = CollectionSectionType(rawValue: indexPath.row) else {
+            assertionFailure("invalid section")
+            return .zero
+        }
+        
+        if !viewModel.isDatePickerOpen && indexPath.row == 1 {
+            sectionType = .weight
+        }
+        
+        switch sectionType {
+        case .header:
+            return CGSize(width: view.bounds.width, height: 54)
+        case .datePicker:
+            return CGSize(width: view.bounds.width, height: 216)
+        case .weight:
+            return CGSize(width: view.bounds.width, height: 72)
+        }
+    }
+}
+
+extension EditWeightRecordViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if indexPath.row == CollectionSectionType.header.rawValue {
+            viewModel.hideDatePicker()
+        }
+    }
+}
+
+extension EditWeightRecordViewController: EditWeightRecordViewViewModelDelegate {
+    func reloadRow(indexPathes: [IndexPath]) {
+        collectionView.reloadItems(at: indexPathes)
+    }
+    
+    func reloadData() {
+        collectionView.reloadData()
+    }
+}
+

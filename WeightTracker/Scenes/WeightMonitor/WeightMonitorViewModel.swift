@@ -7,17 +7,33 @@
 
 import Foundation
 
+protocol WeightMonitorViewModelDelegate: AnyObject {
+    func reloadData()
+}
+
 class WeightMonitorViewModel {
     private let store: WeightsStore
     
+    weak var delegate: WeightMonitorViewModelDelegate?
+    
+    var records: [WeightRecord] = []
+    
     init(store: WeightsStore) {
         self.store = store
+        
+        listRecords()
     }
  
-    func listRecords() throws -> [WeightRecord] {
-        let sort = NSSortDescriptor(key: "date", ascending: false)
+    func listRecords() {
+        let sort = NSSortDescriptor(key: "date", ascending: true)
         
-        return try store.list(withSort: [sort]).map { WeightRecord(value: $0.value, date: $0.date!) }
+        do {
+            records = try store.list(withSort: [sort]).map { WeightRecord(value: $0.value, date: $0.date!) }
+        } catch {
+            print("failed to get list")
+        }
+        
+        delegate?.reloadData()
     }
     
     func addRecord(record: WeightRecord) throws {
