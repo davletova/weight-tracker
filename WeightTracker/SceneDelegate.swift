@@ -18,7 +18,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
         window?.windowScene = windowScene
         window?.makeKeyAndVisible()
-        let vc = WeightMonitorViewController()
+        
+        let vm = WeightMonitorViewModel(store: WeightsStore())
+        let vc = WeightMonitorViewController(vm)
         window?.rootViewController = vc
     }
 

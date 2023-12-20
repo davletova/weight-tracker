@@ -11,6 +11,8 @@ import UIKit
 class WeightMonitorViewController: UIViewController {
     private let rowHeight: CGFloat = 46
     private let cellIdentifier = "cell"
+    
+    private var viewModel: WeightMonitorViewModel
    
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
@@ -177,6 +179,15 @@ class WeightMonitorViewController: UIViewController {
         return button
     }()
     
+    init(_ viewModel: WeightMonitorViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .appGeneralBackground
@@ -230,7 +241,7 @@ class WeightMonitorViewController: UIViewController {
 
 extension WeightMonitorViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        weights.count
+        viewModel.records.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -241,19 +252,27 @@ extension WeightMonitorViewController: UITableViewDataSource {
         }
         
         var lastWeight: Double?
-        if indexPath.row < weights.count - 1 {
-            lastWeight = weights[indexPath.row + 1].value
+        if indexPath.row < viewModel.records.count - 1 {
+            lastWeight = viewModel.records[indexPath.row + 1].value
         }
         
-        cell.configure(weight: weights[indexPath.row], lastWeight: lastWeight)
+        cell.configure(weight: viewModel.records[indexPath.row], lastWeight: lastWeight)
         
         return cell
     }
     
     @objc func tapCreateRecordButton() {
-        let editWeightRecordVC = EditWeightRecordViewController()
+        let editWeightRecordVM = EditWeightRecordViewModel(store: WeightsStore())
+        let editWeightRecordVC = EditWeightRecordViewController(viewModel: editWeightRecordVM)
+        editWeightRecordVM.delegate = editWeightRecordVC
         editWeightRecordVC.modalPresentationStyle = .popover
         self.present(editWeightRecordVC, animated: true)
+    }
+}
+
+extension WeightMonitorViewController: WeightMonitorViewModelDelegate {
+    func reloadData() {
+        weightsTable.reloadData()
     }
 }
 
