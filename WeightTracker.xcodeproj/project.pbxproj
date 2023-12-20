@@ -28,6 +28,7 @@
 		4D13AFFA2B31EC6F007484AE /* DateHeaderCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D13AFF92B31EC6F007484AE /* DateHeaderCollectionCell.swift */; };
 		4D13AFFC2B31EFA3007484AE /* DatePickerCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D13AFFB2B31EFA3007484AE /* DatePickerCollectionCell.swift */; };
 		4DDF163A2B32BEFF00EAA86C /* EditWeightRecordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDF16392B32BEFF00EAA86C /* EditWeightRecordViewModel.swift */; };
+		4DDF163D2B334C3E00EAA86C /* Decimal+FormatWeight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDF163C2B334C3E00EAA86C /* Decimal+FormatWeight.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,6 +74,7 @@
 		4D13AFF92B31EC6F007484AE /* DateHeaderCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateHeaderCollectionCell.swift; sourceTree = "<group>"; };
 		4D13AFFB2B31EFA3007484AE /* DatePickerCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerCollectionCell.swift; sourceTree = "<group>"; };
 		4DDF16392B32BEFF00EAA86C /* EditWeightRecordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditWeightRecordViewModel.swift; sourceTree = "<group>"; };
+		4DDF163C2B334C3E00EAA86C /* Decimal+FormatWeight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Decimal+FormatWeight.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -178,6 +180,7 @@
 				4D13AFDF2B2F603B007484AE /* UIColor+appColors.swift */,
 				4D13AFEA2B304211007484AE /* Date+FormatDate.swift */,
 				4D13AFF22B30B18C007484AE /* Context+SafeSave.swift */,
+				4DDF163C2B334C3E00EAA86C /* Decimal+FormatWeight.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -210,13 +213,21 @@
 		4D13AFF42B30BEA2007484AE /* EditWeightRecord */ = {
 			isa = PBXGroup;
 			children = (
+				4DDF163B2B3307F400EAA86C /* CollectionViewCells */,
 				4D13AFF52B3153DD007484AE /* EditWeightRecordViewController.swift */,
-				4D13AFF72B31B537007484AE /* WeightInputCollectionCell.swift */,
-				4D13AFF92B31EC6F007484AE /* DateHeaderCollectionCell.swift */,
-				4D13AFFB2B31EFA3007484AE /* DatePickerCollectionCell.swift */,
 				4DDF16392B32BEFF00EAA86C /* EditWeightRecordViewModel.swift */,
 			);
 			path = EditWeightRecord;
+			sourceTree = "<group>";
+		};
+		4DDF163B2B3307F400EAA86C /* CollectionViewCells */ = {
+			isa = PBXGroup;
+			children = (
+				4D13AFF92B31EC6F007484AE /* DateHeaderCollectionCell.swift */,
+				4D13AFFB2B31EFA3007484AE /* DatePickerCollectionCell.swift */,
+				4D13AFF72B31B537007484AE /* WeightInputCollectionCell.swift */,
+			);
+			path = CollectionViewCells;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -360,6 +371,7 @@
 				4D13AFA82B2F584D007484AE /* SceneDelegate.swift in Sources */,
 				4D13AFF82B31B537007484AE /* WeightInputCollectionCell.swift in Sources */,
 				4D13AFE92B300B37007484AE /* WeightMonitortViewControllerCell.swift in Sources */,
+				4DDF163D2B334C3E00EAA86C /* Decimal+FormatWeight.swift in Sources */,
 				4D13AFFA2B31EC6F007484AE /* DateHeaderCollectionCell.swift in Sources */,
 				4D13AFEB2B304211007484AE /* Date+FormatDate.swift in Sources */,
 				4D13AFFC2B31EFA3007484AE /* DatePickerCollectionCell.swift in Sources */,

@@ -42,19 +42,19 @@ class WeightMonitortViewControllerCell: UITableViewCell {
     }()
     
     private lazy var chevron: UIImageView = {
-        let image = UIImageView(image: UIImage(named: "arrow.right"))
-//        image.tintColor = .appMainText
+        let image = UIImageView(image: UIImage(named: "arrow.right")!.withRenderingMode(.alwaysTemplate))
+        image.tintColor = .appMainText
         image.translatesAutoresizingMaskIntoConstraints = false
         
         return image
     }()
     
-    func configure(weight: WeightRecord, lastWeight: Double?) {
-        weightLabel.text = String(format: "%.1f", locale: .current, weight.value) + " кг"
+    func configure(weight: WeightRecord, lastWeight: Decimal?) {
+        weightLabel.text = weight.weightValue.formatWeight() + " кг"
         dateLabel.text = weight.date.formatDayMonth()
         
         if let lastWeight = lastWeight {
-            diffLabel.text = String(format: "%.1f", locale: .current, weight.value - lastWeight) + " кг"
+            diffLabel.text = (weight.weightValue - lastWeight).formatWeight() + " кг"
         }
         
         contentView.addSubview(weightLabel)

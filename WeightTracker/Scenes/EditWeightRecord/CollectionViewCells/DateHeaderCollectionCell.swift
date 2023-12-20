@@ -22,11 +22,11 @@ class DateHeaderCollectionCell: UICollectionViewCell {
     }()
     
     private lazy var arrowButton: UIButton = {
-        let button = UIButton()
-        button.setImage(UIImage(named: "arrow.right"), for: .normal)
+        let button = UIButton(type: .custom)
+        let image = UIImage(named: "arrow.right")!.withTintColor(.appMainText, renderingMode: .alwaysOriginal)
+        button.setImage(image, for: .normal)
         button.addTarget(self, action: #selector(showDatePicker), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.addTarget(self, action: #selector(showDatePicker), for: .touchUpInside)
         contentView.addSubview(button)
         
         return button

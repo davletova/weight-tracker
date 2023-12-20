@@ -10,6 +10,8 @@ import Foundation
 protocol EditWeightRecordViewViewModelDelegate: AnyObject {
     func reloadData()
     func reloadRow(indexPathes: [IndexPath])
+    func dismiss()
+    func showValidationError()
 }
 
 class EditWeightRecordViewModel: WeightInputCollectionCellDelegate {
@@ -26,8 +28,6 @@ class EditWeightRecordViewModel: WeightInputCollectionCellDelegate {
         self.store = store
     }
     
-
-    
     func hideDatePicker() {
         if isDatePickerOpen {
             isDatePickerOpen = false
@@ -36,12 +36,19 @@ class EditWeightRecordViewModel: WeightInputCollectionCellDelegate {
     }
     
     func addRecord() {
+        guard let weightDecimal = Decimal(string: weight, locale: Locale.current) else {
+            delegate?.showValidationError()
+            return
+        }
+        
         do {
-            try store.add(record: WeightRecord(value: Double(weight)!, date: date))
+            try store.add(record: WeightRecord(weightValue: weightDecimal, date: date))
         } catch {
             print("save weight failed")
         }
-        print("save weight succes")
+        
+        delegate?.dismiss()
+        delegate?.reloadData()
     }
 }
 

@@ -28,7 +28,7 @@ class WeightMonitorViewModel {
         let sort = NSSortDescriptor(key: "date", ascending: true)
         
         do {
-            records = try store.list(withSort: [sort]).map { WeightRecord(value: $0.value, date: $0.date!) }
+            records = try store.list(withSort: [sort]).map { WeightRecord(weightValue: $0.weightValue as! Decimal, date: $0.date!) }
         } catch {
             print("failed to get list")
         }

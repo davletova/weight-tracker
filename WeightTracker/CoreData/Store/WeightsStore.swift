@@ -30,7 +30,7 @@ final class WeightsStore: NSObject {
     
     func add(record: WeightRecord) throws {
         let recordCoreData = WeightCoreData(context: context)
-        recordCoreData.value = record.value
+        recordCoreData.weightValue = (record.weightValue) as NSDecimalNumber
         recordCoreData.date = record.date
         
         context.safeSave()
@@ -56,4 +56,16 @@ final class WeightsStore: NSObject {
         context.safeSave()
     }
     
+    func clear() throws {
+        let fetchRequest: NSFetchRequest<NSFetchRequestResult>
+        fetchRequest = WeightCoreData.fetchRequest()
+        
+        let deleteRequest = NSBatchDeleteRequest(
+            fetchRequest: fetchRequest
+        )
+        
+        try context.execute(deleteRequest)
+        
+        context.safeSave()
+    }
 }

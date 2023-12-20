@@ -32,6 +32,7 @@ class EditWeightRecordViewController: UIViewController {
         )
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.allowsMultipleSelection = true
+        collectionView.backgroundColor = .clear
         
         collectionView.dataSource = self
         collectionView.delegate = self
@@ -57,6 +58,18 @@ class EditWeightRecordViewController: UIViewController {
         return button
     }()
     
+    private lazy var validationError: UILabel = {
+        let label = UILabel()
+        label.text = "Неверный формат данных"
+        label.font = .systemFont(ofSize: 15, weight: .medium)
+        label.textColor = .red
+        label.isHidden = true
+        label.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(label)
+        
+        return label
+    }()
+    
     init(viewModel: EditWeightRecordViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
@@ -69,7 +82,7 @@ class EditWeightRecordViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .appGeneralBackground
+        view.backgroundColor = .appPopoverBackground
         
         setupConstraint()
         
@@ -94,6 +107,9 @@ class EditWeightRecordViewController: UIViewController {
            
             collectionView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: view.bounds.height / 5),
             collectionView.bottomAnchor.constraint(equalTo: addButton.topAnchor, constant: -16),
+            
+            validationError.bottomAnchor.constraint(equalTo: addButton.topAnchor, constant: -8),
+            validationError.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
             
 //            collectionView.bottomAnchor.constraint(lessThanOrEqualTo: view.safeAreaLayoutGuide.bottomAnchor),
 //            collectionView.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor),
@@ -187,6 +203,14 @@ extension EditWeightRecordViewController: UICollectionViewDelegate {
 }
 
 extension EditWeightRecordViewController: EditWeightRecordViewViewModelDelegate {
+    func showValidationError() {
+        validationError.isHidden = false
+    }
+    
+    func dismiss() {
+        dismiss(animated: true, completion: nil)
+    }
+    
     func reloadRow(indexPathes: [IndexPath]) {
         collectionView.reloadItems(at: indexPathes)
     }

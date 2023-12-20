@@ -10,7 +10,7 @@ import UIKit
 
 enum AppColor {
     case appLightGray, appBlack40, appBlack60, appMainText, appPurple,
-         appGeneralBackground
+         appGeneralBackground, appGray20, appPopoverBackground
     
     func getColor() -> UIColor {
         switch self {
@@ -50,6 +50,18 @@ enum AppColor {
                 return UIColor.white
             }
             return appGeneralBackground
+        case .appGray20:
+            guard let appGray20 = UIColor(named: "appGray20") else {
+                assertionFailure("appGray20 not found")
+                return UIColor.gray
+            }
+            return appGray20
+        case .appPopoverBackground:
+            guard let appPopoverBackground = UIColor(named: "appPopoverBackground") else {
+                assertionFailure("appPopoverBackground not found")
+                return UIColor.gray
+            }
+            return appPopoverBackground
         }
     }
 }

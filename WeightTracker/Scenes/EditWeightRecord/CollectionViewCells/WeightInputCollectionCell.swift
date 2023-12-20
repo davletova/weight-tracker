@@ -17,9 +17,6 @@ class WeightInputCollectionCell: UICollectionViewCell {
         input.translatesAutoresizingMaskIntoConstraints = false
         input.font = .systemFont(ofSize: 34, weight: .bold)
         input.textColor = .appMainText
-//        input.borderStyle = .line
-//        input.layer.borderColor = UIColor.appLightGray.cgColor
-//        input.layer.borderWidth = 1
         input.keyboardType = .decimalPad
         
         let attributes = [

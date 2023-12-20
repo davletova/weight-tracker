@@ -20,8 +20,8 @@ class WeightMonitorViewController: UIViewController {
         label.font = UIFont.systemFont(ofSize: 20, weight: .semibold)
         label.textColor = .appMainText
         label.textAlignment = .center
-        
         label.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(label)
         
         return label
     }()
@@ -93,6 +93,8 @@ class WeightMonitorViewController: UIViewController {
             scaleImage.widthAnchor.constraint(equalToConstant: 104),
         ])
         
+        view.addSubview(currentWeightView)
+        
         return currentWeightView
     }()
     
@@ -102,23 +104,25 @@ class WeightMonitorViewController: UIViewController {
         label.font = UIFont.systemFont(ofSize: 20, weight: .semibold)
         label.textColor = .appMainText
         label.textAlignment = .center
-        
         label.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(label)
         
         return label
     }()
     
-    private lazy var line: UIImageView = {
-        let image = UIImageView(image: UIImage(named: "line"))
-        image.translatesAutoresizingMaskIntoConstraints = false
+    private lazy var lineView: UIView = {
+        let uiView = UIView(frame: .zero)
+        uiView.translatesAutoresizingMaskIntoConstraints = false
+        uiView.backgroundColor = .appGray20
+        view.addSubview(uiView)
         
-        return image
+        return uiView
     }()
     
     private lazy var columnHeaderView: UIView = {
-        let view = UIView(frame: CGRect(x: 0, y: 0, width: 340, height: 27))
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.clipsToBounds = true
+        let columnHeaderView = UIView(frame: CGRect(x: 0, y: 0, width: 340, height: 27))
+        columnHeaderView.translatesAutoresizingMaskIntoConstraints = false
+        columnHeaderView.clipsToBounds = true
         
         let weightLabel = UILabel()
         weightLabel.text = "Вес"
@@ -138,34 +142,36 @@ class WeightMonitorViewController: UIViewController {
         dateLabel.textColor = .appBlack40
         dateLabel.translatesAutoresizingMaskIntoConstraints = false
         
-        view.addSubview(weightLabel)
-        view.addSubview(diffLabel)
-        view.addSubview(dateLabel)
+        columnHeaderView.addSubview(weightLabel)
+        columnHeaderView.addSubview(diffLabel)
+        columnHeaderView.addSubview(dateLabel)
         
         NSLayoutConstraint.activate([
-            weightLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            weightLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            weightLabel.leadingAnchor.constraint(equalTo: columnHeaderView.leadingAnchor),
+            weightLabel.centerYAnchor.constraint(equalTo: columnHeaderView.centerYAnchor),
             
-            diffLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            diffLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 2 * (view.bounds.width - WeightMonitortViewControllerCell.chevronSideLenght) / 5),
+            diffLabel.centerYAnchor.constraint(equalTo: columnHeaderView.centerYAnchor),
+            diffLabel.leadingAnchor.constraint(equalTo: columnHeaderView.leadingAnchor, constant: 2 * (columnHeaderView.bounds.width - WeightMonitortViewControllerCell.chevronSideLenght) / 5),
             
-            dateLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            dateLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 4 * (view.bounds.width - WeightMonitortViewControllerCell.chevronSideLenght) / 5),
+            dateLabel.centerYAnchor.constraint(equalTo: columnHeaderView.centerYAnchor),
+            dateLabel.leadingAnchor.constraint(equalTo: columnHeaderView.leadingAnchor, constant: 4 * (columnHeaderView.bounds.width - WeightMonitortViewControllerCell.chevronSideLenght) / 5),
         ])
         
-        return view
+        view.addSubview(columnHeaderView)
+        
+        return columnHeaderView
     }()
     
     private lazy var weightsTable: UITableView = {
         let table = UITableView()
-        table.translatesAutoresizingMaskIntoConstraints = false
         table.separatorStyle = .none
         table.rowHeight = rowHeight
-        
+        table.translatesAutoresizingMaskIntoConstraints = false
+        table.allowsSelection = false
         table.register(WeightMonitortViewControllerCell.self, forCellReuseIdentifier: cellIdentifier)
         table.dataSource = self
-//        table.delegate = self
-
+        view.addSubview(table)
+        
         return table
     }()
     
@@ -175,6 +181,7 @@ class WeightMonitorViewController: UIViewController {
         button.tintColor = .appPurple
         button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: #selector(tapCreateRecordButton), for: .touchUpInside)
+        view.addSubview(button)
         
         return button
     }()
@@ -191,14 +198,6 @@ class WeightMonitorViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .appGeneralBackground
-        
-        view.addSubview(titleLabel)
-        view.addSubview(currentWeight)
-        view.addSubview(historyLabel)
-        view.addSubview(columnHeaderView)
-        view.addSubview(line)
-        view.addSubview(weightsTable)
-        view.addSubview(addButton)
         
         setupConstraint()
     }
@@ -222,11 +221,12 @@ class WeightMonitorViewController: UIViewController {
             columnHeaderView.topAnchor.constraint(equalTo: historyLabel.bottomAnchor, constant: 16),
             columnHeaderView.heightAnchor.constraint(equalToConstant: 18),
             
-            line.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
-            line.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
-            line.topAnchor.constraint(equalTo: columnHeaderView.bottomAnchor, constant: 8),
+            lineView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
+            lineView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
+            lineView.topAnchor.constraint(equalTo: columnHeaderView.bottomAnchor, constant: 8),
+            lineView.heightAnchor.constraint(equalToConstant: 1),
             
-            weightsTable.topAnchor.constraint(equalTo: line.bottomAnchor, constant: 8),
+            weightsTable.topAnchor.constraint(equalTo: lineView.bottomAnchor, constant: 8),
             weightsTable.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
             weightsTable.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
             weightsTable.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
@@ -247,13 +247,13 @@ extension WeightMonitorViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! WeightMonitortViewControllerCell
           
-        if indexPath.row >= weights.count {
+        if indexPath.row >= viewModel.records.count {
             print("should never happen")
         }
         
-        var lastWeight: Double?
+        var lastWeight: Decimal?
         if indexPath.row < viewModel.records.count - 1 {
-            lastWeight = viewModel.records[indexPath.row + 1].value
+            lastWeight = viewModel.records[indexPath.row + 1].weightValue
         }
         
         cell.configure(weight: viewModel.records[indexPath.row], lastWeight: lastWeight)
@@ -275,10 +275,3 @@ extension WeightMonitorViewController: WeightMonitorViewModelDelegate {
         weightsTable.reloadData()
     }
 }
-
-var weights = [
-    WeightRecord(value: 56.3, date: Date()),
-    WeightRecord(value: 56.9, date: Date()),
-    WeightRecord(value: 54.9, date: Date()),
-    WeightRecord(value: 56.1, date: Date()),
-]

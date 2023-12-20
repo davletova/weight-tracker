@@ -8,6 +8,6 @@
 import Foundation
 
 struct WeightRecord {
-    var value: Double
+    var weightValue: Decimal
     var date: Date
 }
