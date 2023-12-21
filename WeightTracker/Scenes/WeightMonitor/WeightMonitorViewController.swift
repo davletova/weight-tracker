@@ -1,10 +1,3 @@
-//
-//  WeightMonitorViewController.swift
-//  WeightTracker
-//
-//  Created by Алия Давлетова on 17.12.2023.
-//
-
 import Foundation
 import UIKit
 
@@ -186,6 +179,8 @@ class WeightMonitorViewController: UIViewController {
         return button
     }()
     
+    private lazy var alertPresenter = AlertPresenter(delegate: self)
+    
     init(_ viewModel: WeightMonitorViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
@@ -200,6 +195,8 @@ class WeightMonitorViewController: UIViewController {
         view.backgroundColor = .appGeneralBackground
         
         setupConstraint()
+        
+        viewModel.listRecords()
     }
     
     func setupConstraint() {
@@ -268,6 +265,10 @@ extension WeightMonitorViewController: UITableViewDataSource {
 extension WeightMonitorViewController: WeightMonitorViewModelDelegate {
     func reloadData() {
         weightsTable.reloadData()
+    }
+    
+    func showAlert(alert: AlertModel) {
+        alertPresenter.show(result: alert)
     }
 }
 

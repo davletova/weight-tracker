@@ -1,14 +1,9 @@
-//
-//  WeightMonitorViewModel.swift
-//  WeightTracker
-//
-//  Created by Алия Давлетова on 18.12.2023.
-//
-
 import Foundation
+import UIKit
 
 protocol WeightMonitorViewModelDelegate: AnyObject {
     func reloadData()
+    func showAlert(alert: AlertModel)
 }
 
 class WeightMonitorViewModel {
@@ -20,10 +15,8 @@ class WeightMonitorViewModel {
     
     init(store: WeightsStore) {
         self.store = store
-        
-        listRecords()
     }
- 
+    
     func listRecords() {
         let sort = NSSortDescriptor(key: "date", ascending: false)
         var recordCoreDatas: [WeightCoreData] = []
@@ -32,7 +25,25 @@ class WeightMonitorViewModel {
         do {
             recordCoreDatas = try store.list(withSort: [sort])
         } catch {
-            print("failed to get list")
+            let alertModel = AlertModel(
+                style: .alert,
+                title: "Не удалось загрузить записи",
+                actions: [
+                    UIAlertAction(
+                        title: "Попробовать еще",
+                        style: .default
+                    ) { [weak self] _ in
+                        self?.listRecords()
+                    },
+                    UIAlertAction(
+                        title: "Закрыть",
+                        style: .cancel
+                    ) { _ in }
+                ]
+            )
+            
+            delegate?.showAlert(alert: alertModel)
+            return
         }
         
         for i in 0..<recordCoreDatas.count {
@@ -50,10 +61,6 @@ class WeightMonitorViewModel {
         }
         
         delegate?.reloadData()
-    }
-    
-    func addRecord(record: WeightRecord) throws {
-        try store.add(record: record)
     }
     
     func formatDate(date: Date) -> String {

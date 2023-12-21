@@ -70,6 +70,8 @@ class EditWeightRecordViewController: UIViewController {
         return label
     }()
     
+    private lazy var alertPresenter = AlertPresenter(delegate: self)
+    
     init(viewModel: EditWeightRecordViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
@@ -195,6 +197,10 @@ extension EditWeightRecordViewController: UICollectionViewDelegate {
 }
 
 extension EditWeightRecordViewController: EditWeightRecordViewViewModelDelegate {
+    func showAlert(alert: AlertModel) {
+        alertPresenter.show(result: alert)
+    }
+    
     func showValidationError() {
         validationError.isHidden = false
     }

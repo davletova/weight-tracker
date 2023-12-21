@@ -1,10 +1,3 @@
-//
-//  AppDelegate.swift
-//  WeightTracker
-//
-//  Created by Алия Давлетова on 17.12.2023.
-//
-
 import UIKit
 import CoreData
 

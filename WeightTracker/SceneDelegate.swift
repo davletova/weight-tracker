@@ -1,10 +1,3 @@
-//
-//  SceneDelegate.swift
-//  WeightTracker
-//
-//  Created by Алия Давлетова on 17.12.2023.
-//
-
 import UIKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
@@ -21,6 +14,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         let vm = WeightMonitorViewModel(store: WeightsStore())
         let vc = WeightMonitorViewController(vm)
+        vm.delegate = vc
         window?.rootViewController = vc
     }
 

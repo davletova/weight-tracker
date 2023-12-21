@@ -25,7 +25,17 @@ final class WeightsStore: NSObject {
     func list(withSort: [NSSortDescriptor]) throws -> [WeightCoreData] {
         let request = WeightCoreData.fetchRequest()
         request.sortDescriptors = withSort
-        return try context.fetch(request)
+        
+        var records: [WeightCoreData] = []
+        
+        do {
+            records = try context.fetch(request)
+        } catch {
+            print("list records failed: \(error)")
+            throw WeightsStoreError.internalError
+        }
+        
+        return records
     }
     
     func add(record: WeightRecord) throws {
@@ -33,7 +43,7 @@ final class WeightsStore: NSObject {
         recordCoreData.weightValue = (record.weightValue) as NSDecimalNumber
         recordCoreData.date = record.date
         
-        context.safeSave()
+        try context.safeSave()
     }
     
     func delete(record: WeightRecord) throws {
@@ -53,7 +63,7 @@ final class WeightsStore: NSObject {
         }
         
         context.delete(records.first!)
-        context.safeSave()
+        try context.safeSave()
     }
     
     func clear() throws {
@@ -66,6 +76,6 @@ final class WeightsStore: NSObject {
         
         try context.execute(deleteRequest)
         
-        context.safeSave()
+        try context.safeSave()
     }
 }

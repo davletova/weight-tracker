@@ -1,17 +1,12 @@
-//
-//  EditWeightRecordViewModel.swift
-//  WeightTracker
-//
-//  Created by Алия Давлетова on 20.12.2023.
-//
-
 import Foundation
+import UIKit
 
 protocol EditWeightRecordViewViewModelDelegate: AnyObject {
     func reloadData()
     func reloadRow(indexPathes: [IndexPath])
     func dismiss()
     func showValidationError()
+    func showAlert(alert: AlertModel)
 }
 
 protocol WeightsTableReloader {
@@ -50,7 +45,17 @@ class EditWeightRecordViewModel: WeightInputCollectionCellDelegate {
         do {
             try store.add(record: WeightRecord(weightValue: weightDecimal, date: date))
         } catch {
-            print("save weight failed")
+            let alertModel = AlertModel(
+                style: .alert,
+                title: "Не удалось сохранить запись",
+                actions: [
+                    UIAlertAction(
+                        title: "Закрыть",
+                        style: .cancel
+                    ) { _ in }
+                ]
+            )
+            delegate?.showAlert(alert: alertModel)
         }
         
         tableReloader.updateWeightTable()
