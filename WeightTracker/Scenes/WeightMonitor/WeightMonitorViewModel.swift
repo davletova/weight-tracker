@@ -11,13 +11,15 @@ class WeightMonitorViewModel {
     
     weak var delegate: WeightMonitorViewModelDelegate?
     
+    var currentWeight: String = "0"
+    var currentDiff: String = "0"
     var records: [WeightDisplayModel] = []
     
     init(store: WeightsStore) {
         self.store = store
     }
     
-    func listRecords() {
+    func loadData() {
         let sort = NSSortDescriptor(key: "date", ascending: false)
         var recordCoreDatas: [WeightCoreData] = []
         records = []
@@ -33,7 +35,7 @@ class WeightMonitorViewModel {
                         title: "Попробовать еще",
                         style: .default
                     ) { [weak self] _ in
-                        self?.listRecords()
+                        self?.loadData()
                     },
                     UIAlertAction(
                         title: "Закрыть",
@@ -59,6 +61,9 @@ class WeightMonitorViewModel {
             
             records.append(record)
         }
+        
+        currentWeight = records.count > 0 ? records[0].weight : "0"
+        currentDiff = records.count > 1 ? (records[0].diff ?? "") : ""
         
         delegate?.reloadData()
     }

@@ -5,7 +5,7 @@ protocol EditWeightRecordViewViewModelDelegate: AnyObject {
     func reloadData()
     func reloadRow(indexPathes: [IndexPath])
     func dismiss()
-    func showValidationError()
+    func showError(message: String)
     func showAlert(alert: AlertModel)
 }
 
@@ -38,12 +38,15 @@ class EditWeightRecordViewModel: WeightInputCollectionCellDelegate {
     
     func addRecord() {
         guard let weightDecimal = Decimal(string: weight, locale: Locale.current) else {
-            delegate?.showValidationError()
+            delegate?.showError(message: "Неверный формат данных")
             return
         }
         
         do {
             try store.add(record: WeightRecord(weightValue: weightDecimal, date: date))
+        } catch WeightsStoreError.unexpectedMultipleResult {
+            delegate?.showError(message: "Запись в этот день уже существует")
+            return
         } catch {
             let alertModel = AlertModel(
                 style: .alert,
@@ -56,6 +59,7 @@ class EditWeightRecordViewModel: WeightInputCollectionCellDelegate {
                 ]
             )
             delegate?.showAlert(alert: alertModel)
+            return
         }
         
         tableReloader.updateWeightTable()

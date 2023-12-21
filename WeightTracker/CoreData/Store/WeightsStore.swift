@@ -39,9 +39,26 @@ final class WeightsStore: NSObject {
     }
     
     func add(record: WeightRecord) throws {
+        let request = WeightCoreData.fetchRequest()
+        request.returnsObjectsAsFaults = false
+        
+        var records: [WeightCoreData] = []
+        
+        request.predicate = NSPredicate(format: "%K == %@", #keyPath(WeightCoreData.date), Calendar.current.startOfDay(for: record.date) as NSDate)
+        do {
+            records = try context.fetch(request)
+        } catch {
+            print("failed to get records in current day: \(error)")
+            throw WeightsStoreError.internalError
+        }
+        
+        if records.count != 0 {
+            throw WeightsStoreError.unexpectedMultipleResult
+        }
+        
         let recordCoreData = WeightCoreData(context: context)
         recordCoreData.weightValue = (record.weightValue) as NSDecimalNumber
-        recordCoreData.date = record.date
+        recordCoreData.date = Calendar.current.startOfDay(for: record.date)
         
         try context.safeSave()
     }

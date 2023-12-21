@@ -19,6 +19,26 @@ class WeightMonitorViewController: UIViewController {
         return label
     }()
     
+    private lazy var weightLabel: UILabel = {
+        let label = UILabel()
+        label.text = viewModel.currentWeight
+        label.font = .systemFont(ofSize: 22, weight: .medium)
+        label.textColor = .appMainText
+        label.translatesAutoresizingMaskIntoConstraints = false
+        
+        return label
+    }()
+    
+    private lazy var diffLabel: UILabel = {
+        let label = UILabel()
+        label.text = viewModel.currentDiff
+        label.font = .systemFont(ofSize: 17, weight: .medium)
+        label.textColor = .appBlack60
+        label.translatesAutoresizingMaskIntoConstraints = false
+        
+        return label
+    }()
+
     private lazy var currentWeight: UIView = {
         let currentWeightView = UIView(frame: CGRect(x: 0, y: 0, width: 340, height: 130))
         currentWeightView.backgroundColor = .appLightGray
@@ -31,18 +51,6 @@ class WeightMonitorViewController: UIViewController {
         title.font = .systemFont(ofSize: 13, weight: .medium)
         title.textColor = .appBlack40
         title.translatesAutoresizingMaskIntoConstraints = false
-        
-        let weight = UILabel()
-        weight.text = "58.5 кг"
-        weight.font = .systemFont(ofSize: 22, weight: .medium)
-        weight.textColor = .appMainText
-        weight.translatesAutoresizingMaskIntoConstraints = false
-        
-        let diff = UILabel()
-        diff.text = "-0,5 кг"
-        diff.font = .systemFont(ofSize: 17, weight: .medium)
-        diff.textColor = .appBlack60
-        diff.translatesAutoresizingMaskIntoConstraints = false
         
         let switcher = UISwitch(frame: CGRect(x: 0, y: 0, width: 51, height: 31))
         switcher.onTintColor = .appPurple
@@ -58,8 +66,8 @@ class WeightMonitorViewController: UIViewController {
         scaleImage.translatesAutoresizingMaskIntoConstraints = false
         
         currentWeightView.addSubview(title)
-        currentWeightView.addSubview(weight)
-        currentWeightView.addSubview(diff)
+        currentWeightView.addSubview(weightLabel)
+        currentWeightView.addSubview(diffLabel)
         currentWeightView.addSubview(switcher)
         currentWeightView.addSubview(metricSystem)
         currentWeightView.addSubview(scaleImage)
@@ -68,13 +76,13 @@ class WeightMonitorViewController: UIViewController {
             title.topAnchor.constraint(equalTo: currentWeightView.topAnchor, constant: 16),
             title.leadingAnchor.constraint(equalTo: currentWeightView.leadingAnchor, constant: 16),
             
-            weight.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 6),
-            weight.leadingAnchor.constraint(equalTo: currentWeightView.leadingAnchor, constant: 16),
+            weightLabel.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 6),
+            weightLabel.leadingAnchor.constraint(equalTo: currentWeightView.leadingAnchor, constant: 16),
             
-            diff.bottomAnchor.constraint(equalTo: weight.bottomAnchor),
-            diff.leadingAnchor.constraint(equalTo: weight.trailingAnchor, constant: 8),
+            diffLabel.bottomAnchor.constraint(equalTo: weightLabel.bottomAnchor),
+            diffLabel.leadingAnchor.constraint(equalTo: weightLabel.trailingAnchor, constant: 8),
             
-            switcher.topAnchor.constraint(equalTo: weight.bottomAnchor, constant: 16),
+            switcher.topAnchor.constraint(equalTo: weightLabel.bottomAnchor, constant: 16),
             switcher.leadingAnchor.constraint(equalTo: currentWeightView.leadingAnchor, constant: 16),
             
             metricSystem.centerYAnchor.constraint(equalTo: switcher.centerYAnchor),
@@ -140,7 +148,7 @@ class WeightMonitorViewController: UIViewController {
         columnHeaderView.addSubview(dateLabel)
         
         NSLayoutConstraint.activate([
-            weightLabel.leadingAnchor.constraint(equalTo: columnHeaderView.leadingAnchor),
+            weightLabel.leadingAnchor.constraint(equalTo: columnHeaderView.leadingAnchor, constant: 16),
             weightLabel.centerYAnchor.constraint(equalTo: columnHeaderView.centerYAnchor),
             
             diffLabel.centerYAnchor.constraint(equalTo: columnHeaderView.centerYAnchor),
@@ -196,7 +204,7 @@ class WeightMonitorViewController: UIViewController {
         
         setupConstraint()
         
-        viewModel.listRecords()
+        viewModel.loadData()
     }
     
     func setupConstraint() {
@@ -213,8 +221,8 @@ class WeightMonitorViewController: UIViewController {
             historyLabel.topAnchor.constraint(equalTo: currentWeight.bottomAnchor, constant: 16),
             historyLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
             
-            columnHeaderView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
-            columnHeaderView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
+            columnHeaderView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            columnHeaderView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             columnHeaderView.topAnchor.constraint(equalTo: historyLabel.bottomAnchor, constant: 16),
             columnHeaderView.heightAnchor.constraint(equalToConstant: 18),
             
@@ -264,6 +272,9 @@ extension WeightMonitorViewController: UITableViewDataSource {
 
 extension WeightMonitorViewController: WeightMonitorViewModelDelegate {
     func reloadData() {
+        weightLabel.text = viewModel.currentWeight
+        diffLabel.text = viewModel.currentDiff
+        
         weightsTable.reloadData()
     }
     
@@ -274,7 +285,7 @@ extension WeightMonitorViewController: WeightMonitorViewModelDelegate {
 
 extension WeightMonitorViewController: WeightsTableReloader {
     func updateWeightTable() {
-        viewModel.listRecords()
+        viewModel.loadData()
         weightsTable.reloadData()
     }
 }

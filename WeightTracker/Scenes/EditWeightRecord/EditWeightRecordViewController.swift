@@ -60,7 +60,6 @@ class EditWeightRecordViewController: UIViewController {
     
     private lazy var validationError: UILabel = {
         let label = UILabel()
-        label.text = "Неверный формат данных"
         label.font = .systemFont(ofSize: 15, weight: .medium)
         label.textColor = .red
         label.isHidden = true
@@ -197,12 +196,13 @@ extension EditWeightRecordViewController: UICollectionViewDelegate {
 }
 
 extension EditWeightRecordViewController: EditWeightRecordViewViewModelDelegate {
-    func showAlert(alert: AlertModel) {
-        alertPresenter.show(result: alert)
+    func showError(message: String) {
+        validationError.text = message
+        validationError.isHidden = false
     }
     
-    func showValidationError() {
-        validationError.isHidden = false
+    func showAlert(alert: AlertModel) {
+        alertPresenter.show(result: alert)
     }
     
     func dismiss() {
