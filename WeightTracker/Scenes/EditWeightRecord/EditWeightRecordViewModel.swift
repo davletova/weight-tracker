@@ -43,7 +43,7 @@ class EditWeightRecordViewModel: WeightInputCollectionCellDelegate {
         }
         
         do {
-            try store.add(record: WeightRecord(weightValue: weightDecimal, date: date))
+            try store.addRecord(record: WeightRecord(id: UUID(), weightValue: weightDecimal, date: date))
         } catch WeightsStoreError.unexpectedMultipleResult {
             delegate?.showError(message: "Запись в этот день уже существует")
             return

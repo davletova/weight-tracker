@@ -38,7 +38,7 @@ final class WeightsStore: NSObject {
         return records
     }
     
-    func add(record: WeightRecord) throws {
+    func addRecord(record: WeightRecord) throws {
         let request = WeightCoreData.fetchRequest()
         request.returnsObjectsAsFaults = false
         
@@ -57,30 +57,38 @@ final class WeightsStore: NSObject {
         }
         
         let recordCoreData = WeightCoreData(context: context)
+        recordCoreData.recordId = record.id
         recordCoreData.weightValue = (record.weightValue) as NSDecimalNumber
         recordCoreData.date = Calendar.current.startOfDay(for: record.date)
         
         try context.safeSave()
     }
     
-    func delete(record: WeightRecord) throws {
+    func deleteRecord(by id: UUID) throws {
+        context.delete(try getRecord(by: id))
+        try context.safeSave()
+    }
+    
+    func getRecord(by id: UUID) throws -> WeightCoreData {
+        print("get record ", id)
         let request = WeightCoreData.fetchRequest()
         request.returnsObjectsAsFaults = false
-        
-        request.predicate = NSPredicate(format: "%K == %@", #keyPath(WeightCoreData.date), Calendar.current.startOfDay(for: record.date) as NSDate)
-        
-        guard let records = try? context.fetch(request) else {
+        request.predicate = NSPredicate(format: "%K == %@", #keyPath(WeightCoreData.recordId), id.uuidString)
+        request.fetchLimit = 1
+    
+        var result: [WeightCoreData] = []
+        do {
+            result = try context.fetch(request)
+        } catch {
+            print("failed to get record: \(error)")
             throw WeightsStoreError.internalError
         }
-        if records.count < 1 {
+
+        if result.count == 0 {
             throw WeightsStoreError.recordNotFound
         }
-        if records.count > 1 {
-            throw WeightsStoreError.unexpectedMultipleResult
-        }
         
-        context.delete(records.first!)
-        try context.safeSave()
+        return result[0]
     }
     
     func clear() throws {

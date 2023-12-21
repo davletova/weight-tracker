@@ -43,11 +43,11 @@ class WeightMonitortViewControllerCell: UITableViewCell {
     }()
     
     func configure(weight: WeightDisplayModel) {
-        weightLabel.text = weight.weight
-        dateLabel.text = weight.date
+        weightLabel.text = weight.weight.formatWeight()
+        dateLabel.text = formatDate(date: weight.date)
         
         if let diff = weight.diff {
-            diffLabel.text = diff
+            diffLabel.text = diff.formatWeightDiff()
         }
         
         contentView.addSubview(weightLabel)
@@ -75,5 +75,12 @@ class WeightMonitortViewControllerCell: UITableViewCell {
             chevron.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
             chevron.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
         ])
+    }
+    
+    func formatDate(date: Date) -> String {
+        if date < Date().startOfYear() {
+            return date.formatShortFullDate()
+        }
+        return date.formatDayMonth()
     }
 }

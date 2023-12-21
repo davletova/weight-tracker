@@ -6,7 +6,7 @@ class WeightMonitorViewController: UIViewController {
     private let cellIdentifier = "cell"
     
     private var viewModel: WeightMonitorViewModel
-   
+    
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.text = "Монитор веса"
@@ -21,7 +21,7 @@ class WeightMonitorViewController: UIViewController {
     
     private lazy var weightLabel: UILabel = {
         let label = UILabel()
-        label.text = viewModel.currentWeight
+        label.text = viewModel.currentWeight.formatWeight()
         label.font = .systemFont(ofSize: 22, weight: .medium)
         label.textColor = .appMainText
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -31,14 +31,14 @@ class WeightMonitorViewController: UIViewController {
     
     private lazy var diffLabel: UILabel = {
         let label = UILabel()
-        label.text = viewModel.currentDiff
+        label.text = viewModel.currentDiff.formatWeightDiff()
         label.font = .systemFont(ofSize: 17, weight: .medium)
         label.textColor = .appBlack60
         label.translatesAutoresizingMaskIntoConstraints = false
         
         return label
     }()
-
+    
     private lazy var currentWeight: UIView = {
         let currentWeightView = UIView(frame: CGRect(x: 0, y: 0, width: 340, height: 130))
         currentWeightView.backgroundColor = .appLightGray
@@ -171,6 +171,7 @@ class WeightMonitorViewController: UIViewController {
         table.allowsSelection = false
         table.register(WeightMonitortViewControllerCell.self, forCellReuseIdentifier: cellIdentifier)
         table.dataSource = self
+        table.delegate = self
         view.addSubview(table)
         
         return table
@@ -251,11 +252,11 @@ extension WeightMonitorViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! WeightMonitortViewControllerCell
-          
+        
         if indexPath.row >= viewModel.records.count {
-            print("should never happen")
+            assertionFailure("should never happen")
         }
-    
+        
         cell.configure(weight: viewModel.records[indexPath.row])
         
         return cell
@@ -270,16 +271,52 @@ extension WeightMonitorViewController: UITableViewDataSource {
     }
 }
 
+extension WeightMonitorViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        if indexPath.row >= viewModel.records.count {
+            assertionFailure("should never happen")
+            return nil
+        }
+        let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { [weak self] _, _, _ in
+            guard let self = self else {
+                assertionFailure("self is empty")
+                return
+            }
+
+            self.viewModel.deleteRecord(id: self.viewModel.records[indexPath.row].id, indexPath: indexPath)
+        }
+        
+        let swipeConfiguration = UISwipeActionsConfiguration(actions: [deleteAction])
+        swipeConfiguration.performsFirstActionWithFullSwipe = false
+        
+        return swipeConfiguration
+        
+    }
+}
+
 extension WeightMonitorViewController: WeightMonitorViewModelDelegate {
+    func reloadRows(indexPathes: [IndexPath]) {
+        weightsTable.reloadRows(at: indexPathes, with: .automatic)
+    }
+    
     func reloadData() {
-        weightLabel.text = viewModel.currentWeight
-        diffLabel.text = viewModel.currentDiff
+        weightLabel.text = viewModel.currentWeight.formatWeight()
+        diffLabel.text = viewModel.currentDiff.formatWeightDiff()
         
         weightsTable.reloadData()
     }
     
     func showAlert(alert: AlertModel) {
         alertPresenter.show(result: alert)
+    }
+    
+    func deleteRows(indexPathes: [IndexPath]) {
+        weightsTable.beginUpdates()
+        
+        viewModel.records.remove(at: indexPathes[0].row)
+        weightsTable.deleteRows(at: indexPathes, with: .automatic)
+        
+        weightsTable.endUpdates()
     }
 }
 
