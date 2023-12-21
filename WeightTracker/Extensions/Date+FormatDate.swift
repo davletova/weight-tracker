@@ -28,4 +28,8 @@ extension Date {
         dateFormatter.dateFormat = "dd LLL YYYY"
         return dateFormatter.string(from: self)
     }
+    
+    func startOfYear() -> Date {
+            return Calendar.current.date(from: Calendar.current.dateComponents([.year], from: Calendar.current.startOfDay(for: self)))!
+        }
 }

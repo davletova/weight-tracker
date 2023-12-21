@@ -14,18 +14,24 @@ protocol EditWeightRecordViewViewModelDelegate: AnyObject {
     func showValidationError()
 }
 
+protocol WeightsTableReloader {
+    func updateWeightTable()
+}
+
 class EditWeightRecordViewModel: WeightInputCollectionCellDelegate {
     private var store: WeightsStore
     
     weak var delegate: EditWeightRecordViewViewModelDelegate?
+    var tableReloader: WeightsTableReloader
     
     var records: [WeightRecord] = []
     var isDatePickerOpen = false
     var date = Date()
     var weight: String = ""
     
-    init(store: WeightsStore) {
+    init(store: WeightsStore, tableReloader: WeightsTableReloader) {
         self.store = store
+        self.tableReloader = tableReloader
     }
     
     func hideDatePicker() {
@@ -47,8 +53,15 @@ class EditWeightRecordViewModel: WeightInputCollectionCellDelegate {
             print("save weight failed")
         }
         
+        tableReloader.updateWeightTable()
         delegate?.dismiss()
-        delegate?.reloadData()
+    }
+    
+    func formatDate(date: Date) -> String {
+        if date >= Calendar.current.startOfDay(for: Date()) {
+            return "Сегодня"
+        }
+        return date.formatFullDate()
     }
 }
 

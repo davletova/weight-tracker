@@ -16,7 +16,7 @@ class WeightMonitorViewModel {
     
     weak var delegate: WeightMonitorViewModelDelegate?
     
-    var records: [WeightRecord] = []
+    var records: [WeightDisplayModel] = []
     
     init(store: WeightsStore) {
         self.store = store
@@ -25,12 +25,28 @@ class WeightMonitorViewModel {
     }
  
     func listRecords() {
-        let sort = NSSortDescriptor(key: "date", ascending: true)
+        let sort = NSSortDescriptor(key: "date", ascending: false)
+        var recordCoreDatas: [WeightCoreData] = []
+        records = []
         
         do {
-            records = try store.list(withSort: [sort]).map { WeightRecord(weightValue: $0.weightValue as! Decimal, date: $0.date!) }
+            recordCoreDatas = try store.list(withSort: [sort])
         } catch {
             print("failed to get list")
+        }
+        
+        for i in 0..<recordCoreDatas.count {
+            var record = WeightDisplayModel(
+                weight: (recordCoreDatas[i].weightValue! as Decimal).formatWeight(),
+                date: formatDate(date: recordCoreDatas[i].date!)
+            )
+            
+            if i < recordCoreDatas.count - 1 {
+                let diff = (recordCoreDatas[i].weightValue! as Decimal) - (recordCoreDatas[i+1].weightValue! as Decimal)
+                record.diff = diff.formatWeightDiff()
+            }
+            
+            records.append(record)
         }
         
         delegate?.reloadData()
@@ -38,6 +54,13 @@ class WeightMonitorViewModel {
     
     func addRecord(record: WeightRecord) throws {
         try store.add(record: record)
+    }
+    
+    func formatDate(date: Date) -> String {
+        if date < Date().startOfYear() {
+            return date.formatShortFullDate()
+        }
+        return date.formatDayMonth()
     }
 }
 

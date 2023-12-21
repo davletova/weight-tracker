@@ -178,7 +178,7 @@ class WeightMonitorViewController: UIViewController {
     private lazy var addButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(named: "plus"), for: .normal)
-        button.tintColor = .appPurple
+        button.tintColor = .appPurple.withAlphaComponent(0.3)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: #selector(tapCreateRecordButton), for: .touchUpInside)
         view.addSubview(button)
@@ -227,14 +227,14 @@ class WeightMonitorViewController: UIViewController {
             lineView.heightAnchor.constraint(equalToConstant: 1),
             
             weightsTable.topAnchor.constraint(equalTo: lineView.bottomAnchor, constant: 8),
-            weightsTable.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
-            weightsTable.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
-            weightsTable.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            weightsTable.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            weightsTable.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            weightsTable.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             
-            addButton.heightAnchor.constraint(equalToConstant: 72),
-            addButton.widthAnchor.constraint(equalToConstant: 72),
-            addButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
-            addButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -16),
+            addButton.heightAnchor.constraint(equalToConstant: 80),
+            addButton.widthAnchor.constraint(equalToConstant: 80),
+            addButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            addButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
         ])
     }
 }
@@ -250,19 +250,14 @@ extension WeightMonitorViewController: UITableViewDataSource {
         if indexPath.row >= viewModel.records.count {
             print("should never happen")
         }
-        
-        var lastWeight: Decimal?
-        if indexPath.row < viewModel.records.count - 1 {
-            lastWeight = viewModel.records[indexPath.row + 1].weightValue
-        }
-        
-        cell.configure(weight: viewModel.records[indexPath.row], lastWeight: lastWeight)
+    
+        cell.configure(weight: viewModel.records[indexPath.row])
         
         return cell
     }
     
     @objc func tapCreateRecordButton() {
-        let editWeightRecordVM = EditWeightRecordViewModel(store: WeightsStore())
+        let editWeightRecordVM = EditWeightRecordViewModel(store: WeightsStore(), tableReloader: self)
         let editWeightRecordVC = EditWeightRecordViewController(viewModel: editWeightRecordVM)
         editWeightRecordVM.delegate = editWeightRecordVC
         editWeightRecordVC.modalPresentationStyle = .popover
@@ -272,6 +267,13 @@ extension WeightMonitorViewController: UITableViewDataSource {
 
 extension WeightMonitorViewController: WeightMonitorViewModelDelegate {
     func reloadData() {
+        weightsTable.reloadData()
+    }
+}
+
+extension WeightMonitorViewController: WeightsTableReloader {
+    func updateWeightTable() {
+        viewModel.listRecords()
         weightsTable.reloadData()
     }
 }

@@ -12,8 +12,7 @@ class DatePickerCollectionCell: UICollectionViewCell {
     private lazy var datePicker: UIDatePicker = {
         var datePicker = UIDatePicker()
         datePicker.preferredDatePickerStyle = .wheels
-        let currentDate = Date()
-        let endOfDay = Calendar.current.date(bySettingHour: 23, minute: 59, second: 59, of: currentDate)
+        let endOfDay = Calendar.current.date(bySettingHour: 23, minute: 59, second: 59, of: Date())
         datePicker.maximumDate = endOfDay
         datePicker.datePickerMode = .date
         datePicker.addAction(

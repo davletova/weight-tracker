@@ -95,10 +95,8 @@ extension WeightInputCollectionCell: UITextFieldDelegate {
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-        // TODO: проверить введенное число /^[0-9]{1,3}([,.][0-9])*$/
         let currentText = textField.text ?? ""
         
-        print("eeeeend")
         delegate?.weight = currentText
     }
 }

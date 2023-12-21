@@ -49,12 +49,12 @@ class WeightMonitortViewControllerCell: UITableViewCell {
         return image
     }()
     
-    func configure(weight: WeightRecord, lastWeight: Decimal?) {
-        weightLabel.text = weight.weightValue.formatWeight() + " кг"
-        dateLabel.text = weight.date.formatDayMonth()
+    func configure(weight: WeightDisplayModel) {
+        weightLabel.text = weight.weight
+        dateLabel.text = weight.date
         
-        if let lastWeight = lastWeight {
-            diffLabel.text = (weight.weightValue - lastWeight).formatWeight() + " кг"
+        if let diff = weight.diff {
+            diffLabel.text = diff
         }
         
         contentView.addSubview(weightLabel)
@@ -64,18 +64,22 @@ class WeightMonitortViewControllerCell: UITableViewCell {
 
         NSLayoutConstraint.activate([
             weightLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            weightLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            weightLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             
             // Для столбцов вес:изменения:дата поделили экран в соотношении 40% : 40% : 20%
+            // FIXME: из-за вычисления ширины столбцов в консоль падает куча варнингов
+            // если установить константную ширину столбцов - все ок
             diffLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant:  2 * contentView.bounds.width / 5),
+//            diffLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant:  132),
             diffLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             
             dateLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 4 * contentView.bounds.width / 5),
+//            dateLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 248),
             dateLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             
             chevron.heightAnchor.constraint(equalToConstant: WeightMonitortViewControllerCell.chevronSideLenght),
             chevron.widthAnchor.constraint(equalToConstant: WeightMonitortViewControllerCell.chevronSideLenght),
-            chevron.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            chevron.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
             chevron.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
         ])
     }

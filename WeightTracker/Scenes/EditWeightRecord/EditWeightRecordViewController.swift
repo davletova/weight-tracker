@@ -117,15 +117,7 @@ class EditWeightRecordViewController: UIViewController {
         ])
     }
     
-    func formatDate(date: Date) -> String {
-        if date >= Calendar.current.startOfDay(for: Date()) {
-            return "Сегодня"
-        }
-        return date.formatFullDate()
-    }
-    
     @objc func addRecord() {
-        print("dasdsa")
         viewModel.addRecord()
     }
     
@@ -152,7 +144,7 @@ extension EditWeightRecordViewController: UICollectionViewDataSource {
         switch sectionType {
         case .header:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: headerCellIdentifier, for: indexPath) as! DateHeaderCollectionCell
-            cell.configure(date: formatDate(date: viewModel.date))
+            cell.configure(date: viewModel.formatDate(date: viewModel.date))
             cell.delegate = viewModel
             return cell
         case .datePicker:
