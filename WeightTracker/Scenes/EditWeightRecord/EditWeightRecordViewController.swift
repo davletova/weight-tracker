@@ -17,7 +17,7 @@ class EditWeightRecordViewController: UIViewController {
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 20, weight: .semibold)
-        label.textColor = .appMainText
+        label.textColor = UIColor.getAppColors(.appMainText)
         label.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(label)
         
@@ -46,8 +46,8 @@ class EditWeightRecordViewController: UIViewController {
     
     private lazy var saveButton: UIButton = {
         let button = UIButton()
-        button.titleLabel?.textColor = .appMainText
-        button.backgroundColor = .appPurple
+        button.titleLabel?.textColor = UIColor.getAppColors(.appMainText)
+        button.backgroundColor = UIColor.getAppColors(.appPurple)
         button.layer.cornerRadius = 12
         button.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(button)
@@ -80,7 +80,7 @@ class EditWeightRecordViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .appPopoverBackground
+        view.backgroundColor = UIColor.getAppColors(.appPopoverBackground)
         
         titleLabel.text = viewModel.updateWeight == nil ? "Добавить вес" : "Редактировать вес"
         saveButton.setTitle(viewModel.updateWeight == nil ? "Добавить" : "Редактировать", for: .normal)

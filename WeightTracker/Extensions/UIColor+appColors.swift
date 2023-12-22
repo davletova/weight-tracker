@@ -58,3 +58,9 @@ enum AppColor {
         }
     }
 }
+
+extension UIColor {
+    static func getAppColors(_ colorName: AppColor) -> UIColor {
+        colorName.getColor()
+    }
+}

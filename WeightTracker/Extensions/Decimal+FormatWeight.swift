@@ -3,7 +3,7 @@ import Foundation
 
 extension Decimal {
     func formatWeight() -> String {
-//        let m = Measurement<UnitMass>(value: 42, unit: .kilograms)
+        let m = Measurement<UnitMass>(value: 42, unit: .kilograms)
 //        let mf = MeasurementFormatter()
 //        MassFormatter()
 //        

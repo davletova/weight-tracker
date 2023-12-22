@@ -31,6 +31,7 @@
 		4DDF163D2B334C3E00EAA86C /* Decimal+FormatWeight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDF163C2B334C3E00EAA86C /* Decimal+FormatWeight.swift */; };
 		4DDF163F2B33FC1800EAA86C /* WeightDisplayModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDF163E2B33FC1800EAA86C /* WeightDisplayModel.swift */; };
 		4DDF16422B3414D300EAA86C /* AlertPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDF16412B3414D300EAA86C /* AlertPresenter.swift */; };
+		4DDF16452B35A99C00EAA86C /* MassUnitsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDF16442B35A99C00EAA86C /* MassUnitsService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -80,6 +81,7 @@
 		4DDF163E2B33FC1800EAA86C /* WeightDisplayModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightDisplayModel.swift; sourceTree = "<group>"; };
 		4DDF16412B3414D300EAA86C /* AlertPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertPresenter.swift; sourceTree = "<group>"; };
 		4DDF16432B35A5DE00EAA86C /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		4DDF16442B35A99C00EAA86C /* MassUnitsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MassUnitsService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -241,6 +243,7 @@
 			isa = PBXGroup;
 			children = (
 				4DDF16412B3414D300EAA86C /* AlertPresenter.swift */,
+				4DDF16442B35A99C00EAA86C /* MassUnitsService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -377,6 +380,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4D13AFF12B30A8FA007484AE /* WeightsStore.swift in Sources */,
+				4DDF16452B35A99C00EAA86C /* MassUnitsService.swift in Sources */,
 				4D13AFA62B2F584D007484AE /* AppDelegate.swift in Sources */,
 				4DDF163F2B33FC1800EAA86C /* WeightDisplayModel.swift in Sources */,
 				4D13AFE02B2F603B007484AE /* UIColor+appColors.swift in Sources */,

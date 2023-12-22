@@ -15,12 +15,12 @@ class WeightInputCollectionCell: UICollectionViewCell {
         input.leftViewMode = .always
         input.translatesAutoresizingMaskIntoConstraints = false
         input.font = .systemFont(ofSize: 34, weight: .bold)
-        input.textColor = .appMainText
+        input.textColor = UIColor.getAppColors(.appMainText)
         input.keyboardType = .decimalPad
         
         let attributes = [
             NSAttributedString.Key.font: UIFont.systemFont(ofSize: 17, weight: .medium),
-            NSAttributedString.Key.foregroundColor: UIColor.appBlack40,
+            NSAttributedString.Key.foregroundColor: UIColor.getAppColors(.appBlack40),
         ]
         let attributedString = NSAttributedString(string: "Введите вес", attributes: attributes)
         input.attributedPlaceholder = attributedString
@@ -33,7 +33,7 @@ class WeightInputCollectionCell: UICollectionViewCell {
     private lazy var unitLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 17, weight: .medium)
-        label.textColor = .appBlack40
+        label.textColor = UIColor.getAppColors(.appBlack40)
         label.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(label)
         
@@ -43,7 +43,7 @@ class WeightInputCollectionCell: UICollectionViewCell {
     private lazy var lineView: UIView = {
         let uiView = UIView(frame: .zero)
         uiView.translatesAutoresizingMaskIntoConstraints = false
-        uiView.backgroundColor = .appLightGray
+        uiView.backgroundColor = UIColor.getAppColors(.appLightGray)
         contentView.addSubview(uiView)
         
         return uiView

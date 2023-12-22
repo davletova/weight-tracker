@@ -11,7 +11,7 @@ class WeightMonitorViewController: UIViewController {
         let label = UILabel()
         label.text = "Монитор веса"
         label.font = UIFont.systemFont(ofSize: 20, weight: .semibold)
-        label.textColor = .appMainText
+        label.textColor = UIColor.getAppColors(.appMainText)
         label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(label)
@@ -23,7 +23,7 @@ class WeightMonitorViewController: UIViewController {
         let label = UILabel()
         label.text = viewModel.currentWeight.formatWeight()
         label.font = .systemFont(ofSize: 22, weight: .medium)
-        label.textColor = .appMainText
+        label.textColor = UIColor.getAppColors(.appMainText)
         label.translatesAutoresizingMaskIntoConstraints = false
         
         return label
@@ -33,7 +33,7 @@ class WeightMonitorViewController: UIViewController {
         let label = UILabel()
         label.text = viewModel.currentDiff.formatWeightDiff()
         label.font = .systemFont(ofSize: 17, weight: .medium)
-        label.textColor = .appBlack60
+        label.textColor = UIColor.getAppColors(.appBlack60)
         label.translatesAutoresizingMaskIntoConstraints = false
         
         return label
@@ -41,7 +41,7 @@ class WeightMonitorViewController: UIViewController {
     
     private lazy var currentWeight: UIView = {
         let currentWeightView = UIView(frame: CGRect(x: 0, y: 0, width: 340, height: 130))
-        currentWeightView.backgroundColor = .appLightGray
+        currentWeightView.backgroundColor = UIColor.getAppColors(.appLightGray)
         currentWeightView.layer.cornerRadius = 12
         currentWeightView.translatesAutoresizingMaskIntoConstraints = false
         currentWeightView.clipsToBounds = true
@@ -49,17 +49,17 @@ class WeightMonitorViewController: UIViewController {
         let title = UILabel()
         title.text = "Текущий вес"
         title.font = .systemFont(ofSize: 13, weight: .medium)
-        title.textColor = .appBlack40
+        title.textColor = UIColor.getAppColors(.appBlack40)
         title.translatesAutoresizingMaskIntoConstraints = false
         
         let switcher = UISwitch(frame: CGRect(x: 0, y: 0, width: 51, height: 31))
-        switcher.onTintColor = .appPurple
+        switcher.onTintColor = UIColor.getAppColors(.appPurple)
         switcher.translatesAutoresizingMaskIntoConstraints = false
         
         let metricSystem = UILabel()
         metricSystem.text = "Метрическая система"
         metricSystem.font = .systemFont(ofSize: 17, weight: .medium)
-        metricSystem.textColor = .appMainText
+        metricSystem.textColor = UIColor.getAppColors(.appMainText)
         metricSystem.translatesAutoresizingMaskIntoConstraints = false
         
         let scaleImage = UIImageView(image: UIImage(named: "scales"))
@@ -103,7 +103,7 @@ class WeightMonitorViewController: UIViewController {
         let label = UILabel()
         label.text = "История"
         label.font = UIFont.systemFont(ofSize: 20, weight: .semibold)
-        label.textColor = .appMainText
+        label.textColor = UIColor.getAppColors(.appMainText)
         label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(label)
@@ -114,7 +114,7 @@ class WeightMonitorViewController: UIViewController {
     private lazy var lineView: UIView = {
         let uiView = UIView(frame: .zero)
         uiView.translatesAutoresizingMaskIntoConstraints = false
-        uiView.backgroundColor = .appGray20
+        uiView.backgroundColor = UIColor.getAppColors(.appGray20)
         view.addSubview(uiView)
         
         return uiView
@@ -128,19 +128,19 @@ class WeightMonitorViewController: UIViewController {
         let weightLabel = UILabel()
         weightLabel.text = "Вес"
         weightLabel.font = UIFont.systemFont(ofSize: 13, weight: .medium)
-        weightLabel.textColor = .appBlack40
+        weightLabel.textColor = UIColor.getAppColors(.appBlack40)
         weightLabel.translatesAutoresizingMaskIntoConstraints = false
         
         let diffLabel = UILabel()
         diffLabel.text = "Изменения"
         diffLabel.font = UIFont.systemFont(ofSize: 13, weight: .medium)
-        diffLabel.textColor = .appBlack40
+        diffLabel.textColor = UIColor.getAppColors(.appBlack40)
         diffLabel.translatesAutoresizingMaskIntoConstraints = false
         
         let dateLabel = UILabel()
         dateLabel.text = "Дата"
         dateLabel.font = UIFont.systemFont(ofSize: 13, weight: .medium)
-        dateLabel.textColor = .appBlack40
+        dateLabel.textColor = UIColor.getAppColors(.appBlack40)
         dateLabel.translatesAutoresizingMaskIntoConstraints = false
         
         columnHeaderView.addSubview(weightLabel)
@@ -196,7 +196,7 @@ class WeightMonitorViewController: UIViewController {
     private lazy var addButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(named: "plus"), for: .normal)
-        button.tintColor = .appPurple.withAlphaComponent(0.3)
+        button.tintColor = UIColor.getAppColors(.appPurple).withAlphaComponent(0.3)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: #selector(tapCreateRecordButton), for: .touchUpInside)
         view.addSubview(button)
@@ -217,7 +217,7 @@ class WeightMonitorViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .appGeneralBackground
+        view.backgroundColor = UIColor.getAppColors(.appGeneralBackground)
         
         setupConstraint()
         

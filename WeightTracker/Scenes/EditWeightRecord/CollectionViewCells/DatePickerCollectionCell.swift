@@ -33,7 +33,7 @@ class DatePickerCollectionCell: UICollectionViewCell {
     private lazy var lineView: UIView = {
         let uiView = UIView(frame: .zero)
         uiView.translatesAutoresizingMaskIntoConstraints = false
-        uiView.backgroundColor = .appLightGray
+        uiView.backgroundColor = UIColor.getAppColors(.appLightGray)
         contentView.addSubview(uiView)
         
         return uiView

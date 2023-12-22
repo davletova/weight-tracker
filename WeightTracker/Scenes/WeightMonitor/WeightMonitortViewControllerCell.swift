@@ -7,7 +7,7 @@ class WeightMonitortViewControllerCell: UITableViewCell {
     private lazy var weightLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 17, weight: .medium)
-        label.textColor = .appMainText
+        label.textColor = UIColor.getAppColors(.appMainText)
         
         label.translatesAutoresizingMaskIntoConstraints = false
         
@@ -17,7 +17,7 @@ class WeightMonitortViewControllerCell: UITableViewCell {
     private lazy var diffLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 17, weight: .medium)
-        label.textColor = .appBlack60
+        label.textColor = UIColor.getAppColors(.appBlack60)
         
         label.translatesAutoresizingMaskIntoConstraints = false
         
@@ -27,7 +27,7 @@ class WeightMonitortViewControllerCell: UITableViewCell {
     private lazy var dateLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 17, weight: .regular)
-        label.textColor = .appBlack40
+        label.textColor = UIColor.getAppColors(.appBlack40)
         
         label.translatesAutoresizingMaskIntoConstraints = false
         
@@ -36,7 +36,7 @@ class WeightMonitortViewControllerCell: UITableViewCell {
     
     private lazy var chevron: UIImageView = {
         let image = UIImageView(image: UIImage(named: "arrow.right")!.withRenderingMode(.alwaysTemplate))
-        image.tintColor = .appMainText
+        image.tintColor = UIColor.getAppColors(.appMainText)
         image.translatesAutoresizingMaskIntoConstraints = false
         
         return image

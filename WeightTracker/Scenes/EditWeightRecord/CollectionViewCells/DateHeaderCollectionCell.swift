@@ -12,7 +12,7 @@ class DateHeaderCollectionCell: UICollectionViewCell {
         let label = UILabel()
         label.text = "Дата"
         label.font = .systemFont(ofSize: 17, weight: .medium)
-        label.textColor = .appMainText
+        label.textColor = UIColor.getAppColors(.appMainText)
         label.translatesAutoresizingMaskIntoConstraints = false
         
         contentView.addSubview(label)
@@ -22,7 +22,7 @@ class DateHeaderCollectionCell: UICollectionViewCell {
     
     private lazy var arrowButton: UIButton = {
         let button = UIButton(type: .custom)
-        let image = UIImage(named: "arrow.right")!.withTintColor(.appMainText, renderingMode: .alwaysOriginal)
+        let image = UIImage(named: "arrow.right")!.withTintColor(UIColor.getAppColors(.appMainText), renderingMode: .alwaysOriginal)
         button.setImage(image, for: .normal)
         button.addTarget(self, action: #selector(showDatePicker), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -34,7 +34,7 @@ class DateHeaderCollectionCell: UICollectionViewCell {
     private lazy var dateLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 17, weight: .regular)
-        label.textColor = .appPurple
+        label.textColor = UIColor.getAppColors(.appPurple)
         label.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(label)
         
@@ -44,7 +44,7 @@ class DateHeaderCollectionCell: UICollectionViewCell {
     private lazy var lineView: UIView = {
         let uiView = UIView(frame: .zero)
         uiView.translatesAutoresizingMaskIntoConstraints = false
-        uiView.backgroundColor = .appLightGray
+        uiView.backgroundColor = UIColor.getAppColors(.appLightGray)
         contentView.addSubview(uiView)
         
         return uiView
