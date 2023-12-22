@@ -6,7 +6,7 @@ class Toaster {
     private let parentView: UIView
     private lazy var toastConfig = ToastConfiguration(
         direction: .bottom,
-        dismissBy: [.time(time: 1.0), .swipe(direction: .natural), .longPress],
+        dismissBy: [.time(time: 2.0), .swipe(direction: .natural), .longPress],
         attachTo: parentView
     )
     private lazy var toastViewConfig = ToastViewConfiguration(

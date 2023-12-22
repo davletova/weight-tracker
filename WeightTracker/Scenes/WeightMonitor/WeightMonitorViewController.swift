@@ -373,7 +373,7 @@ extension WeightMonitorViewController: WeightMonitorViewModelDelegate {
             diffLabel.text = viewModel.currentDiff.formatWeightDiff()
         }
         
-        toaster.show(text: "Добавлена новое измерение")
+        toaster.show(text: "Добавлено новое измерение")
     }
     
     func reconfigureRow(record: WeightRecord, index: Int) {
