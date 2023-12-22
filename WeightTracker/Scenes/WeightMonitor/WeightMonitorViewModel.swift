@@ -5,7 +5,8 @@ protocol WeightMonitorViewModelDelegate: AnyObject {
     func reloadData()
     func reloadRows(indexPathes: [IndexPath])
     func showAlert(alert: AlertModel)
-    func deleteRows(indexPathes: [IndexPath])
+    func deleteRow(indexPath: IndexPath, deleteRecord: WeightRecord)
+    func addRow(index: Int)
 }
 
 class WeightMonitorViewModel {
@@ -15,10 +16,12 @@ class WeightMonitorViewModel {
     
     var currentWeight: Decimal = 0
     var currentDiff: Decimal = 0
-    var records: [WeightDisplayModel] = []
+    var records: [WeightRecord] = []
     
     init(store: WeightsStore) {
         self.store = store
+        
+//        try? store.clear()
     }
     
     func loadData() {
@@ -51,31 +54,26 @@ class WeightMonitorViewModel {
         }
         
         for i in 0..<recordCoreDatas.count {
-            var record = WeightDisplayModel(
+            let record = WeightRecord(
                 id: recordCoreDatas[i].recordId!,
-                weight: recordCoreDatas[i].weightValue! as Decimal,
+                weightValue: recordCoreDatas[i].weightValue! as Decimal,
                 date: recordCoreDatas[i].date!
             )
-            
-            if i < recordCoreDatas.count - 1 {
-                let diff = (recordCoreDatas[i].weightValue! as Decimal) - (recordCoreDatas[i+1].weightValue! as Decimal)
-                record.diff = diff
-            }
             
             records.append(record)
         }
         
-        currentWeight = records.count > 0 ? records[0].weight : 0
-        currentDiff = records.count > 1 ? (records[0].diff ?? 0) : 0
-        
-        print(records)
+        currentWeight = records.count > 0 ? records[0].weightValue : 0
+        currentDiff = records.count > 1 ? (42 ?? 0) : 0
         
         delegate?.reloadData()
     }
     
-    func deleteRecord(id: UUID, indexPath: IndexPath) {
+    func deleteRecord(at index: Int) {
+        let deleteRecord = records[index]
         do {
-            try store.deleteRecord(by: id)
+            try store.deleteRecord(by: deleteRecord.id)
+            records.remove(at: index)
         } catch {
             let alertModel = AlertModel(
                 style: .alert,
@@ -95,19 +93,40 @@ class WeightMonitorViewModel {
             )
             
             delegate?.showAlert(alert: alertModel)
-            return
         }
         
-        delegate?.deleteRows(indexPathes: [indexPath])
-        
-        if indexPath.row != 0 || indexPath.row < records.count - 1 {
-            let diff = records[indexPath.row-1].weight - records[indexPath.row].weight
-            records[indexPath.row-1].diff = diff
-            print(indexPath)
-            delegate?.reloadRows(indexPathes: [IndexPath(row: indexPath.row - 1, section: 0)])
-        }
-        
-        delegate?.deleteRows(indexPathes: [indexPath])
+        delegate?.deleteRow(indexPath: IndexPath(row: index, section: 0), deleteRecord: deleteRecord)
+//
+//        if indexPath.row != 0 || indexPath.row < records.count - 1 {
+//            let diff = records[indexPath.row-1].weight - records[indexPath.row].weight
+//            records[indexPath.row-1].diff = diff
+//            print(indexPath)
+//            delegate?.reloadRows(indexPathes: [IndexPath(row: indexPath.row - 1, section: 0)])
+//        }
+//        
+//        delegate?.deleteRows(indexPathes: [indexPath])
     }
+    
+
 }
 
+extension WeightMonitorViewModel: WeightsTableUpdater {
+    func addRecord(record: WeightRecord) {
+        let index = addRecordToList(record: record)
+        
+        print(records)
+        print(index)
+        
+        delegate?.addRow(index: index)
+    }
+    
+    func addRecordToList(record: WeightRecord) -> Int {
+        guard let index = records.firstIndex(where: { $0.date < record.date }) else {
+            records.append(record)
+            return records.count - 1
+        }
+        
+        records.insert(record, at: index)
+        return index
+    }
+}

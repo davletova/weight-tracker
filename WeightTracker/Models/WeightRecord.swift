@@ -1,6 +1,6 @@
 import Foundation
 
-struct WeightRecord {
+struct WeightRecord: Hashable {
     let id: UUID
     var weightValue: Decimal
     var date: Date

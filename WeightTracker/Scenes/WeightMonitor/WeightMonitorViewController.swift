@@ -170,11 +170,22 @@ class WeightMonitorViewController: UIViewController {
         table.translatesAutoresizingMaskIntoConstraints = false
         table.allowsSelection = false
         table.register(WeightMonitortViewControllerCell.self, forCellReuseIdentifier: cellIdentifier)
-        table.dataSource = self
+        // table.dataSource = self
         table.delegate = self
         view.addSubview(table)
         
         return table
+    }()
+    
+    private lazy var dataSource: UITableViewDiffableDataSource<Int, WeightRecord> = {
+        return UITableViewDiffableDataSource<Int, WeightRecord>(tableView: self.weightsTable) { (tableView, indexPath, weightModel) in
+            let cell = tableView.dequeueReusableCell(withIdentifier: self.cellIdentifier, for: indexPath) as! WeightMonitortViewControllerCell
+            let prev = self.viewModel.records[min(indexPath.row + 1, self.viewModel.records.count-1)]
+            let diff = weightModel.weightValue - prev.weightValue
+            
+            cell.configure(weight: weightModel, diff: diff)
+            return cell
+        }
     }()
     
     private lazy var addButton: UIButton = {
@@ -206,6 +217,11 @@ class WeightMonitorViewController: UIViewController {
         setupConstraint()
         
         viewModel.loadData()
+        
+        var snapshot = dataSource.snapshot()
+        snapshot.appendSections([0])
+        snapshot.appendItems(viewModel.records)
+        dataSource.apply(snapshot, animatingDifferences: true)
     }
     
     func setupConstraint() {
@@ -243,33 +259,35 @@ class WeightMonitorViewController: UIViewController {
             addButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
         ])
     }
-}
-
-extension WeightMonitorViewController: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        viewModel.records.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! WeightMonitortViewControllerCell
-        
-        if indexPath.row >= viewModel.records.count {
-            assertionFailure("should never happen")
-        }
-        
-        cell.configure(weight: viewModel.records[indexPath.row])
-        
-        return cell
-    }
     
     @objc func tapCreateRecordButton() {
-        let editWeightRecordVM = EditWeightRecordViewModel(store: WeightsStore(), tableReloader: self)
+        let editWeightRecordVM = EditWeightRecordViewModel(store: WeightsStore(), tableUpdater: viewModel)
         let editWeightRecordVC = EditWeightRecordViewController(viewModel: editWeightRecordVM)
         editWeightRecordVM.delegate = editWeightRecordVC
         editWeightRecordVC.modalPresentationStyle = .popover
         self.present(editWeightRecordVC, animated: true)
     }
+
 }
+
+//extension WeightMonitorViewController: UITableViewDataSource {
+//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//        viewModel.records.count
+//    }
+//    
+//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! WeightMonitortViewControllerCell
+//        
+//        if indexPath.row >= viewModel.records.count {
+//            assertionFailure("should never happen")
+//        }
+//        
+//        cell.configure(weight: viewModel.records[indexPath.row])
+//        
+//        return cell
+//    }
+//    
+//}
 
 extension WeightMonitorViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
@@ -278,19 +296,18 @@ extension WeightMonitorViewController: UITableViewDelegate {
             return nil
         }
         let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { [weak self] _, _, _ in
-            guard let self = self else {
+            guard let self else {
                 assertionFailure("self is empty")
                 return
             }
 
-            self.viewModel.deleteRecord(id: self.viewModel.records[indexPath.row].id, indexPath: indexPath)
+            self.viewModel.deleteRecord(at: indexPath.row)
         }
         
         let swipeConfiguration = UISwipeActionsConfiguration(actions: [deleteAction])
         swipeConfiguration.performsFirstActionWithFullSwipe = false
         
         return swipeConfiguration
-        
     }
 }
 
@@ -310,19 +327,37 @@ extension WeightMonitorViewController: WeightMonitorViewModelDelegate {
         alertPresenter.show(result: alert)
     }
     
-    func deleteRows(indexPathes: [IndexPath]) {
-        weightsTable.beginUpdates()
-        
-        viewModel.records.remove(at: indexPathes[0].row)
-        weightsTable.deleteRows(at: indexPathes, with: .automatic)
-        
-        weightsTable.endUpdates()
+    func deleteRow(indexPath: IndexPath, deleteRecord: WeightRecord) {
+        var snapshot = dataSource.snapshot()
+        snapshot.deleteItems([deleteRecord])
+        if indexPath.row > 0 {
+            snapshot.reconfigureItems([viewModel.records[indexPath.row - 1]])
+        }
+        self.dataSource.apply(snapshot, animatingDifferences: true)
     }
-}
-
-extension WeightMonitorViewController: WeightsTableReloader {
-    func updateWeightTable() {
-        viewModel.loadData()
-        weightsTable.reloadData()
+    
+    func addRow(index: Int) {
+        let newRecord = viewModel.records[index]
+        var snapshot = dataSource.snapshot()
+        
+        if index == viewModel.records.count - 1 {
+            snapshot.appendItems([newRecord])
+        } else {
+            snapshot.insertItems([newRecord], beforeItem: viewModel.records[index + 1])
+        }
+        
+        if index > 0 {
+            snapshot.reconfigureItems([viewModel.records[index - 1]])
+        }
+        dataSource.apply(snapshot)
     }
+    
+//    func deleteRows(indexPath: [IndexPath]) {
+//        weightsTable.beginUpdates()
+//        
+//        viewModel.records.remove(at: indexPathes[0].row)
+//        weightsTable.deleteRows(at: indexPathes, with: .automatic)
+//        
+//        weightsTable.endUpdates()
+//    }
 }
