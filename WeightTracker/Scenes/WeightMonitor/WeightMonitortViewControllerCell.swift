@@ -45,10 +45,7 @@ class WeightMonitortViewControllerCell: UITableViewCell {
     func configure(weight: WeightRecord, diff: Decimal? = nil) {
         weightLabel.text = weight.weightValue.formatWeight()
         dateLabel.text = formatDate(date: weight.date)
-        
-        if let diff {
-            diffLabel.text = diff.formatWeightDiff()
-        }
+        diffLabel.text = diff?.formatWeightDiff() ?? ""
         
         contentView.addSubview(weightLabel)
         contentView.addSubview(diffLabel)

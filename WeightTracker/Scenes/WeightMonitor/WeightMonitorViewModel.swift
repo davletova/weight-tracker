@@ -109,9 +109,7 @@ extension WeightMonitorViewModel: WeightsTableUpdater {
             return
         }
         
-        print("before updateRecord \(updateRecord)")
         records[index] = updateRecord
-        print("afer  \(records[index])")
         
         if index < 2 {
             currentDiff = records.count > 1 ? (records[0].weightValue - records[1].weightValue) : 0

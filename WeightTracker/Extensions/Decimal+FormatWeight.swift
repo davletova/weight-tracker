@@ -3,10 +3,10 @@ import Foundation
 
 extension Decimal {
     func formatWeight() -> String {
-        let m = Measurement<UnitMass>(value: 42, unit: .kilograms)
+//        let m = Measurement<UnitMass>(value: self, unit: .kilograms)
 //        let mf = MeasurementFormatter()
 //        MassFormatter()
-//        
+        
         let formatter = MassFormatter()
         formatter.isForPersonMassUse = true
         formatter.numberFormatter.maximumFractionDigits = 1

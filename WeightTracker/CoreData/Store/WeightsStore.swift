@@ -82,7 +82,6 @@ final class WeightsStore: NSObject {
     }
     
     func getRecord(by id: UUID) throws -> WeightCoreData {
-        print("get record ", id)
         let request = WeightCoreData.fetchRequest()
         request.returnsObjectsAsFaults = false
         request.predicate = NSPredicate(format: "%K == %@", #keyPath(WeightCoreData.recordId), id.uuidString)
