@@ -3,7 +3,7 @@ import UIKit
 
 protocol WeightMonitorViewModelDelegate: AnyObject {
     func reloadData()
-    func reloadRows(indexPathes: [IndexPath])
+//    func reloadRows(indexPathes: [IndexPath])
     func showAlert(alert: AlertModel)
     func deleteRow(indexPath: IndexPath, deleteRecord: WeightRecord)
     func addRow(index: Int)
@@ -64,7 +64,7 @@ class WeightMonitorViewModel {
         }
         
         currentWeight = records.count > 0 ? records[0].weightValue : 0
-        currentDiff = records.count > 1 ? (42 ?? 0) : 0
+        currentDiff = records.count > 1 ? (records[0].weightValue - records[1].weightValue) : 0
         
         delegate?.reloadData()
     }
@@ -74,6 +74,15 @@ class WeightMonitorViewModel {
         do {
             try store.deleteRecord(by: deleteRecord.id)
             records.remove(at: index)
+            
+            if index < 2 {
+                currentDiff = records.count > 1 ? (records[0].weightValue - records[1].weightValue) : 0
+                if index == 0 {
+                    currentWeight = records[0].weightValue
+                }
+            }
+            
+            delegate?.deleteRow(indexPath: IndexPath(row: index, section: 0), deleteRecord: deleteRecord)
         } catch {
             let alertModel = AlertModel(
                 style: .alert,
@@ -94,8 +103,6 @@ class WeightMonitorViewModel {
             
             delegate?.showAlert(alert: alertModel)
         }
-        
-        delegate?.deleteRow(indexPath: IndexPath(row: index, section: 0), deleteRecord: deleteRecord)
 //
 //        if indexPath.row != 0 || indexPath.row < records.count - 1 {
 //            let diff = records[indexPath.row-1].weight - records[indexPath.row].weight
@@ -113,9 +120,13 @@ class WeightMonitorViewModel {
 extension WeightMonitorViewModel: WeightsTableUpdater {
     func addRecord(record: WeightRecord) {
         let index = addRecordToList(record: record)
-        
-        print(records)
-        print(index)
+
+        if index < 2 {
+            currentDiff = records.count > 1 ? (records[0].weightValue - records[1].weightValue) : 0
+            if index == 0 {
+                currentWeight = records[0].weightValue
+            }
+        }
         
         delegate?.addRow(index: index)
     }

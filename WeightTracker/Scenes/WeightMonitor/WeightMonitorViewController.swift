@@ -180,10 +180,15 @@ class WeightMonitorViewController: UIViewController {
     private lazy var dataSource: UITableViewDiffableDataSource<Int, WeightRecord> = {
         return UITableViewDiffableDataSource<Int, WeightRecord>(tableView: self.weightsTable) { (tableView, indexPath, weightModel) in
             let cell = tableView.dequeueReusableCell(withIdentifier: self.cellIdentifier, for: indexPath) as! WeightMonitortViewControllerCell
-            let prev = self.viewModel.records[min(indexPath.row + 1, self.viewModel.records.count-1)]
-            let diff = weightModel.weightValue - prev.weightValue
             
-            cell.configure(weight: weightModel, diff: diff)
+            if indexPath.row < self.viewModel.records.count-1 {
+                let prev = self.viewModel.records[indexPath.row + 1]
+                let diff = weightModel.weightValue - prev.weightValue
+                cell.configure(weight: weightModel, diff: diff)
+            } else {
+                cell.configure(weight: weightModel)
+            }
+            
             return cell
         }
     }()
@@ -270,25 +275,6 @@ class WeightMonitorViewController: UIViewController {
 
 }
 
-//extension WeightMonitorViewController: UITableViewDataSource {
-//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        viewModel.records.count
-//    }
-//    
-//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! WeightMonitortViewControllerCell
-//        
-//        if indexPath.row >= viewModel.records.count {
-//            assertionFailure("should never happen")
-//        }
-//        
-//        cell.configure(weight: viewModel.records[indexPath.row])
-//        
-//        return cell
-//    }
-//    
-//}
-
 extension WeightMonitorViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         if indexPath.row >= viewModel.records.count {
@@ -311,11 +297,7 @@ extension WeightMonitorViewController: UITableViewDelegate {
     }
 }
 
-extension WeightMonitorViewController: WeightMonitorViewModelDelegate {
-    func reloadRows(indexPathes: [IndexPath]) {
-        weightsTable.reloadRows(at: indexPathes, with: .automatic)
-    }
-    
+extension WeightMonitorViewController: WeightMonitorViewModelDelegate {  
     func reloadData() {
         weightLabel.text = viewModel.currentWeight.formatWeight()
         diffLabel.text = viewModel.currentDiff.formatWeightDiff()
@@ -333,7 +315,13 @@ extension WeightMonitorViewController: WeightMonitorViewModelDelegate {
         if indexPath.row > 0 {
             snapshot.reconfigureItems([viewModel.records[indexPath.row - 1]])
         }
+        
         self.dataSource.apply(snapshot, animatingDifferences: true)
+        
+        if indexPath.row < 2 {
+            weightLabel.text = viewModel.currentWeight.formatWeight()
+            diffLabel.text = viewModel.currentDiff.formatWeightDiff()
+        }
     }
     
     func addRow(index: Int) {
@@ -349,7 +337,13 @@ extension WeightMonitorViewController: WeightMonitorViewModelDelegate {
         if index > 0 {
             snapshot.reconfigureItems([viewModel.records[index - 1]])
         }
+
         dataSource.apply(snapshot)
+        
+        if index < 2 {
+            weightLabel.text = viewModel.currentWeight.formatWeight()
+            diffLabel.text = viewModel.currentDiff.formatWeightDiff()
+        }
     }
     
 //    func deleteRows(indexPath: [IndexPath]) {

@@ -42,7 +42,7 @@ class WeightMonitortViewControllerCell: UITableViewCell {
         return image
     }()
     
-    func configure(weight: WeightRecord, diff: Decimal?) {
+    func configure(weight: WeightRecord, diff: Decimal? = nil) {
         weightLabel.text = weight.weightValue.formatWeight()
         dateLabel.text = formatDate(date: weight.date)
         
