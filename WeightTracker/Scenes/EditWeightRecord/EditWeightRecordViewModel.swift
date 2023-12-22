@@ -9,24 +9,24 @@ protocol EditWeightRecordViewViewModelDelegate: AnyObject {
     func showAlert(alert: AlertModel)
 }
 
-protocol WeightsTableReloader {
-    func updateWeightTable()
+protocol WeightsTableUpdater {
+    func addRecord(record: WeightRecord)
 }
 
 class EditWeightRecordViewModel: WeightInputCollectionCellDelegate {
     private var store: WeightsStore
     
     weak var delegate: EditWeightRecordViewViewModelDelegate?
-    var tableReloader: WeightsTableReloader
+    var tableUpdater: WeightsTableUpdater
     
     var records: [WeightRecord] = []
     var isDatePickerOpen = false
     var date = Date()
     var weight: String = ""
     
-    init(store: WeightsStore, tableReloader: WeightsTableReloader) {
+    init(store: WeightsStore, tableUpdater: WeightsTableUpdater) {
         self.store = store
-        self.tableReloader = tableReloader
+        self.tableUpdater = tableUpdater
     }
     
     func hideDatePicker() {
@@ -43,7 +43,10 @@ class EditWeightRecordViewModel: WeightInputCollectionCellDelegate {
         }
         
         do {
-            try store.addRecord(record: WeightRecord(id: UUID(), weightValue: weightDecimal, date: date))
+            let newRecord = WeightRecord(id: UUID(), weightValue: weightDecimal, date: date)
+            try store.addRecord(record: newRecord)
+            tableUpdater.addRecord(record: newRecord)
+            delegate?.dismiss()
         } catch WeightsStoreError.unexpectedMultipleResult {
             delegate?.showError(message: "Запись в этот день уже существует")
             return
@@ -61,9 +64,6 @@ class EditWeightRecordViewModel: WeightInputCollectionCellDelegate {
             delegate?.showAlert(alert: alertModel)
             return
         }
-        
-        tableReloader.updateWeightTable()
-        delegate?.dismiss()
     }
     
     func formatDate(date: Date) -> String {
