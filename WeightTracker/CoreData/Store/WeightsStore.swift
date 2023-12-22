@@ -58,10 +58,22 @@ final class WeightsStore: NSObject {
         
         let recordCoreData = WeightCoreData(context: context)
         recordCoreData.recordId = record.id
-        recordCoreData.weightValue = (record.weightValue) as NSDecimalNumber
+        recordCoreData.weightValue = record.weightValue as NSDecimalNumber
         recordCoreData.date = Calendar.current.startOfDay(for: record.date)
         
         try context.safeSave()
+    }
+    
+    @discardableResult
+    func updateRecord(_ updateRecord: WeightRecord) throws -> WeightRecord {
+        let oldRecord = try getRecord(by: updateRecord.id)
+        
+        oldRecord.weightValue = updateRecord.weightValue as NSDecimalNumber
+        oldRecord.date = Calendar.current.startOfDay(for: updateRecord.date)
+        
+        try context.safeSave()
+        
+        return updateRecord
     }
     
     func deleteRecord(by id: UUID) throws {

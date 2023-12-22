@@ -7,6 +7,7 @@ protocol WeightMonitorViewModelDelegate: AnyObject {
     func showAlert(alert: AlertModel)
     func deleteRow(indexPath: IndexPath, deleteRecord: WeightRecord)
     func addRow(index: Int)
+    func reconfigureRow(record: WeightRecord, index: Int)
 }
 
 class WeightMonitorViewModel {
@@ -31,6 +32,20 @@ class WeightMonitorViewModel {
         
         do {
             recordCoreDatas = try store.list(withSort: [sort])
+           
+            for i in 0..<recordCoreDatas.count {
+                let record = WeightRecord(
+                    id: recordCoreDatas[i].recordId!,
+                    weightValue: recordCoreDatas[i].weightValue! as Decimal,
+                    date: recordCoreDatas[i].date!
+                )
+                records.append(record)
+            }
+            
+            currentWeight = records.count > 0 ? records[0].weightValue : 0
+            currentDiff = records.count > 1 ? (records[0].weightValue - records[1].weightValue) : 0
+            
+            delegate?.reloadData()
         } catch {
             let alertModel = AlertModel(
                 style: .alert,
@@ -48,25 +63,8 @@ class WeightMonitorViewModel {
                     ) { _ in }
                 ]
             )
-            
             delegate?.showAlert(alert: alertModel)
-            return
         }
-        
-        for i in 0..<recordCoreDatas.count {
-            let record = WeightRecord(
-                id: recordCoreDatas[i].recordId!,
-                weightValue: recordCoreDatas[i].weightValue! as Decimal,
-                date: recordCoreDatas[i].date!
-            )
-            
-            records.append(record)
-        }
-        
-        currentWeight = records.count > 0 ? records[0].weightValue : 0
-        currentDiff = records.count > 1 ? (records[0].weightValue - records[1].weightValue) : 0
-        
-        delegate?.reloadData()
     }
     
     func deleteRecord(at index: Int) {
@@ -81,7 +79,6 @@ class WeightMonitorViewModel {
                     currentWeight = records[0].weightValue
                 }
             }
-            
             delegate?.deleteRow(indexPath: IndexPath(row: index, section: 0), deleteRecord: deleteRecord)
         } catch {
             let alertModel = AlertModel(
@@ -100,24 +97,32 @@ class WeightMonitorViewModel {
                     ) { _ in }
                 ]
             )
-            
             delegate?.showAlert(alert: alertModel)
         }
-//
-//        if indexPath.row != 0 || indexPath.row < records.count - 1 {
-//            let diff = records[indexPath.row-1].weight - records[indexPath.row].weight
-//            records[indexPath.row-1].diff = diff
-//            print(indexPath)
-//            delegate?.reloadRows(indexPathes: [IndexPath(row: indexPath.row - 1, section: 0)])
-//        }
-//        
-//        delegate?.deleteRows(indexPathes: [indexPath])
     }
-    
-
 }
 
 extension WeightMonitorViewModel: WeightsTableUpdater {
+    func updateRecord(updateRecord: WeightRecord, index: Int) {
+        if index > records.count - 1 {
+            assertionFailure("should never happen")
+            return
+        }
+        
+        print("before updateRecord \(updateRecord)")
+        records[index] = updateRecord
+        print("afer  \(records[index])")
+        
+        if index < 2 {
+            currentDiff = records.count > 1 ? (records[0].weightValue - records[1].weightValue) : 0
+            if index == 0 {
+                currentWeight = records[0].weightValue
+            }
+        }
+        
+        delegate?.reconfigureRow(record: updateRecord, index: index)
+    }
+    
     func addRecord(record: WeightRecord) {
         let index = addRecordToList(record: record)
 

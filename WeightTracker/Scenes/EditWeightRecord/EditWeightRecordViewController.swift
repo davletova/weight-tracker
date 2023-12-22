@@ -16,7 +16,6 @@ class EditWeightRecordViewController: UIViewController {
     
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
-        label.text = "Добавить вес"
         label.font = .systemFont(ofSize: 20, weight: .semibold)
         label.textColor = .appMainText
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -45,13 +44,11 @@ class EditWeightRecordViewController: UIViewController {
         return collectionView
     }()
     
-    private lazy var addButton: UIButton = {
+    private lazy var saveButton: UIButton = {
         let button = UIButton()
-        button.setTitle("Добавить", for: .normal)
         button.titleLabel?.textColor = .appMainText
         button.backgroundColor = .appPurple
         button.layer.cornerRadius = 12
-        button.addTarget(self, action: #selector(addRecord), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(button)
         
@@ -85,6 +82,11 @@ class EditWeightRecordViewController: UIViewController {
         
         view.backgroundColor = .appPopoverBackground
         
+        titleLabel.text = viewModel.updateWeight == nil ? "Добавить вес" : "Редактировать вес"
+        saveButton.setTitle(viewModel.updateWeight == nil ? "Добавить" : "Редактировать", for: .normal)
+        
+        saveButton.addTarget(self, action: (viewModel.updateWeight == nil) ? #selector(addRecord) : #selector(updateRecord), for: .touchUpInside)
+        
         setupConstraint()
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
@@ -98,18 +100,18 @@ class EditWeightRecordViewController: UIViewController {
             titleLabel.heightAnchor.constraint(equalToConstant: 24),
             titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             
-            addButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
-            addButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
-            addButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -16),
-            addButton.heightAnchor.constraint(equalToConstant: 48),
+            saveButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
+            saveButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
+            saveButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -16),
+            saveButton.heightAnchor.constraint(equalToConstant: 48),
             
             collectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
            
             collectionView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: view.bounds.height / 5),
-            collectionView.bottomAnchor.constraint(equalTo: addButton.topAnchor, constant: -16),
+            collectionView.bottomAnchor.constraint(equalTo: saveButton.topAnchor, constant: -16),
             
-            validationError.bottomAnchor.constraint(equalTo: addButton.topAnchor, constant: -8),
+            validationError.bottomAnchor.constraint(equalTo: saveButton.topAnchor, constant: -8),
             validationError.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
             
 //            collectionView.bottomAnchor.constraint(lessThanOrEqualTo: view.safeAreaLayoutGuide.bottomAnchor),
@@ -120,6 +122,10 @@ class EditWeightRecordViewController: UIViewController {
     
     @objc func addRecord() {
         viewModel.addRecord()
+    }
+    
+    @objc func updateRecord() {
+        viewModel.updateRecord()
     }
     
     @objc private func hideKeyboard() {
@@ -150,11 +156,19 @@ extension EditWeightRecordViewController: UICollectionViewDataSource {
             return cell
         case .datePicker:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: datePickerCellIdentifier, for: indexPath) as! DatePickerCollectionCell
+            if let updateRecord = viewModel.updateWeight {
+                cell.configure(date: updateRecord.date)
+            }
             cell.delegate = viewModel
             return cell
         case .weight:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: weightCellIdentifier, for: indexPath) as! WeightInputCollectionCell
-            cell.configure(unit: "кг")
+            // TODO: вставить нужную единцу измерения
+            if let oldWeight = viewModel.updateWeight {
+                cell.configure(weight: oldWeight.weightValue, unit: "кг")
+            } else {
+                cell.configure(unit: "кг")
+            }
             cell.delegate = viewModel
             return cell
         }

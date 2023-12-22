@@ -180,7 +180,7 @@ class WeightMonitorViewController: UIViewController {
     private lazy var dataSource: UITableViewDiffableDataSource<Int, WeightRecord> = {
         return UITableViewDiffableDataSource<Int, WeightRecord>(tableView: self.weightsTable) { (tableView, indexPath, weightModel) in
             let cell = tableView.dequeueReusableCell(withIdentifier: self.cellIdentifier, for: indexPath) as! WeightMonitortViewControllerCell
-            
+            print("UITableViewDiffableDataSource:", weightModel.hashValue)
             if indexPath.row < self.viewModel.records.count-1 {
                 let prev = self.viewModel.records[indexPath.row + 1]
                 let diff = weightModel.weightValue - prev.weightValue
@@ -281,16 +281,35 @@ extension WeightMonitorViewController: UITableViewDelegate {
             assertionFailure("should never happen")
             return nil
         }
-        let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { [weak self] _, _, _ in
+        
+        let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { [weak self] _, _, completion in
             guard let self else {
                 assertionFailure("self is empty")
                 return
             }
 
             self.viewModel.deleteRecord(at: indexPath.row)
+            completion(true)
         }
         
-        let swipeConfiguration = UISwipeActionsConfiguration(actions: [deleteAction])
+        let editAction = UIContextualAction(style: .normal, title: "Edit") { [weak self] _, _, completion in
+            guard let self else {
+                assertionFailure("self is empty")
+                return
+            }
+            
+            let editWeightRecordVM = EditWeightRecordViewModel(store: WeightsStore(), tableUpdater: self.viewModel)
+            let editWeightRecordVC = EditWeightRecordViewController(viewModel: editWeightRecordVM)
+            editWeightRecordVM.delegate = editWeightRecordVC
+            editWeightRecordVM.updateWeight = self.viewModel.records[indexPath.row]
+            editWeightRecordVM.date = self.viewModel.records[indexPath.row].date
+            editWeightRecordVM.updateWeightIndex = indexPath.row
+            editWeightRecordVC.modalPresentationStyle = .popover
+            self.present(editWeightRecordVC, animated: true)
+            completion(true)
+        }
+        
+        let swipeConfiguration = UISwipeActionsConfiguration(actions: [deleteAction, editAction])
         swipeConfiguration.performsFirstActionWithFullSwipe = false
         
         return swipeConfiguration
@@ -316,7 +335,7 @@ extension WeightMonitorViewController: WeightMonitorViewModelDelegate {
             snapshot.reconfigureItems([viewModel.records[indexPath.row - 1]])
         }
         
-        self.dataSource.apply(snapshot, animatingDifferences: true)
+        self.dataSource.apply(snapshot, animatingDifferences: false)
         
         if indexPath.row < 2 {
             weightLabel.text = viewModel.currentWeight.formatWeight()
@@ -338,7 +357,7 @@ extension WeightMonitorViewController: WeightMonitorViewModelDelegate {
             snapshot.reconfigureItems([viewModel.records[index - 1]])
         }
 
-        dataSource.apply(snapshot)
+        dataSource.apply(snapshot, animatingDifferences: false)
         
         if index < 2 {
             weightLabel.text = viewModel.currentWeight.formatWeight()
@@ -346,12 +365,21 @@ extension WeightMonitorViewController: WeightMonitorViewModelDelegate {
         }
     }
     
-//    func deleteRows(indexPath: [IndexPath]) {
-//        weightsTable.beginUpdates()
-//        
-//        viewModel.records.remove(at: indexPathes[0].row)
-//        weightsTable.deleteRows(at: indexPathes, with: .automatic)
-//        
-//        weightsTable.endUpdates()
-//    }
+    func reconfigureRow(record: WeightRecord, index: Int) {
+        var reconfigureRecords = [record]
+        if index > 0 {
+            reconfigureRecords.append(viewModel.records[index - 1])
+        }
+        
+        var snapshot = dataSource.snapshot()
+        snapshot.reconfigureItems([record])
+        dataSource.apply(snapshot, animatingDifferences: true, completion: {
+            self.dataSource.apply(snapshot, animatingDifferences: false)
+        })
+        
+        if index < 2 {
+            weightLabel.text = viewModel.currentWeight.formatWeight()
+            diffLabel.text = viewModel.currentDiff.formatWeightDiff()
+        }
+    }
 }

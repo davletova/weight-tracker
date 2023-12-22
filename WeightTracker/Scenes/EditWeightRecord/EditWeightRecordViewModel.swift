@@ -11,6 +11,7 @@ protocol EditWeightRecordViewViewModelDelegate: AnyObject {
 
 protocol WeightsTableUpdater {
     func addRecord(record: WeightRecord)
+    func updateRecord(updateRecord: WeightRecord, index: Int)
 }
 
 class EditWeightRecordViewModel: WeightInputCollectionCellDelegate {
@@ -19,10 +20,11 @@ class EditWeightRecordViewModel: WeightInputCollectionCellDelegate {
     weak var delegate: EditWeightRecordViewViewModelDelegate?
     var tableUpdater: WeightsTableUpdater
     
-    var records: [WeightRecord] = []
     var isDatePickerOpen = false
+    var updateWeight: WeightRecord?
+    var updateWeightIndex: Int?
     var date = Date()
-    var weight: String = ""
+    var weightInput: String = ""
     
     init(store: WeightsStore, tableUpdater: WeightsTableUpdater) {
         self.store = store
@@ -37,7 +39,8 @@ class EditWeightRecordViewModel: WeightInputCollectionCellDelegate {
     }
     
     func addRecord() {
-        guard let weightDecimal = Decimal(string: weight, locale: Locale.current) else {
+        guard let weightDecimal = Decimal(string: weightInput, locale: Locale.current)
+        else {
             delegate?.showError(message: "Неверный формат данных")
             return
         }
@@ -50,6 +53,40 @@ class EditWeightRecordViewModel: WeightInputCollectionCellDelegate {
         } catch WeightsStoreError.unexpectedMultipleResult {
             delegate?.showError(message: "Запись в этот день уже существует")
             return
+        } catch {
+            let alertModel = AlertModel(
+                style: .alert,
+                title: "Не удалось сохранить запись",
+                actions: [
+                    UIAlertAction(
+                        title: "Закрыть",
+                        style: .cancel
+                    ) { _ in }
+                ]
+            )
+            delegate?.showAlert(alert: alertModel)
+            return
+        }
+    }
+    
+    func updateRecord() {
+        guard let updateWeightIndex, let updateWeight else {
+            // TODO: показать здесь алерт
+            assertionFailure("updateWeightIndex is empty")
+            return
+        }
+        
+        guard let weightDecimal = Decimal(string: weightInput, locale: Locale.current) else {
+            delegate?.showError(message: "Неверный формат данных")
+            return
+        }
+        
+        do {
+            let newRecord = WeightRecord(id: updateWeight.id, weightValue: weightDecimal, date: date)
+            try store.updateRecord(newRecord)
+            tableUpdater.updateRecord(updateRecord: newRecord, index: updateWeightIndex)
+            
+            delegate?.dismiss()
         } catch {
             let alertModel = AlertModel(
                 style: .alert,

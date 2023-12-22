@@ -2,7 +2,7 @@ import Foundation
 import UIKit
 
 protocol WeightInputCollectionCellDelegate {
-    var weight: String { get set }
+    var weightInput: String { get set }
     func hideDatePicker()
 }
 
@@ -72,9 +72,9 @@ class WeightInputCollectionCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configure(weight: Double? = nil, unit: String) {
-        if let weight = weight {
-            weightInput.text = String(format: "%.1f", locale: .current, weight)
+    func configure(weight: Decimal? = nil, unit: String) {
+        if let weight {
+            weightInput.text = weight.formatWeightWithoutUnit()
         }
         unitLabel.text = unit
     }
@@ -96,6 +96,6 @@ extension WeightInputCollectionCell: UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField) {
         let currentText = textField.text ?? ""
         
-        delegate?.weight = currentText
+        delegate?.weightInput = currentText
     }
 }

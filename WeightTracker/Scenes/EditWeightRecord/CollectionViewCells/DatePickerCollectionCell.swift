@@ -58,4 +58,8 @@ class DatePickerCollectionCell: UICollectionViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    func configure(date: Date) {
+        datePicker.date = date
+    }
 }
