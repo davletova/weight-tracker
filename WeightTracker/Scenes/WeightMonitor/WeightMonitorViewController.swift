@@ -1,10 +1,11 @@
 import Foundation
+import Toast
 import UIKit
 
 class WeightMonitorViewController: UIViewController {
     typealias DiffableDatasource = UITableViewDiffableDataSource<Int, WeightRecord.ID>
     typealias DiffableDatasourceSnapshot = NSDiffableDataSourceSnapshot<Int, WeightRecord.ID>
-
+    
     private let rowHeight: CGFloat = 46
     private let cellIdentifier = "cell"
     
@@ -185,7 +186,7 @@ class WeightMonitorViewController: UIViewController {
             let weightModel = self.viewModel.records[indexPath.row]
             
             let cell = tableView.dequeueReusableCell(withIdentifier: self.cellIdentifier, for: indexPath) as! WeightMonitortViewControllerCell
-
+            
             if indexPath.row < self.viewModel.records.endIndex-1 {
                 let prev = self.viewModel.records[indexPath.row + 1]
                 let diff = weightModel.weightValue - prev.weightValue
@@ -211,6 +212,10 @@ class WeightMonitorViewController: UIViewController {
     
     private lazy var alertPresenter = AlertPresenter(delegate: self)
     
+    private lazy var toaster: Toaster = {
+        return Toaster(parentView: self.view)
+    }()
+    
     init(_ viewModel: WeightMonitorViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
@@ -227,7 +232,7 @@ class WeightMonitorViewController: UIViewController {
         setupConstraint()
         
         viewModel.loadData()
-
+        
         updateDataSource { snapshot in
             snapshot.appendSections([0])
             snapshot.appendItems(viewModel.records.map(\.id))
@@ -277,7 +282,6 @@ class WeightMonitorViewController: UIViewController {
         editWeightRecordVC.modalPresentationStyle = .popover
         self.present(editWeightRecordVC, animated: true)
     }
-
 }
 
 extension WeightMonitorViewController: UITableViewDelegate {
@@ -292,7 +296,7 @@ extension WeightMonitorViewController: UITableViewDelegate {
                 assertionFailure("self is empty")
                 return
             }
-
+            
             self.viewModel.deleteRecord(at: indexPath.row)
             completion(true)
         }
@@ -340,23 +344,25 @@ extension WeightMonitorViewController: WeightMonitorViewModelDelegate {
                 snapshot.reconfigureItems([viewModel.records[indexPath.row - 1].id])
             }
         }
-
+        
         if indexPath.row < 2 {
             weightLabel.text = viewModel.currentWeight.formatWeight()
             diffLabel.text = viewModel.currentDiff.formatWeightDiff()
         }
+        
+        toaster.show(text: "Удалено измерение")
     }
     
     func addRow(index: Int) {
         let newRecord = viewModel.records[index]
-
+        
         updateDataSource { snapshot in
             if index == viewModel.records.endIndex - 1 {
                 snapshot.appendItems([newRecord.id])
             } else {
                 snapshot.insertItems([newRecord.id], beforeItem: viewModel.records[index + 1].id)
             }
-
+            
             if index > 0 {
                 snapshot.reconfigureItems([viewModel.records[index - 1].id])
             }
@@ -366,21 +372,25 @@ extension WeightMonitorViewController: WeightMonitorViewModelDelegate {
             weightLabel.text = viewModel.currentWeight.formatWeight()
             diffLabel.text = viewModel.currentDiff.formatWeightDiff()
         }
+        
+        toaster.show(text: "Добавлена новое измерение")
     }
     
     func reconfigureRow(record: WeightRecord, index: Int) {
         let reconfigureRecordIds = index > 0 ? [record.id, viewModel.records[index - 1].id] : [record.id]
-
+        
         updateDataSource { snapshot in
             snapshot.reconfigureItems(reconfigureRecordIds)
         }
-
+        
         if index < 2 {
             weightLabel.text = viewModel.currentWeight.formatWeight()
             diffLabel.text = viewModel.currentDiff.formatWeightDiff()
         }
+        
+        toaster.show(text: "Измерение отредактировано")
     }
-
+    
     private func updateDataSource(_ updateFunc: (inout DiffableDatasourceSnapshot) throws -> Void) rethrows {
         var snapshot = dataSource.snapshot()
         try updateFunc(&snapshot)

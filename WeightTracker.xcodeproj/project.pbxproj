@@ -29,9 +29,10 @@
 		4D13AFFC2B31EFA3007484AE /* DatePickerCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D13AFFB2B31EFA3007484AE /* DatePickerCollectionCell.swift */; };
 		4DDF163A2B32BEFF00EAA86C /* EditWeightRecordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDF16392B32BEFF00EAA86C /* EditWeightRecordViewModel.swift */; };
 		4DDF163D2B334C3E00EAA86C /* Decimal+FormatWeight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDF163C2B334C3E00EAA86C /* Decimal+FormatWeight.swift */; };
-		4DDF163F2B33FC1800EAA86C /* WeightDisplayModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDF163E2B33FC1800EAA86C /* WeightDisplayModel.swift */; };
 		4DDF16422B3414D300EAA86C /* AlertPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDF16412B3414D300EAA86C /* AlertPresenter.swift */; };
 		4DDF16452B35A99C00EAA86C /* MassUnitsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDF16442B35A99C00EAA86C /* MassUnitsService.swift */; };
+		4DDF16482B35ECB100EAA86C /* Toast in Frameworks */ = {isa = PBXBuildFile; productRef = 4DDF16472B35ECB100EAA86C /* Toast */; };
+		4DDF164C2B35F4D100EAA86C /* Toaster.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDF164B2B35F4D100EAA86C /* Toaster.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -78,10 +79,10 @@
 		4D13AFFB2B31EFA3007484AE /* DatePickerCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerCollectionCell.swift; sourceTree = "<group>"; };
 		4DDF16392B32BEFF00EAA86C /* EditWeightRecordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditWeightRecordViewModel.swift; sourceTree = "<group>"; };
 		4DDF163C2B334C3E00EAA86C /* Decimal+FormatWeight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Decimal+FormatWeight.swift"; sourceTree = "<group>"; };
-		4DDF163E2B33FC1800EAA86C /* WeightDisplayModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightDisplayModel.swift; sourceTree = "<group>"; };
 		4DDF16412B3414D300EAA86C /* AlertPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertPresenter.swift; sourceTree = "<group>"; };
 		4DDF16432B35A5DE00EAA86C /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		4DDF16442B35A99C00EAA86C /* MassUnitsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MassUnitsService.swift; sourceTree = "<group>"; };
+		4DDF164B2B35F4D100EAA86C /* Toaster.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Toaster.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,6 +90,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4DDF16482B35ECB100EAA86C /* Toast in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -132,6 +134,7 @@
 		4D13AFA42B2F584D007484AE /* WeightTracker */ = {
 			isa = PBXGroup;
 			children = (
+				4DDF164A2B35F4BB00EAA86C /* Helpers */,
 				4DDF16402B3414C100EAA86C /* Services */,
 				4D13AFEE2B30A855007484AE /* CoreData */,
 				4D13AFE52B300639007484AE /* Models */,
@@ -175,10 +178,9 @@
 		4D13AFDB2B2F5B07007484AE /* WeightMonitor */ = {
 			isa = PBXGroup;
 			children = (
+				4DDF16492B35F2ED00EAA86C /* TableViewCells */,
 				4D13AFDC2B2F5B70007484AE /* WeightMonitorViewController.swift */,
 				4D13AFE62B300989007484AE /* WeightMonitorViewModel.swift */,
-				4D13AFE82B300B37007484AE /* WeightMonitortViewControllerCell.swift */,
-				4DDF163E2B33FC1800EAA86C /* WeightDisplayModel.swift */,
 			);
 			path = WeightMonitor;
 			sourceTree = "<group>";
@@ -248,6 +250,22 @@
 			path = Services;
 			sourceTree = "<group>";
 		};
+		4DDF16492B35F2ED00EAA86C /* TableViewCells */ = {
+			isa = PBXGroup;
+			children = (
+				4D13AFE82B300B37007484AE /* WeightMonitortViewControllerCell.swift */,
+			);
+			path = TableViewCells;
+			sourceTree = "<group>";
+		};
+		4DDF164A2B35F4BB00EAA86C /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				4DDF164B2B35F4D100EAA86C /* Toaster.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -264,6 +282,9 @@
 			dependencies = (
 			);
 			name = WeightTracker;
+			packageProductDependencies = (
+				4DDF16472B35ECB100EAA86C /* Toast */,
+			);
 			productName = WeightTracker;
 			productReference = 4D13AFA22B2F584D007484AE /* WeightTracker.app */;
 			productType = "com.apple.product-type.application";
@@ -337,6 +358,9 @@
 				ru,
 			);
 			mainGroup = 4D13AF992B2F584D007484AE;
+			packageReferences = (
+				4DDF16462B35ECB100EAA86C /* XCRemoteSwiftPackageReference "toast-swift" */,
+			);
 			productRefGroup = 4D13AFA32B2F584D007484AE /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -382,7 +406,6 @@
 				4D13AFF12B30A8FA007484AE /* WeightsStore.swift in Sources */,
 				4DDF16452B35A99C00EAA86C /* MassUnitsService.swift in Sources */,
 				4D13AFA62B2F584D007484AE /* AppDelegate.swift in Sources */,
-				4DDF163F2B33FC1800EAA86C /* WeightDisplayModel.swift in Sources */,
 				4D13AFE02B2F603B007484AE /* UIColor+appColors.swift in Sources */,
 				4DDF163A2B32BEFF00EAA86C /* EditWeightRecordViewModel.swift in Sources */,
 				4D13AFF62B3153DD007484AE /* EditWeightRecordViewController.swift in Sources */,
@@ -399,6 +422,7 @@
 				4D13AFFC2B31EFA3007484AE /* DatePickerCollectionCell.swift in Sources */,
 				4D13AFE42B30062D007484AE /* WeightRecord.swift in Sources */,
 				4D13AFF32B30B18C007484AE /* Context+SafeSave.swift in Sources */,
+				4DDF164C2B35F4D100EAA86C /* Toaster.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -740,6 +764,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		4DDF16462B35ECB100EAA86C /* XCRemoteSwiftPackageReference "toast-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/BastiaanJansen/toast-swift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.1.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		4DDF16472B35ECB100EAA86C /* Toast */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4DDF16462B35ECB100EAA86C /* XCRemoteSwiftPackageReference "toast-swift" */;
+			productName = Toast;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		4D13AFAE2B2F584D007484AE /* WeightTracker.xcdatamodeld */ = {

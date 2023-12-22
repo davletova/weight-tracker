@@ -86,7 +86,7 @@ final class WeightsStore: NSObject {
         request.returnsObjectsAsFaults = false
         request.predicate = NSPredicate(format: "%K == %@", #keyPath(WeightCoreData.recordId), id.uuidString)
         request.fetchLimit = 1
-    
+        
         var result: [WeightCoreData] = []
         do {
             result = try context.fetch(request)
@@ -94,7 +94,7 @@ final class WeightsStore: NSObject {
             print("failed to get record: \(error)")
             throw WeightsStoreError.internalError
         }
-
+        
         if result.count == 0 {
             throw WeightsStoreError.recordNotFound
         }

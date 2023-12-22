@@ -51,7 +51,7 @@ class WeightMonitortViewControllerCell: UITableViewCell {
         contentView.addSubview(diffLabel)
         contentView.addSubview(dateLabel)
         contentView.addSubview(chevron)
-
+        
         NSLayoutConstraint.activate([
             weightLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             weightLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
@@ -59,11 +59,11 @@ class WeightMonitortViewControllerCell: UITableViewCell {
             // Для столбцов вес:изменения:дата поделили экран в соотношении 40% : 40% : 20%
             // FIXME: из-за вычисления ширины столбцов в консоль падает куча варнингов
             // если установить константную ширину столбцов - все ок
-//            diffLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant:  2 * contentView.bounds.width / 5),
+            //            diffLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant:  2 * contentView.bounds.width / 5),
             diffLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant:  132),
             diffLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             
-//            dateLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 4 * contentView.bounds.width / 5),
+            //            dateLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 4 * contentView.bounds.width / 5),
             dateLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 248),
             dateLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             

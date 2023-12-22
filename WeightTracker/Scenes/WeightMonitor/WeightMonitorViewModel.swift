@@ -3,7 +3,7 @@ import UIKit
 
 protocol WeightMonitorViewModelDelegate: AnyObject {
     func reloadData()
-//    func reloadRows(indexPathes: [IndexPath])
+    //    func reloadRows(indexPathes: [IndexPath])
     func showAlert(alert: AlertModel)
     func deleteRow(indexPath: IndexPath, deleteRecord: WeightRecord)
     func addRow(index: Int)
@@ -22,7 +22,7 @@ class WeightMonitorViewModel {
     init(store: WeightsStore) {
         self.store = store
         
-//        try? store.clear()
+        //        try? store.clear()
     }
     
     func loadData() {
@@ -32,7 +32,7 @@ class WeightMonitorViewModel {
         
         do {
             recordCoreDatas = try store.list(withSort: [sort])
-           
+            
             for i in 0..<recordCoreDatas.count {
                 let record = WeightRecord(
                     id: recordCoreDatas[i].recordId!,
@@ -76,7 +76,7 @@ class WeightMonitorViewModel {
             if index < 2 {
                 currentDiff = records.count > 1 ? (records[0].weightValue - records[1].weightValue) : 0
                 if index == 0 {
-                    currentWeight = records[0].weightValue
+                    currentWeight = records.isEmpty ? 0 : records[0].weightValue
                 }
             }
             delegate?.deleteRow(indexPath: IndexPath(row: index, section: 0), deleteRecord: deleteRecord)
@@ -123,7 +123,7 @@ extension WeightMonitorViewModel: WeightsTableUpdater {
     
     func addRecord(record: WeightRecord) {
         let index = addRecordToList(record: record)
-
+        
         if index < 2 {
             currentDiff = records.count > 1 ? (records[0].weightValue - records[1].weightValue) : 0
             if index == 0 {

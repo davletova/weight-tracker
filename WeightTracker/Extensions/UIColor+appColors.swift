@@ -3,7 +3,7 @@ import UIKit
 
 enum AppColor {
     case appLightGray, appBlack40, appBlack60, appMainText, appPurple,
-         appGeneralBackground, appGray20, appPopoverBackground
+         appGeneralBackground, appGray20, appPopoverBackground, appToastBackground
     
     func getColor() -> UIColor {
         switch self {
@@ -55,6 +55,12 @@ enum AppColor {
                 return UIColor.gray
             }
             return appPopoverBackground
+        case .appToastBackground:
+            guard let appToastBackground = UIColor(named: "appToastBackground") else {
+                assertionFailure("appToastBackground not found")
+                return UIColor.gray
+            }
+            return appToastBackground
         }
     }
 }
