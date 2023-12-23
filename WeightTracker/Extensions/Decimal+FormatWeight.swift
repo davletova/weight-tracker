@@ -9,13 +9,6 @@ extension Decimal {
         return formatter.string(fromKilograms: Double(truncating: self as NSNumber))
     }
     
-    func formatWeight(in unit: UnitMass) -> String {
-        let formatter = MassFormatter()
-        formatter.isForPersonMassUse = true
-        formatter.numberFormatter.maximumFractionDigits = 1
-        return formatter.string(fromKilograms: Double(truncating: self as NSNumber))
-    }
-    
     func formatWeightWithoutUnit() -> String {
         let formatter = NumberFormatter()
         formatter.maximumFractionDigits = 1
@@ -27,8 +20,7 @@ extension Decimal {
     func formatWeightDiff() -> String {
         let formatter = MassFormatter()
         formatter.isForPersonMassUse = true
-        formatter.numberFormatter.positivePrefix = "+"
         formatter.numberFormatter.maximumFractionDigits = 1
-        return formatter.string(fromKilograms: Double(truncating: self as NSNumber))
+        return (self > 0 ? "+" : "") + formatter.string(fromKilograms: Double(truncating: self as NSNumber))
     }
 }
