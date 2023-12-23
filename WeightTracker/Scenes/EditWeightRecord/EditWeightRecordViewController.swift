@@ -113,10 +113,6 @@ class EditWeightRecordViewController: UIViewController {
             
             validationError.bottomAnchor.constraint(equalTo: saveButton.topAnchor, constant: -8),
             validationError.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
-            
-            //            collectionView.bottomAnchor.constraint(lessThanOrEqualTo: view.safeAreaLayoutGuide.bottomAnchor),
-            //            collectionView.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor),
-            //            collectionView.heightAnchor.constraint(lessThanOrEqualToConstant: 350),
         ])
     }
     

@@ -77,6 +77,7 @@ class WeightInputCollectionCell: UICollectionViewCell {
             weightInput.text = weight.formatWeightWithoutUnit()
         }
         unitLabel.text = unit
+        weightInput.becomeFirstResponder()
     }
 }
 

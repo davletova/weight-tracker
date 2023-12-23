@@ -1,9 +1,7 @@
 import Foundation
-import UIKit
 
 protocol WeightMonitorViewModelDelegate: AnyObject {
     func reloadData()
-    //    func reloadRows(indexPathes: [IndexPath])
     func showAlert(alert: AlertModel)
     func deleteRow(indexPath: IndexPath, deleteRecord: WeightRecord)
     func addRow(index: Int)
@@ -21,8 +19,6 @@ class WeightMonitorViewModel {
     
     init(store: WeightsStore) {
         self.store = store
-        
-        //        try? store.clear()
     }
     
     func loadData() {
@@ -31,7 +27,7 @@ class WeightMonitorViewModel {
         records = []
         
         do {
-            recordCoreDatas = try store.list(withSort: [sort])
+            recordCoreDatas = try store.listRecords(withSort: [sort])
             
             for i in 0..<recordCoreDatas.count {
                 let record = WeightRecord(
@@ -50,18 +46,7 @@ class WeightMonitorViewModel {
             let alertModel = AlertModel(
                 style: .alert,
                 title: "Не удалось загрузить записи",
-                actions: [
-                    UIAlertAction(
-                        title: "Попробовать еще",
-                        style: .default
-                    ) { [weak self] _ in
-                        self?.loadData()
-                    },
-                    UIAlertAction(
-                        title: "Закрыть",
-                        style: .cancel
-                    ) { _ in }
-                ]
+                actions: ["Попробовать еще": { self.loadData() }]
             )
             delegate?.showAlert(alert: alertModel)
         }
@@ -83,19 +68,7 @@ class WeightMonitorViewModel {
         } catch {
             let alertModel = AlertModel(
                 style: .alert,
-                title: "Не удалось удалить запись",
-                actions: [
-                    UIAlertAction(
-                        title: "Попробовать еще",
-                        style: .default
-                    ) { [weak self] _ in
-                        self?.loadData()
-                    },
-                    UIAlertAction(
-                        title: "Закрыть",
-                        style: .cancel
-                    ) { _ in }
-                ]
+                title: "Не удалось удалить запись"
             )
             delegate?.showAlert(alert: alertModel)
         }

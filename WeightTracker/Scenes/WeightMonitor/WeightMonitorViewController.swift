@@ -174,7 +174,6 @@ class WeightMonitorViewController: UIViewController {
         table.translatesAutoresizingMaskIntoConstraints = false
         table.allowsSelection = false
         table.register(WeightMonitortViewControllerCell.self, forCellReuseIdentifier: cellIdentifier)
-        // table.dataSource = self
         table.delegate = self
         view.addSubview(table)
         
@@ -182,7 +181,11 @@ class WeightMonitorViewController: UIViewController {
     }()
     
     private lazy var dataSource: DiffableDatasource = {
-        return DiffableDatasource(tableView: weightsTable) { (tableView, indexPath, weightRecordId) in
+        return DiffableDatasource(tableView: weightsTable) { [weak self] (tableView, indexPath, weightRecordId) in
+            guard let self else {
+                assertionFailure("self is empty")
+                return UITableViewCell()
+            }
             let weightModel = self.viewModel.records[indexPath.row]
             
             let cell = tableView.dequeueReusableCell(withIdentifier: self.cellIdentifier, for: indexPath) as! WeightMonitortViewControllerCell
@@ -212,8 +215,8 @@ class WeightMonitorViewController: UIViewController {
     
     private lazy var alertPresenter = AlertPresenter(delegate: self)
     
-    private lazy var toaster: Toaster = {
-        return Toaster(parentView: self.view)
+    private lazy var toaster: ToastPresenter = {
+        return ToastPresenter(parentView: self.view)
     }()
     
     init(_ viewModel: WeightMonitorViewModel) {
@@ -350,7 +353,7 @@ extension WeightMonitorViewController: WeightMonitorViewModelDelegate {
             diffLabel.text = viewModel.currentDiff.formatWeightDiff()
         }
         
-        toaster.show(text: "Удалено измерение")
+        toaster.show(text: "Измерение удалено")
     }
     
     func addRow(index: Int) {

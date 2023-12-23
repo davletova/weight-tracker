@@ -15,12 +15,12 @@ class DatePickerCollectionCell: UICollectionViewCell {
         datePicker.maximumDate = endOfDay
         datePicker.datePickerMode = .date
         datePicker.addAction(
-            UIAction { action in
+            UIAction { [weak self] action in
                 guard let datepicker = action.sender as? UIDatePicker else {
                     print("cant convert ")
                     return
                 }
-                self.delegate?.setDate(date: self.datePicker.date)
+                self?.delegate?.setDate(date: self?.datePicker.date ?? Date())
             },
             for: .valueChanged
         )

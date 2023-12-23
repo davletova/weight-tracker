@@ -1,5 +1,4 @@
 import Foundation
-import UIKit
 
 protocol EditWeightRecordViewViewModelDelegate: AnyObject {
     func reloadData()
@@ -56,13 +55,7 @@ class EditWeightRecordViewModel: WeightInputCollectionCellDelegate {
         } catch {
             let alertModel = AlertModel(
                 style: .alert,
-                title: "Не удалось сохранить запись",
-                actions: [
-                    UIAlertAction(
-                        title: "Закрыть",
-                        style: .cancel
-                    ) { _ in }
-                ]
+                title: "Не удалось сохранить запись"
             )
             delegate?.showAlert(alert: alertModel)
             return
@@ -90,13 +83,7 @@ class EditWeightRecordViewModel: WeightInputCollectionCellDelegate {
         } catch {
             let alertModel = AlertModel(
                 style: .alert,
-                title: "Не удалось сохранить запись",
-                actions: [
-                    UIAlertAction(
-                        title: "Закрыть",
-                        style: .cancel
-                    ) { _ in }
-                ]
+                title: "Не удалось сохранить запись"
             )
             delegate?.showAlert(alert: alertModel)
             return

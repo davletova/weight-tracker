@@ -32,7 +32,7 @@
 		4DDF16422B3414D300EAA86C /* AlertPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDF16412B3414D300EAA86C /* AlertPresenter.swift */; };
 		4DDF16452B35A99C00EAA86C /* MassUnitsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDF16442B35A99C00EAA86C /* MassUnitsService.swift */; };
 		4DDF16482B35ECB100EAA86C /* Toast in Frameworks */ = {isa = PBXBuildFile; productRef = 4DDF16472B35ECB100EAA86C /* Toast */; };
-		4DDF164C2B35F4D100EAA86C /* Toaster.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDF164B2B35F4D100EAA86C /* Toaster.swift */; };
+		4DDF164C2B35F4D100EAA86C /* ToastPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDF164B2B35F4D100EAA86C /* ToastPresenter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -82,7 +82,7 @@
 		4DDF16412B3414D300EAA86C /* AlertPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertPresenter.swift; sourceTree = "<group>"; };
 		4DDF16432B35A5DE00EAA86C /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		4DDF16442B35A99C00EAA86C /* MassUnitsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MassUnitsService.swift; sourceTree = "<group>"; };
-		4DDF164B2B35F4D100EAA86C /* Toaster.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Toaster.swift; sourceTree = "<group>"; };
+		4DDF164B2B35F4D100EAA86C /* ToastPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastPresenter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -244,7 +244,6 @@
 		4DDF16402B3414C100EAA86C /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				4DDF16412B3414D300EAA86C /* AlertPresenter.swift */,
 				4DDF16442B35A99C00EAA86C /* MassUnitsService.swift */,
 			);
 			path = Services;
@@ -261,7 +260,8 @@
 		4DDF164A2B35F4BB00EAA86C /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				4DDF164B2B35F4D100EAA86C /* Toaster.swift */,
+				4DDF16412B3414D300EAA86C /* AlertPresenter.swift */,
+				4DDF164B2B35F4D100EAA86C /* ToastPresenter.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -422,7 +422,7 @@
 				4D13AFFC2B31EFA3007484AE /* DatePickerCollectionCell.swift in Sources */,
 				4D13AFE42B30062D007484AE /* WeightRecord.swift in Sources */,
 				4D13AFF32B30B18C007484AE /* Context+SafeSave.swift in Sources */,
-				4DDF164C2B35F4D100EAA86C /* Toaster.swift in Sources */,
+				4DDF164C2B35F4D100EAA86C /* ToastPresenter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

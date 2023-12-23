@@ -2,8 +2,8 @@ import UIKit
 import Foundation
 import Toast
 
-class Toaster {
-    private let parentView: UIView
+class ToastPresenter {
+    weak private var parentView: UIView?
     private lazy var toastConfig = ToastConfiguration(
         direction: .bottom,
         dismissBy: [.time(time: 2.0), .swipe(direction: .natural), .longPress],
@@ -11,7 +11,7 @@ class Toaster {
     )
     private lazy var toastViewConfig = ToastViewConfiguration(
         minHeight: 52,
-        minWidth: parentView.bounds.width - 32,
+        minWidth: (parentView?.bounds.width ?? 280) - 32,
         darkBackgroundColor: .getAppColors(.appToastBackground),
         lightBackgroundColor: .getAppColors(.appToastBackground),
         cornerRadius: 12.0

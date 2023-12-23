@@ -9,7 +9,14 @@ enum WeightsStoreError: Error {
     case unexpectedMultipleResult
 }
 
-final class WeightsStore: NSObject {
+protocol WeightStoreProtocol {
+    func listRecords(withSort: [NSSortDescriptor]) throws -> [WeightCoreData]
+    func addRecord(record: WeightRecord) throws
+    func updateRecord(_ updateRecord: WeightRecord) throws -> WeightRecord
+    func deleteRecord(by id: UUID) throws
+}
+
+final class WeightsStore: NSObject, WeightStoreProtocol {
     private let context: NSManagedObjectContext
     
     convenience override init() {
@@ -22,7 +29,7 @@ final class WeightsStore: NSObject {
         super.init()
     }
     
-    func list(withSort: [NSSortDescriptor]) throws -> [WeightCoreData] {
+    func listRecords(withSort: [NSSortDescriptor]) throws -> [WeightCoreData] {
         let request = WeightCoreData.fetchRequest()
         request.sortDescriptors = withSort
         
