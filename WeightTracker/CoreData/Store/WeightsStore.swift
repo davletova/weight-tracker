@@ -10,7 +10,7 @@ enum WeightsStoreError: Error {
 }
 
 protocol WeightsStoreProtocol {
-    func listRecords(withSort: [NSSortDescriptor]) throws -> [WeightCoreData]
+    func listRecords(withSort: [NSSortDescriptor]) throws -> [WeightRecord]
     func addRecord(record: WeightRecord) throws
     @discardableResult
     func updateRecord(_ updateRecord: WeightRecord) throws -> WeightRecord
@@ -30,20 +30,20 @@ final class WeightsStore: NSObject, WeightsStoreProtocol {
         super.init()
     }
     
-    func listRecords(withSort: [NSSortDescriptor]) throws -> [WeightCoreData] {
+    func listRecords(withSort: [NSSortDescriptor]) throws -> [WeightRecord] {
         let request = WeightCoreData.fetchRequest()
         request.sortDescriptors = withSort
         
-        var records: [WeightCoreData] = []
+        var recordsCoreData: [WeightCoreData] = []
         
         do {
-            records = try context.fetch(request)
+            recordsCoreData = try context.fetch(request)
         } catch {
             print("list records failed: \(error)")
             throw WeightsStoreError.internalError
         }
         
-        return records
+        return recordsCoreData.map { WeightRecord(id: $0.recordId!, weightValue: $0.weightValue! as Decimal, date: $0.date!) }
     }
     
     func addRecord(record: WeightRecord) throws {

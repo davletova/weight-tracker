@@ -28,9 +28,7 @@ class WeightMonitorViewModel {
         records.removeAll(keepingCapacity: true)
 
         do {
-            records = try store.listRecords(withSort: [NSSortDescriptor(key: "date", ascending: false)]).map({
-                WeightRecord(id: $0.recordId!, weightValue: $0.weightValue! as Decimal, date: $0.date!)
-            })
+            records = try store.listRecords(withSort: [NSSortDescriptor(key: "date", ascending: false)])
 
             updateCurrentWeight()
         } catch {
