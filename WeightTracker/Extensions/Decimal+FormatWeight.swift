@@ -4,9 +4,8 @@ import Foundation
 extension Decimal {
     func formatWeight() -> String {
         let formatter = MassFormatter()
-        formatter.isForPersonMassUse = true
-        formatter.numberFormatter.maximumFractionDigits = 1
-        return formatter.string(fromKilograms: Double(truncating: self as NSNumber))
+        formatter.numberFormatter.maximumFractionDigits = 1        
+        return formatter.string(fromValue: Double(truncating: self as NSNumber), unit: .kilogram)
     }
     
     func formatWeightWithoutUnit() -> String {
@@ -19,8 +18,7 @@ extension Decimal {
     
     func formatWeightDiff() -> String {
         let formatter = MassFormatter()
-        formatter.isForPersonMassUse = true
         formatter.numberFormatter.maximumFractionDigits = 1
-        return (self > 0 ? "+" : "") + formatter.string(fromKilograms: Double(truncating: self as NSNumber))
+        return (self > 0 ? "+" : "") + formatter.string(fromValue: Double(truncating: self as NSNumber), unit: .kilogram)
     }
 }
