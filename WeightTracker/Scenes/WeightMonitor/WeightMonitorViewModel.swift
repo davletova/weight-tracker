@@ -17,7 +17,7 @@ class WeightMonitorViewModel {
     private var dataSource: DiffableDatasource?
 
     var currentWeight: Decimal = 0
-    var currentDiff: Decimal = 0
+    var currentDiff: Decimal? = 0
     var records: [WeightRecord] = []
     
     init(store: WeightsStoreProtocol) {
@@ -51,13 +51,6 @@ class WeightMonitorViewModel {
 
         self.dataSource = dataSource
     }
-
-    func updateCurrentWeight() {
-        currentWeight = records.first?.weightValue ?? 0
-        currentDiff = records.count > 1 ? (currentWeight - records[1].weightValue) : 0
-
-        delegate?.updateCurrentWeight()
-    }
     
     func deleteRecord(at index: Int) {
         guard let dataSource = self.dataSource else {
@@ -87,6 +80,13 @@ class WeightMonitorViewModel {
             )
             delegate?.showAlert(alert: alertModel)
         }
+    }
+    
+    func updateCurrentWeight() {
+        currentWeight = records.first?.weightValue ?? 0
+        currentDiff = records.count > 1 ? (currentWeight - records[1].weightValue) : nil
+
+        delegate?.updateCurrentWeight()
     }
 }
 

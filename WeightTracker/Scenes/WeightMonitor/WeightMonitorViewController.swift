@@ -36,7 +36,7 @@ class WeightMonitorViewController: UIViewController {
     
     private lazy var diffLabel: UILabel = {
         let label = UILabel()
-        label.text = viewModel.currentDiff.formatWeightDiff()
+        label.text = viewModel.currentDiff != nil ? viewModel.currentDiff!.formatWeightDiff() : ""
         label.font = .systemFont(ofSize: 17, weight: .medium)
         label.textColor = UIColor.getAppColors(.appBlack60)
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -322,7 +322,7 @@ class WeightMonitorViewController: UIViewController {
    extension WeightMonitorViewController: WeightMonitorViewModelDelegate {
        func updateCurrentWeight() {
            weightLabel.text = viewModel.currentWeight.formatWeight()
-           diffLabel.text = viewModel.currentDiff.formatWeightDiff()
+           diffLabel.text = viewModel.currentDiff != nil ? viewModel.currentDiff!.formatWeightDiff() : ""
        }
 
        func showAlert(alert: AlertModel) {
