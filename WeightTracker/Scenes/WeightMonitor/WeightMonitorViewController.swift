@@ -8,6 +8,7 @@ class WeightMonitorViewController: UIViewController {
     
     private let rowHeight: CGFloat = 46
     private let cellIdentifier = "cell"
+    private lazy var screenWidth = self.view.bounds.width
     
     private var viewModel: WeightMonitorViewModel
     
@@ -156,10 +157,11 @@ class WeightMonitorViewController: UIViewController {
             weightLabel.centerYAnchor.constraint(equalTo: columnHeaderView.centerYAnchor),
             
             diffLabel.centerYAnchor.constraint(equalTo: columnHeaderView.centerYAnchor),
-            diffLabel.leadingAnchor.constraint(equalTo: columnHeaderView.leadingAnchor, constant: 2 * (columnHeaderView.bounds.width - WeightMonitortViewControllerCell.chevronSideLenght) / 5),
+            // Для столбцов вес:изменения:дата поделили экран в соотношении 40% : 40% : 20%
+            diffLabel.leadingAnchor.constraint(equalTo: columnHeaderView.leadingAnchor, constant: 3 * (screenWidth - WeightMonitortViewControllerCell.chevronSideLenght)  / 8),
             
             dateLabel.centerYAnchor.constraint(equalTo: columnHeaderView.centerYAnchor),
-            dateLabel.leadingAnchor.constraint(equalTo: columnHeaderView.leadingAnchor, constant: 4 * (columnHeaderView.bounds.width - WeightMonitortViewControllerCell.chevronSideLenght) / 5),
+            dateLabel.leadingAnchor.constraint(equalTo: columnHeaderView.leadingAnchor, constant: 3 * (screenWidth - WeightMonitortViewControllerCell.chevronSideLenght) / 4),
         ])
         
         view.addSubview(columnHeaderView)
@@ -193,9 +195,9 @@ class WeightMonitorViewController: UIViewController {
             if indexPath.row < self.viewModel.records.endIndex-1 {
                 let prev = self.viewModel.records[indexPath.row + 1]
                 let diff = weightModel.weightValue - prev.weightValue
-                cell.configure(weight: weightModel, diff: diff)
+                cell.configure(weight: weightModel, screenWidth: screenWidth, diff: diff)
             } else {
-                cell.configure(weight: weightModel)
+                cell.configure(weight: weightModel, screenWidth: screenWidth)
             }
             
             return cell

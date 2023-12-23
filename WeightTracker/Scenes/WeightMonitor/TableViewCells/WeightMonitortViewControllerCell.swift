@@ -42,7 +42,7 @@ class WeightMonitortViewControllerCell: UITableViewCell {
         return image
     }()
     
-    func configure(weight: WeightRecord, diff: Decimal? = nil) {
+    func configure(weight: WeightRecord, screenWidth: CGFloat, diff: Decimal? = nil) {
         weightLabel.text = weight.weightValue.formatWeight()
         dateLabel.text = formatDate(date: weight.date)
         diffLabel.text = diff?.formatWeightDiff() ?? ""
@@ -57,14 +57,10 @@ class WeightMonitortViewControllerCell: UITableViewCell {
             weightLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             
             // Для столбцов вес:изменения:дата поделили экран в соотношении 40% : 40% : 20%
-            // FIXME: из-за вычисления ширины столбцов в консоль падает куча варнингов
-            // если установить константную ширину столбцов - все ок
-            //            diffLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant:  2 * contentView.bounds.width / 5),
-            diffLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant:  132),
+            diffLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 3 * (screenWidth - WeightMonitortViewControllerCell.chevronSideLenght) / 8),
             diffLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             
-            //            dateLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 4 * contentView.bounds.width / 5),
-            dateLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 248),
+            dateLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 3 * (screenWidth - WeightMonitortViewControllerCell.chevronSideLenght)  / 4),
             dateLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             
             chevron.heightAnchor.constraint(equalToConstant: WeightMonitortViewControllerCell.chevronSideLenght),
