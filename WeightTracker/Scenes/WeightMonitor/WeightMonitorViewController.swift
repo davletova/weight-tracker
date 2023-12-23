@@ -195,9 +195,7 @@ class WeightMonitorViewController: UIViewController {
        
        private lazy var alertPresenter = AlertPresenter(delegate: self)
        
-       private lazy var toaster: ToastPresenter = {
-           return ToastPresenter(parentView: self.view)
-       }()
+       private lazy var toastPresenter = ToastPresenter(parentView: self.view)
        
        init(_ viewModel: WeightMonitorViewModel) {
            self.viewModel = viewModel
@@ -329,5 +327,9 @@ class WeightMonitorViewController: UIViewController {
 
        func showAlert(alert: AlertModel) {
            alertPresenter.show(result: alert)
+       }
+       
+       func showTost(_ message: String) {
+           toastPresenter.show(message)
        }
    }

@@ -12,6 +12,7 @@ enum WeightsStoreError: Error {
 protocol WeightsStoreProtocol {
     func listRecords(withSort: [NSSortDescriptor]) throws -> [WeightCoreData]
     func addRecord(record: WeightRecord) throws
+    @discardableResult
     func updateRecord(_ updateRecord: WeightRecord) throws -> WeightRecord
     func deleteRecord(by id: UUID) throws
 }

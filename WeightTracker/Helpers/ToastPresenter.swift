@@ -21,12 +21,12 @@ class ToastPresenter {
         self.parentView = parentView
     }
     
-    func show(text: String) {
+    func show(_ message: String) {
         let attributes = [
             NSAttributedString.Key.font: UIFont.systemFont(ofSize: 15, weight: .medium),
             NSAttributedString.Key.foregroundColor: UIColor.getAppColors(.appGeneralBackground)
         ]
-        let attributedString  = NSMutableAttributedString(string: text, attributes: attributes)
+        let attributedString  = NSMutableAttributedString(string: message, attributes: attributes)
         
         Toast.text(attributedString, viewConfig: toastViewConfig, config: toastConfig).show()
     }

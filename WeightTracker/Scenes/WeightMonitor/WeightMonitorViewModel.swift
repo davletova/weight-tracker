@@ -4,6 +4,7 @@ import Foundation
 protocol WeightMonitorViewModelDelegate: AnyObject {
     func updateCurrentWeight()
     func showAlert(alert: AlertModel)
+    func showTost(_ message: String)
 }
 
 class WeightMonitorViewModel {
@@ -77,6 +78,8 @@ class WeightMonitorViewModel {
             dataSource.apply(snapshot, animatingDifferences: true)
 
             updateCurrentWeight()
+            
+            delegate?.showTost("Измерение удалено")
         } catch {
             let alertModel = AlertModel(
                 style: .alert,
@@ -99,7 +102,7 @@ extension WeightMonitorViewModel: WeightDataMutator {
             return
         }
 
-        let _ = try store.updateRecord(updateRecord)
+        try store.updateRecord(updateRecord)
         records[updateIndex] = updateRecord
 
         let reconfigureItems = updateIndex > 0
@@ -111,6 +114,8 @@ extension WeightMonitorViewModel: WeightDataMutator {
         dataSource.apply(snapshot, animatingDifferences: true)
         
         updateCurrentWeight()
+        
+        delegate?.showTost("Измерение изменено")
     }
     
     func addRecord(record: WeightRecord) throws {
@@ -137,5 +142,7 @@ extension WeightMonitorViewModel: WeightDataMutator {
         dataSource.apply(snapshot, animatingDifferences: true)
 
         updateCurrentWeight()
+        
+        delegate?.showTost("Добавлено измерение")
     }
 }
