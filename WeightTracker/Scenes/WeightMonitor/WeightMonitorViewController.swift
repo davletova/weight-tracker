@@ -10,6 +10,9 @@ class WeightMonitorViewController: UIViewController {
     private let cellIdentifier = "cell"
     private lazy var screenWidth = self.view.bounds.width
     
+    private lazy var alertPresenter = AlertPresenter(delegate: self)
+    private lazy var toastPresenter = ToastPresenter(parentView: self.view)
+
     private var viewModel: WeightMonitorViewModel
     
     private lazy var titleLabel: UILabel = {
@@ -192,11 +195,7 @@ class WeightMonitorViewController: UIViewController {
            
            return button
        }()
-       
-       private lazy var alertPresenter = AlertPresenter(delegate: self)
-       
-       private lazy var toastPresenter = ToastPresenter(parentView: self.view)
-       
+              
        init(_ viewModel: WeightMonitorViewModel) {
            self.viewModel = viewModel
            super.init(nibName: nil, bundle: nil)
@@ -212,7 +211,7 @@ class WeightMonitorViewController: UIViewController {
            
            setupConstraint()
            
-           viewModel.loadData(tableView: weightsTable) { [weak self] (tableView, indexPath, weightRecordId) in
+           viewModel.setupDiffableDataSource(tableView: weightsTable) { [weak self] (tableView, indexPath, weightRecordId) in
                guard let self else {
                    assertionFailure("self is empty")
                    return UITableViewCell()

@@ -12,6 +12,8 @@ enum CollectionSectionType: Int {
 }
 
 class EditWeightRecordViewController: UIViewController {
+    private lazy var alertPresenter = AlertPresenter(delegate: self)
+    
     var viewModel: EditWeightRecordViewModel
     
     private lazy var titleLabel: UILabel = {
@@ -65,8 +67,6 @@ class EditWeightRecordViewController: UIViewController {
         
         return label
     }()
-    
-    private lazy var alertPresenter = AlertPresenter(delegate: self)
     
     init(viewModel: EditWeightRecordViewModel) {
         self.viewModel = viewModel

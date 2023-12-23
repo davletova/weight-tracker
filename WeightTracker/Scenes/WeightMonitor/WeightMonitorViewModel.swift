@@ -12,9 +12,9 @@ class WeightMonitorViewModel {
     typealias DiffableDatasourceSnapshot = NSDiffableDataSourceSnapshot<Int, WeightRecord.ID>
 
     private let store: WeightsStoreProtocol
-    weak var delegate: WeightMonitorViewModelDelegate?
-
     private var dataSource: DiffableDatasource?
+
+    weak var delegate: WeightMonitorViewModelDelegate?    
 
     var currentWeight: Decimal = 0
     var currentDiff: Decimal? = 0
@@ -24,7 +24,7 @@ class WeightMonitorViewModel {
         self.store = store
     }
     
-    func loadData(tableView: UITableView, cellProvider: @escaping DiffableDatasource.CellProvider) {
+    func setupDiffableDataSource(tableView: UITableView, cellProvider: @escaping DiffableDatasource.CellProvider) {
         records.removeAll(keepingCapacity: true)
 
         do {
@@ -35,7 +35,7 @@ class WeightMonitorViewModel {
             let alertModel = AlertModel(
                 style: .alert,
                 title: "Не удалось загрузить записи",
-                actions: ["Попробовать еще": { self.loadData(tableView: tableView, cellProvider: cellProvider) }]
+                actions: ["Попробовать еще": { self.setupDiffableDataSource(tableView: tableView, cellProvider: cellProvider) }]
             )
             delegate?.showAlert(alert: alertModel)
             return
