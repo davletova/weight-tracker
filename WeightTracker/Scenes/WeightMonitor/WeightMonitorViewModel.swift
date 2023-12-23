@@ -9,7 +9,7 @@ protocol WeightMonitorViewModelDelegate: AnyObject {
 }
 
 class WeightMonitorViewModel {
-    private let store: WeightsStore
+    private let store: WeightsStoreProtocol
     
     weak var delegate: WeightMonitorViewModelDelegate?
     
@@ -17,7 +17,7 @@ class WeightMonitorViewModel {
     var currentDiff: Decimal = 0
     var records: [WeightRecord] = []
     
-    init(store: WeightsStore) {
+    init(store: WeightsStoreProtocol) {
         self.store = store
     }
     

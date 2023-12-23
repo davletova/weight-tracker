@@ -14,7 +14,7 @@ protocol WeightsTableUpdater {
 }
 
 class EditWeightRecordViewModel: WeightInputCollectionCellDelegate {
-    private var store: WeightsStore
+    private var store: WeightsStoreProtocol
     
     weak var delegate: EditWeightRecordViewViewModelDelegate?
     var tableUpdater: WeightsTableUpdater
@@ -25,7 +25,7 @@ class EditWeightRecordViewModel: WeightInputCollectionCellDelegate {
     var date = Date()
     var weightInput: String = ""
     
-    init(store: WeightsStore, tableUpdater: WeightsTableUpdater) {
+    init(store: WeightsStoreProtocol, tableUpdater: WeightsTableUpdater) {
         self.store = store
         self.tableUpdater = tableUpdater
     }
