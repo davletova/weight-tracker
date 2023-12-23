@@ -170,235 +170,164 @@ class WeightMonitorViewController: UIViewController {
     }()
     
     private lazy var weightsTable: UITableView = {
-        let table = UITableView()
-        table.separatorStyle = .none
-        table.rowHeight = rowHeight
-        table.translatesAutoresizingMaskIntoConstraints = false
-        table.allowsSelection = false
-        table.register(WeightMonitortViewControllerCell.self, forCellReuseIdentifier: cellIdentifier)
-        table.delegate = self
-        view.addSubview(table)
-        
-        return table
-    }()
-    
-    private lazy var dataSource: DiffableDatasource = {
-        return DiffableDatasource(tableView: weightsTable) { [weak self] (tableView, indexPath, weightRecordId) in
-            guard let self else {
-                assertionFailure("self is empty")
-                return UITableViewCell()
-            }
-            let weightModel = self.viewModel.records[indexPath.row]
-            
-            let cell = tableView.dequeueReusableCell(withIdentifier: self.cellIdentifier, for: indexPath) as! WeightMonitortViewControllerCell
-            
-            if indexPath.row < self.viewModel.records.endIndex-1 {
-                let prev = self.viewModel.records[indexPath.row + 1]
-                let diff = weightModel.weightValue - prev.weightValue
-                cell.configure(weight: weightModel, screenWidth: screenWidth, diff: diff)
-            } else {
-                cell.configure(weight: weightModel, screenWidth: screenWidth)
-            }
-            
-            return cell
-        }
-    }()
-    
-    private lazy var addButton: UIButton = {
-        let button = UIButton()
-        button.setImage(UIImage(named: "plus"), for: .normal)
-        button.tintColor = UIColor.getAppColors(.appPurple).withAlphaComponent(0.3)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.addTarget(self, action: #selector(tapCreateRecordButton), for: .touchUpInside)
-        view.addSubview(button)
-        
-        return button
-    }()
-    
-    private lazy var alertPresenter = AlertPresenter(delegate: self)
-    
-    private lazy var toaster: ToastPresenter = {
-        return ToastPresenter(parentView: self.view)
-    }()
-    
-    init(_ viewModel: WeightMonitorViewModel) {
-        self.viewModel = viewModel
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        view.backgroundColor = UIColor.getAppColors(.appGeneralBackground)
-        
-        setupConstraint()
-        
-        viewModel.loadData()
-        
-        updateDataSource { snapshot in
-            snapshot.appendSections([0])
-            snapshot.appendItems(viewModel.records.map(\.id))
-        }
-    }
-    
-    func setupConstraint() {
-        NSLayoutConstraint.activate([
-            titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16),
-            titleLabel.heightAnchor.constraint(equalToConstant: 24),
-            titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            
-            currentWeight.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 24),
-            currentWeight.heightAnchor.constraint(equalToConstant: 129),
-            currentWeight.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
-            currentWeight.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
-            
-            historyLabel.topAnchor.constraint(equalTo: currentWeight.bottomAnchor, constant: 16),
-            historyLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
-            
-            columnHeaderView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            columnHeaderView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            columnHeaderView.topAnchor.constraint(equalTo: historyLabel.bottomAnchor, constant: 16),
-            columnHeaderView.heightAnchor.constraint(equalToConstant: 18),
-            
-            lineView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
-            lineView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
-            lineView.topAnchor.constraint(equalTo: columnHeaderView.bottomAnchor, constant: 8),
-            lineView.heightAnchor.constraint(equalToConstant: 1),
-            
-            weightsTable.topAnchor.constraint(equalTo: lineView.bottomAnchor, constant: 8),
-            weightsTable.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            weightsTable.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            weightsTable.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            
-            addButton.heightAnchor.constraint(equalToConstant: 80),
-            addButton.widthAnchor.constraint(equalToConstant: 80),
-            addButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            addButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-        ])
-    }
-    
-    @objc func tapCreateRecordButton() {
-        let editWeightRecordVM = EditWeightRecordViewModel(store: WeightsStore(), tableUpdater: viewModel)
-        let editWeightRecordVC = EditWeightRecordViewController(viewModel: editWeightRecordVM)
-        editWeightRecordVM.delegate = editWeightRecordVC
-        editWeightRecordVC.modalPresentationStyle = .popover
-        self.present(editWeightRecordVC, animated: true)
-    }
-}
+           let table = UITableView()
+           table.separatorStyle = .none
+           table.rowHeight = rowHeight
+           table.translatesAutoresizingMaskIntoConstraints = false
+           table.allowsSelection = false
+           table.register(WeightMonitortViewControllerCell.self, forCellReuseIdentifier: cellIdentifier)
+           table.delegate = self
+           view.addSubview(table)
+           
+           return table
+       }()
 
-extension WeightMonitorViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        if indexPath.row >= viewModel.records.endIndex {
-            assertionFailure("should never happen")
-            return nil
-        }
-        
-        let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { [weak self] _, _, completion in
-            guard let self else {
-                assertionFailure("self is empty")
-                return
-            }
-            
-            self.viewModel.deleteRecord(at: indexPath.row)
-            completion(true)
-        }
-        
-        let editAction = UIContextualAction(style: .normal, title: "Edit") { [weak self] _, _, completion in
-            guard let self else {
-                assertionFailure("self is empty")
-                return
-            }
-            
-            let editWeightRecordVM = EditWeightRecordViewModel(store: WeightsStore(), tableUpdater: self.viewModel)
-            let editWeightRecordVC = EditWeightRecordViewController(viewModel: editWeightRecordVM)
-            editWeightRecordVM.delegate = editWeightRecordVC
-            editWeightRecordVM.updateWeight = self.viewModel.records[indexPath.row]
-            editWeightRecordVM.date = self.viewModel.records[indexPath.row].date
-            editWeightRecordVM.updateWeightIndex = indexPath.row
-            editWeightRecordVC.modalPresentationStyle = .popover
-            self.present(editWeightRecordVC, animated: true)
-            completion(true)
-        }
-        
-        let swipeConfiguration = UISwipeActionsConfiguration(actions: [deleteAction, editAction])
-        swipeConfiguration.performsFirstActionWithFullSwipe = false
-        
-        return swipeConfiguration
-    }
-}
+       private lazy var addButton: UIButton = {
+           let button = UIButton()
+           button.setImage(UIImage(named: "plus"), for: .normal)
+           button.tintColor = UIColor.getAppColors(.appPurple).withAlphaComponent(0.3)
+           button.translatesAutoresizingMaskIntoConstraints = false
+           button.addTarget(self, action: #selector(tapCreateRecordButton), for: .touchUpInside)
+           view.addSubview(button)
+           
+           return button
+       }()
+       
+       private lazy var alertPresenter = AlertPresenter(delegate: self)
+       
+       private lazy var toaster: ToastPresenter = {
+           return ToastPresenter(parentView: self.view)
+       }()
+       
+       init(_ viewModel: WeightMonitorViewModel) {
+           self.viewModel = viewModel
+           super.init(nibName: nil, bundle: nil)
+       }
+       
+       required init?(coder: NSCoder) {
+           fatalError("init(coder:) has not been implemented")
+       }
+       
+       override func viewDidLoad() {
+           super.viewDidLoad()
+           view.backgroundColor = UIColor.getAppColors(.appGeneralBackground)
+           
+           setupConstraint()
+           
+           viewModel.loadData(tableView: weightsTable) { [weak self] (tableView, indexPath, weightRecordId) in
+               guard let self else {
+                   assertionFailure("self is empty")
+                   return UITableViewCell()
+               }
 
-extension WeightMonitorViewController: WeightMonitorViewModelDelegate {
-    func reloadData() {
-        weightLabel.text = viewModel.currentWeight.formatWeight()
-        diffLabel.text = viewModel.currentDiff.formatWeightDiff()
-        
-        weightsTable.reloadData()
-    }
-    
-    func showAlert(alert: AlertModel) {
-        alertPresenter.show(result: alert)
-    }
-    
-    func deleteRow(indexPath: IndexPath, deleteRecord: WeightRecord) {
-        updateDataSource { snapshot in
-            snapshot.deleteItems([deleteRecord.id])
-            if indexPath.row > 0 {
-                snapshot.reconfigureItems([viewModel.records[indexPath.row - 1].id])
-            }
-        }
-        
-        if indexPath.row < 2 {
-            weightLabel.text = viewModel.currentWeight.formatWeight()
-            diffLabel.text = viewModel.currentDiff.formatWeightDiff()
-        }
-        
-        toaster.show(text: "Измерение удалено")
-    }
-    
-    func addRow(index: Int) {
-        let newRecord = viewModel.records[index]
-        
-        updateDataSource { snapshot in
-            if index == viewModel.records.endIndex - 1 {
-                snapshot.appendItems([newRecord.id])
-            } else {
-                snapshot.insertItems([newRecord.id], beforeItem: viewModel.records[index + 1].id)
-            }
-            
-            if index > 0 {
-                snapshot.reconfigureItems([viewModel.records[index - 1].id])
-            }
-        }
-        
-        if index < 2 {
-            weightLabel.text = viewModel.currentWeight.formatWeight()
-            diffLabel.text = viewModel.currentDiff.formatWeightDiff()
-        }
-        
-        toaster.show(text: "Добавлено новое измерение")
-    }
-    
-    func reconfigureRow(record: WeightRecord, index: Int) {
-        let reconfigureRecordIds = index > 0 ? [record.id, viewModel.records[index - 1].id] : [record.id]
-        
-        updateDataSource { snapshot in
-            snapshot.reconfigureItems(reconfigureRecordIds)
-        }
-        
-        if index < 2 {
-            weightLabel.text = viewModel.currentWeight.formatWeight()
-            diffLabel.text = viewModel.currentDiff.formatWeightDiff()
-        }
-        
-        toaster.show(text: "Измерение отредактировано")
-    }
-    
-    private func updateDataSource(_ updateFunc: (inout DiffableDatasourceSnapshot) throws -> Void) rethrows {
-        var snapshot = dataSource.snapshot()
-        try updateFunc(&snapshot)
-        dataSource.apply(snapshot, animatingDifferences: false)
-    }
-}
+               let weightModel = self.viewModel.records[indexPath.row]
+               let cell = tableView.dequeueReusableCell(withIdentifier: self.cellIdentifier, for: indexPath) as! WeightMonitortViewControllerCell
+
+               if indexPath.row < self.viewModel.records.endIndex-1 {
+                   let prev = self.viewModel.records[indexPath.row + 1]
+                   let diff = weightModel.weightValue - prev.weightValue
+                   cell.configure(weight: weightModel, screenWidth: screenWidth, diff: diff)
+               } else {
+                   cell.configure(weight: weightModel, screenWidth: screenWidth)
+               }
+
+               return cell
+           }
+       }
+       
+       func setupConstraint() {
+           NSLayoutConstraint.activate([
+               titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16),
+               titleLabel.heightAnchor.constraint(equalToConstant: 24),
+               titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+               
+               currentWeight.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 24),
+               currentWeight.heightAnchor.constraint(equalToConstant: 129),
+               currentWeight.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
+               currentWeight.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
+               
+               historyLabel.topAnchor.constraint(equalTo: currentWeight.bottomAnchor, constant: 16),
+               historyLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
+               
+               columnHeaderView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+               columnHeaderView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+               columnHeaderView.topAnchor.constraint(equalTo: historyLabel.bottomAnchor, constant: 16),
+               columnHeaderView.heightAnchor.constraint(equalToConstant: 18),
+               
+               lineView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
+               lineView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
+               lineView.topAnchor.constraint(equalTo: columnHeaderView.bottomAnchor, constant: 8),
+               lineView.heightAnchor.constraint(equalToConstant: 1),
+               
+               weightsTable.topAnchor.constraint(equalTo: lineView.bottomAnchor, constant: 8),
+               weightsTable.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+               weightsTable.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+               weightsTable.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+               
+               addButton.heightAnchor.constraint(equalToConstant: 80),
+               addButton.widthAnchor.constraint(equalToConstant: 80),
+               addButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+               addButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+           ])
+       }
+       
+       @objc func tapCreateRecordButton() {
+           let editWeightRecordVM = EditWeightRecordViewModel(tableUpdater: viewModel)
+           let editWeightRecordVC = EditWeightRecordViewController(viewModel: editWeightRecordVM)
+           editWeightRecordVM.delegate = editWeightRecordVC
+           editWeightRecordVC.modalPresentationStyle = .popover
+           self.present(editWeightRecordVC, animated: true)
+       }
+   }
+
+   extension WeightMonitorViewController: UITableViewDelegate {
+       func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+           if indexPath.row >= viewModel.records.endIndex {
+               assertionFailure("should never happen")
+               return nil
+           }
+           
+           let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { [weak self] _, _, completion in
+               guard let self else {
+                   assertionFailure("self is empty")
+                   return
+               }
+               
+               self.viewModel.deleteRecord(at: indexPath.row)
+               completion(true)
+           }
+           
+           let editAction = UIContextualAction(style: .normal, title: "Edit") { [weak self] _, _, completion in
+               guard let self else {
+                   assertionFailure("self is empty")
+                   return
+               }
+               
+               let editWeightRecordVM = EditWeightRecordViewModel(tableUpdater: self.viewModel)
+               let editWeightRecordVC = EditWeightRecordViewController(viewModel: editWeightRecordVM)
+               editWeightRecordVM.delegate = editWeightRecordVC
+               editWeightRecordVM.updateWeight = self.viewModel.records[indexPath.row]
+               editWeightRecordVM.date = self.viewModel.records[indexPath.row].date
+               editWeightRecordVM.updateWeightIndex = indexPath.row
+               editWeightRecordVC.modalPresentationStyle = .popover
+               self.present(editWeightRecordVC, animated: true)
+               completion(true)
+           }
+           
+           let swipeConfiguration = UISwipeActionsConfiguration(actions: [deleteAction, editAction])
+           swipeConfiguration.performsFirstActionWithFullSwipe = false
+           
+           return swipeConfiguration
+       }
+   }
+
+   extension WeightMonitorViewController: WeightMonitorViewModelDelegate {
+       func updateCurrentWeight() {
+           weightLabel.text = viewModel.currentWeight.formatWeight()
+           diffLabel.text = viewModel.currentDiff.formatWeightDiff()
+       }
+
+       func showAlert(alert: AlertModel) {
+           alertPresenter.show(result: alert)
+       }
+   }

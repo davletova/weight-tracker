@@ -1,18 +1,20 @@
+import UIKit
 import Foundation
 
 protocol WeightMonitorViewModelDelegate: AnyObject {
-    func reloadData()
+    func updateCurrentWeight()
     func showAlert(alert: AlertModel)
-    func deleteRow(indexPath: IndexPath, deleteRecord: WeightRecord)
-    func addRow(index: Int)
-    func reconfigureRow(record: WeightRecord, index: Int)
 }
 
 class WeightMonitorViewModel {
+    typealias DiffableDatasource = UITableViewDiffableDataSource<Int, WeightRecord.ID>
+    typealias DiffableDatasourceSnapshot = NSDiffableDataSourceSnapshot<Int, WeightRecord.ID>
+
     private let store: WeightsStoreProtocol
-    
     weak var delegate: WeightMonitorViewModelDelegate?
-    
+
+    private var dataSource: DiffableDatasource?
+
     var currentWeight: Decimal = 0
     var currentDiff: Decimal = 0
     var records: [WeightRecord] = []
@@ -21,50 +23,60 @@ class WeightMonitorViewModel {
         self.store = store
     }
     
-    func loadData() {
-        let sort = NSSortDescriptor(key: "date", ascending: false)
-        var recordCoreDatas: [WeightCoreData] = []
-        records = []
-        
+    func loadData(tableView: UITableView, cellProvider: @escaping DiffableDatasource.CellProvider) {
+        records.removeAll(keepingCapacity: true)
+
         do {
-            recordCoreDatas = try store.listRecords(withSort: [sort])
-            
-            for i in 0..<recordCoreDatas.count {
-                let record = WeightRecord(
-                    id: recordCoreDatas[i].recordId!,
-                    weightValue: recordCoreDatas[i].weightValue! as Decimal,
-                    date: recordCoreDatas[i].date!
-                )
-                records.append(record)
-            }
-            
-            currentWeight = records.count > 0 ? records[0].weightValue : 0
-            currentDiff = records.count > 1 ? (records[0].weightValue - records[1].weightValue) : 0
-            
-            delegate?.reloadData()
+            records = try store.listRecords(withSort: [NSSortDescriptor(key: "date", ascending: false)]).map({
+                WeightRecord(id: $0.recordId!, weightValue: $0.weightValue! as Decimal, date: $0.date!)
+            })
+
+            updateCurrentWeight()
         } catch {
             let alertModel = AlertModel(
                 style: .alert,
                 title: "Не удалось загрузить записи",
-                actions: ["Попробовать еще": { self.loadData() }]
+                actions: ["Попробовать еще": { self.loadData(tableView: tableView, cellProvider: cellProvider) }]
             )
             delegate?.showAlert(alert: alertModel)
+            return
         }
+
+        let dataSource = DiffableDatasource(tableView: tableView, cellProvider: cellProvider)
+        var snapshot = dataSource.snapshot()
+        snapshot.appendSections([0])
+        snapshot.appendItems(records.map(\.id))
+        dataSource.apply(snapshot, animatingDifferences: false)
+
+        self.dataSource = dataSource
+    }
+
+    func updateCurrentWeight() {
+        currentWeight = records.first?.weightValue ?? 0
+        currentDiff = records.count > 1 ? (currentWeight - records[1].weightValue) : 0
+
+        delegate?.updateCurrentWeight()
     }
     
     func deleteRecord(at index: Int) {
+        guard let dataSource = self.dataSource else {
+            assertionFailure("using deleteRecord() before initDatasource()")
+            return
+        }
+
         let deleteRecord = records[index]
         do {
             try store.deleteRecord(by: deleteRecord.id)
             records.remove(at: index)
-            
-            if index < 2 {
-                currentDiff = records.count > 1 ? (records[0].weightValue - records[1].weightValue) : 0
-                if index == 0 {
-                    currentWeight = records.isEmpty ? 0 : records[0].weightValue
-                }
+
+            var snapshot = dataSource.snapshot()
+            snapshot.deleteItems([deleteRecord.id])
+            if index > 0 {
+                snapshot.reconfigureItems([records[index - 1].id])
             }
-            delegate?.deleteRow(indexPath: IndexPath(row: index, section: 0), deleteRecord: deleteRecord)
+            dataSource.apply(snapshot, animatingDifferences: true)
+
+            updateCurrentWeight()
         } catch {
             let alertModel = AlertModel(
                 style: .alert,
@@ -75,45 +87,55 @@ class WeightMonitorViewModel {
     }
 }
 
-extension WeightMonitorViewModel: WeightsTableUpdater {
-    func updateRecord(updateRecord: WeightRecord, index: Int) {
-        if index > records.count - 1 {
-            assertionFailure("should never happen")
+extension WeightMonitorViewModel: WeightDataMutator {
+    func updateRecord(updateRecord: WeightRecord) throws {
+        guard let dataSource = self.dataSource else {
+            assertionFailure("using deleteRecord() before initDatasource()")
             return
         }
-        
-        records[index] = updateRecord
-        
-        if index < 2 {
-            currentDiff = records.count > 1 ? (records[0].weightValue - records[1].weightValue) : 0
-            if index == 0 {
-                currentWeight = records[0].weightValue
-            }
+
+        guard let updateIndex = records.firstIndex(where: { $0.id == updateRecord.id }) else {
+            assertionFailure("should be never happens")
+            return
         }
+
+        let _ = try store.updateRecord(updateRecord)
+        records[updateIndex] = updateRecord
+
+        let reconfigureItems = updateIndex > 0
+            ? [updateRecord.id, records[updateIndex - 1].id]
+            : [updateRecord.id]
+
+        var snapshot = dataSource.snapshot()
+        snapshot.reconfigureItems(reconfigureItems)
+        dataSource.apply(snapshot, animatingDifferences: true)
         
-        delegate?.reconfigureRow(record: updateRecord, index: index)
+        updateCurrentWeight()
     }
     
-    func addRecord(record: WeightRecord) {
-        let index = addRecordToList(record: record)
-        
-        if index < 2 {
-            currentDiff = records.count > 1 ? (records[0].weightValue - records[1].weightValue) : 0
-            if index == 0 {
-                currentWeight = records[0].weightValue
-            }
+    func addRecord(record: WeightRecord) throws {
+        guard let dataSource = self.dataSource else {
+            assertionFailure("using deleteRecord() before initDatasource()")
+            return
         }
-        
-        delegate?.addRow(index: index)
-    }
-    
-    func addRecordToList(record: WeightRecord) -> Int {
-        guard let index = records.firstIndex(where: { $0.date < record.date }) else {
-            records.append(record)
-            return records.count - 1
+
+        try store.addRecord(record: record)
+
+        let insertIndex = records.firstIndex(where: { $0.date < record.date }) ?? records.endIndex
+        records.insert(record, at: insertIndex)
+
+        var snapshot = dataSource.snapshot()
+        if insertIndex == records.count - 1 {
+            snapshot.appendItems([record.id])
+        } else {
+            snapshot.insertItems([record.id], beforeItem: records[insertIndex+1].id)
         }
-        
-        records.insert(record, at: index)
-        return index
+
+        if insertIndex != 0 {
+            snapshot.reconfigureItems([records[insertIndex-1].id])
+        }
+        dataSource.apply(snapshot, animatingDifferences: true)
+
+        updateCurrentWeight()
     }
 }

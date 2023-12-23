@@ -8,16 +8,14 @@ protocol EditWeightRecordViewViewModelDelegate: AnyObject {
     func showAlert(alert: AlertModel)
 }
 
-protocol WeightsTableUpdater {
-    func addRecord(record: WeightRecord)
-    func updateRecord(updateRecord: WeightRecord, index: Int)
+protocol WeightDataMutator {
+    func addRecord(record: WeightRecord) throws
+    func updateRecord(updateRecord: WeightRecord) throws
 }
 
 class EditWeightRecordViewModel: WeightInputCollectionCellDelegate {
-    private var store: WeightsStoreProtocol
-    
     weak var delegate: EditWeightRecordViewViewModelDelegate?
-    var tableUpdater: WeightsTableUpdater
+    var dataMutator: WeightDataMutator
     
     var isDatePickerOpen = false
     var updateWeight: WeightRecord?
@@ -25,9 +23,8 @@ class EditWeightRecordViewModel: WeightInputCollectionCellDelegate {
     var date = Date()
     var weightInput: String = ""
     
-    init(store: WeightsStoreProtocol, tableUpdater: WeightsTableUpdater) {
-        self.store = store
-        self.tableUpdater = tableUpdater
+    init(tableUpdater: WeightDataMutator) {
+        self.dataMutator = tableUpdater
     }
     
     func hideDatePicker() {
@@ -38,16 +35,15 @@ class EditWeightRecordViewModel: WeightInputCollectionCellDelegate {
     }
     
     func addRecord() {
-        guard let weightDecimal = Decimal(string: weightInput, locale: Locale.current)
+        guard
+            let weightDecimal = Decimal(string: weightInput, locale: Locale.current)
         else {
             delegate?.showError(message: "Неверный формат данных")
             return
         }
         
         do {
-            let newRecord = WeightRecord(id: UUID(), weightValue: weightDecimal, date: date)
-            try store.addRecord(record: newRecord)
-            tableUpdater.addRecord(record: newRecord)
+            try dataMutator.addRecord(record: WeightRecord(id: UUID(), weightValue: weightDecimal, date: date))
             delegate?.dismiss()
         } catch WeightsStoreError.unexpectedMultipleResult {
             delegate?.showError(message: "Запись в этот день уже существует")
@@ -63,7 +59,8 @@ class EditWeightRecordViewModel: WeightInputCollectionCellDelegate {
     }
     
     func updateRecord() {
-        guard let updateWeightIndex, let updateWeight else {
+        guard var updateWeight
+        else {
             // TODO: показать здесь алерт
             assertionFailure("updateWeightIndex is empty")
             return
@@ -75,9 +72,10 @@ class EditWeightRecordViewModel: WeightInputCollectionCellDelegate {
         }
         
         do {
-            let newRecord = WeightRecord(id: updateWeight.id, weightValue: weightDecimal, date: date)
-            try store.updateRecord(newRecord)
-            tableUpdater.updateRecord(updateRecord: newRecord, index: updateWeightIndex)
+            updateWeight.date = date
+            updateWeight.weightValue = weightDecimal
+
+            try dataMutator.updateRecord(updateRecord: updateWeight)
             
             delegate?.dismiss()
         } catch {
