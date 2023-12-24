@@ -39,7 +39,7 @@ class EditWeightRecordViewModel: WeightInputCollectionCellDelegate {
     func addRecord() {
         guard
             let weightDecimal = Decimal(string: weightInput, locale: Locale.current),
-            weightDecimal < 0
+            weightDecimal > 0
         else {
             delegate?.showError(message: "Неверный формат данных")
             return
