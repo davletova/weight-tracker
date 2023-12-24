@@ -8,7 +8,6 @@ class WeightMonitortViewControllerCell: UITableViewCell {
         let label = UILabel()
         label.font = .systemFont(ofSize: 17, weight: .medium)
         label.textColor = UIColor.getAppColors(.appMainText)
-        
         label.translatesAutoresizingMaskIntoConstraints = false
         
         return label
@@ -18,7 +17,6 @@ class WeightMonitortViewControllerCell: UITableViewCell {
         let label = UILabel()
         label.font = .systemFont(ofSize: 17, weight: .medium)
         label.textColor = UIColor.getAppColors(.appBlack60)
-        
         label.translatesAutoresizingMaskIntoConstraints = false
         
         return label
@@ -28,7 +26,6 @@ class WeightMonitortViewControllerCell: UITableViewCell {
         let label = UILabel()
         label.font = .systemFont(ofSize: 17, weight: .regular)
         label.textColor = UIColor.getAppColors(.appBlack40)
-        
         label.translatesAutoresizingMaskIntoConstraints = false
         
         return label

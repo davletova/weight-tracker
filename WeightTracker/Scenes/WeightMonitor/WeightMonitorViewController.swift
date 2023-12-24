@@ -165,7 +165,6 @@ class WeightMonitorViewController: UIViewController {
             diffLabel.centerYAnchor.constraint(equalTo: columnHeaderView.centerYAnchor),
             // Для столбцов вес:изменения:дата поделили экран в соотношении 40% : 40% : 20%
             diffLabel.leadingAnchor.constraint(equalTo: columnHeaderView.leadingAnchor, constant: 3 * (screenWidth - WeightMonitortViewControllerCell.chevronSideLenght)  / 8),
-            
             dateLabel.centerYAnchor.constraint(equalTo: columnHeaderView.centerYAnchor),
             dateLabel.leadingAnchor.constraint(equalTo: columnHeaderView.leadingAnchor, constant: 3 * (screenWidth - WeightMonitortViewControllerCell.chevronSideLenght) / 4),
         ])
@@ -210,6 +209,7 @@ class WeightMonitorViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         view.backgroundColor = UIColor.getAppColors(.appGeneralBackground)
         
         setupConstraint()

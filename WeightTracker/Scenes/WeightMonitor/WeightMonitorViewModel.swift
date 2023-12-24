@@ -32,7 +32,7 @@ class WeightMonitorViewModel {
 
         do {
             records = try store.listRecords(withSort: [NSSortDescriptor(key: "date", ascending: false)])
-
+            
             updateCurrentWeight()
         } catch {
             let alertModel = AlertModel(
