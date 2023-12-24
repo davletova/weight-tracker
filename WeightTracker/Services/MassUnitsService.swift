@@ -12,12 +12,14 @@ protocol MassUnitsServiceProtocol {
 }
 
 class MassUnitsService: MassUnitsServiceProtocol {
+    let userDefaults = UserDefaults.standard
+
     func setMassUnit(unit: UnitMass) {
-        UserDefaults.standard.setValue(unit.symbol, forKey: MassUnitKey)
+        userDefaults.setValue(unit.symbol, forKey: MassUnitKey)
     }
     
     func getMassUnit() throws -> UnitMass {
-        guard let unit = UserDefaults.standard.string(forKey: MassUnitKey) else {
+        guard let unit = userDefaults.string(forKey: MassUnitKey) else {
             throw MassUnitServiceError.valueNotFound
         }
         

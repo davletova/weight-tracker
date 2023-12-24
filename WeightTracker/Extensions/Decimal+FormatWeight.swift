@@ -1,13 +1,7 @@
 
 import Foundation
 
-extension Decimal {
-//    func formatWeight() -> String {
-//        let formatter = MassFormatter()
-//        formatter.numberFormatter.maximumFractionDigits = 1
-//        return formatter.string(fromValue: Double(truncating: self as NSNumber), unit: .kilogram)
-//    }
-    
+extension Decimal {    
     func formatWeightWithoutUnit() -> String {
         let formatter = NumberFormatter()
         formatter.maximumFractionDigits = 1
@@ -27,7 +21,7 @@ extension Decimal {
         let measurementFormatter = MeasurementFormatter()
         measurementFormatter.unitStyle = .short
         measurementFormatter.unitOptions = .providedUnit
-        measurementFormatter.numberFormatter.maximumFractionDigits = 1 // Опционально, устанавливает количество знаков после запятой
+        measurementFormatter.numberFormatter.maximumFractionDigits = 1
 
         let poundsMeasurement = measurement.converted(to: unit)
 
