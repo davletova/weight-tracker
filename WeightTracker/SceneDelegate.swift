@@ -12,7 +12,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window?.windowScene = windowScene
         window?.makeKeyAndVisible()
         
-        let vm = WeightMonitorViewModel(store: WeightsStore())
+        let vm = WeightMonitorViewModel(store: WeightsStore(), massUnitService: MassUnitsService())
         let vc = WeightMonitorViewController(vm)
         vm.delegate = vc
         window?.rootViewController = vc

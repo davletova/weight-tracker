@@ -17,14 +17,16 @@ class EditWeightRecordViewModel: WeightInputCollectionCellDelegate {
     weak var delegate: EditWeightRecordViewViewModelDelegate?
     var dataMutator: WeightDataMutator
     
+    var unit: UnitMass
     var isDatePickerOpen = false
     var updateWeight: WeightRecord?
     var updateWeightIndex: Int?
     var date = Date()
     var weightInput: String = ""
     
-    init(tableUpdater: WeightDataMutator) {
+    init(tableUpdater: WeightDataMutator, unit: UnitMass) {
         self.dataMutator = tableUpdater
+        self.unit = unit
     }
     
     func hideDatePicker() {
@@ -43,7 +45,9 @@ class EditWeightRecordViewModel: WeightInputCollectionCellDelegate {
         }
         
         do {
-            try dataMutator.addRecord(record: WeightRecord(id: UUID(), weightValue: weightDecimal, date: date))
+            let mass = Measurement(value: Double(truncating: weightDecimal as NSNumber), unit: unit)
+            let massKg = mass.converted(to: .kilograms)
+            try dataMutator.addRecord(record: WeightRecord(id: UUID(), weightValue: Decimal(massKg.value), date: date))
             delegate?.dismiss()
         } catch WeightsStoreError.unexpectedMultipleResult {
             delegate?.showError(message: "Запись в этот день уже существует")

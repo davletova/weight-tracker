@@ -12,16 +12,19 @@ class WeightMonitorViewModel {
     typealias DiffableDatasourceSnapshot = NSDiffableDataSourceSnapshot<Int, WeightRecord.ID>
 
     private let store: WeightsStoreProtocol
+    private let massUnitService: MassUnitsServiceProtocol
     private var dataSource: DiffableDatasource?
 
     weak var delegate: WeightMonitorViewModelDelegate?    
 
+    var unit: UnitMass = .kilograms
     var currentWeight: Decimal = 0
     var currentDiff: Decimal? = 0
     var records: [WeightRecord] = []
     
-    init(store: WeightsStoreProtocol) {
+    init(store: WeightsStoreProtocol, massUnitService: MassUnitsServiceProtocol) {
         self.store = store
+        self.massUnitService = massUnitService
     }
     
     func setupDiffableDataSource(tableView: UITableView, cellProvider: @escaping DiffableDatasource.CellProvider) {
@@ -118,7 +121,7 @@ extension WeightMonitorViewModel: WeightDataMutator {
     
     func addRecord(record: WeightRecord) throws {
         guard let dataSource = self.dataSource else {
-            assertionFailure("using deleteRecord() before initDatasource()")
+            assertionFailure("using addRecord() before initDatasource()")
             return
         }
 
@@ -142,5 +145,36 @@ extension WeightMonitorViewModel: WeightDataMutator {
         updateCurrentWeight()
         
         delegate?.showTost("Добавлено измерение")
+    }
+    
+    func getUnitMass() {
+        do {
+            unit = try massUnitService.getMassUnit()
+        } catch MassUnitServiceError.convertError  {
+            let alertModel = AlertModel(
+                style: .alert,
+                title: "Не удалось получить единицу измерения массы"
+            )
+            delegate?.showAlert(alert: alertModel)
+        } catch {
+            print("Единица измерения массы не задана")
+        }
+    }
+    
+    func switchUnitMass(unit: UnitMass) {
+        massUnitService.setMassUnit(unit: unit)
+        
+        self.unit = unit
+        
+        guard let dataSource = self.dataSource else {
+            assertionFailure("using changeUnitMass before initDatasource()")
+            return
+        }
+        
+        var snapshot = dataSource.snapshot()
+        snapshot.reloadSections([0])
+        dataSource.apply(snapshot, animatingDifferences: true)
+        
+        updateCurrentWeight()
     }
 }

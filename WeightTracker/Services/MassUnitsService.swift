@@ -6,20 +6,28 @@ enum MassUnitServiceError: Error {
     case convertError, valueNotFound
 }
 
-class MassUnitsService {
+protocol MassUnitsServiceProtocol {
+    func setMassUnit(unit: UnitMass)
+    func getMassUnit() throws -> UnitMass 
+}
+
+class MassUnitsService: MassUnitsServiceProtocol {
     func setMassUnit(unit: UnitMass) {
-        UserDefaults.setValue(unit, forKey: MassUnitKey)
+        UserDefaults.standard.setValue(unit.symbol, forKey: MassUnitKey)
     }
     
     func getMassUnit() throws -> UnitMass {
-        guard let unit = UserDefaults.standard.value(forKey: MassUnitKey) else {
+        guard let unit = UserDefaults.standard.string(forKey: MassUnitKey) else {
             throw MassUnitServiceError.valueNotFound
         }
         
-        if let massUnit = unit as? UnitMass {
-            return massUnit
+        switch unit {
+        case "kg":
+            return UnitMass.kilograms
+        case "lb":
+            return UnitMass.pounds
+        default:
+            throw MassUnitServiceError.convertError
         }
-        
-        throw MassUnitServiceError.convertError
     }
 }

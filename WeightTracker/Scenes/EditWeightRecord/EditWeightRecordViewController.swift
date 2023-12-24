@@ -161,9 +161,9 @@ extension EditWeightRecordViewController: UICollectionViewDataSource {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: weightCellIdentifier, for: indexPath) as! WeightInputCollectionCell
             // TODO: вставить нужную единцу измерения
             if let oldWeight = viewModel.updateWeight {
-                cell.configure(weight: oldWeight.weightValue, unit: "кг")
+                cell.configure(weight: oldWeight.weightValue, unit: viewModel.unit)
             } else {
-                cell.configure(unit: "кг")
+                cell.configure(unit: viewModel.unit)
             }
             cell.delegate = viewModel
             return cell

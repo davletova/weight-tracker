@@ -42,10 +42,10 @@ class WeightMonitortViewControllerCell: UITableViewCell {
         return image
     }()
     
-    func configure(weight: WeightRecord, screenWidth: CGFloat, diff: Decimal? = nil) {
-        weightLabel.text = weight.weightValue.formatWeight()
+    func configure(weight: WeightRecord, screenWidth: CGFloat, unit: UnitMass, diff: Decimal? = nil) {
+        weightLabel.text = weight.weightValue.formatWeight(in: unit)
         dateLabel.text = formatDate(date: weight.date)
-        diffLabel.text = diff?.formatWeightDiff() ?? ""
+        diffLabel.text = diff?.formatWeightDiff(in: unit) ?? ""
         
         contentView.addSubview(weightLabel)
         contentView.addSubview(diffLabel)

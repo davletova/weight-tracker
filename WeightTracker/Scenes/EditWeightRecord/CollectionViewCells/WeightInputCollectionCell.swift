@@ -72,11 +72,13 @@ class WeightInputCollectionCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configure(weight: Decimal? = nil, unit: String) {
+    func configure(weight: Decimal? = nil, unit: UnitMass) {
         if let weight {
             weightInput.text = weight.formatWeightWithoutUnit()
         }
-        unitLabel.text = unit
+        let formatter = MeasurementFormatter()
+        formatter.locale = Locale.current
+        unitLabel.text = formatter.string(from: unit)
         weightInput.becomeFirstResponder()
     }
 }
