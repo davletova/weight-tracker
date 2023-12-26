@@ -33,6 +33,7 @@
 		4DDF16452B35A99C00EAA86C /* MassUnitsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDF16442B35A99C00EAA86C /* MassUnitsService.swift */; };
 		4DDF16482B35ECB100EAA86C /* Toast in Frameworks */ = {isa = PBXBuildFile; productRef = 4DDF16472B35ECB100EAA86C /* Toast */; };
 		4DDF164C2B35F4D100EAA86C /* ToastPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDF164B2B35F4D100EAA86C /* ToastPresenter.swift */; };
+		4DDF16502B397F9300EAA86C /* DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDF164F2B397F9300EAA86C /* DateFormatter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -77,12 +78,14 @@
 		4D13AFF72B31B537007484AE /* WeightInputCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightInputCollectionCell.swift; sourceTree = "<group>"; };
 		4D13AFF92B31EC6F007484AE /* DateHeaderCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateHeaderCollectionCell.swift; sourceTree = "<group>"; };
 		4D13AFFB2B31EFA3007484AE /* DatePickerCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerCollectionCell.swift; sourceTree = "<group>"; };
+		4DAD6D262B3986BF0036F456 /* WeightTracker.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = WeightTracker.xctestplan; sourceTree = "<group>"; };
 		4DDF16392B32BEFF00EAA86C /* EditWeightRecordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditWeightRecordViewModel.swift; sourceTree = "<group>"; };
 		4DDF163C2B334C3E00EAA86C /* Decimal+FormatWeight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Decimal+FormatWeight.swift"; sourceTree = "<group>"; };
 		4DDF16412B3414D300EAA86C /* AlertPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertPresenter.swift; sourceTree = "<group>"; };
 		4DDF16432B35A5DE00EAA86C /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		4DDF16442B35A99C00EAA86C /* MassUnitsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MassUnitsService.swift; sourceTree = "<group>"; };
 		4DDF164B2B35F4D100EAA86C /* ToastPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastPresenter.swift; sourceTree = "<group>"; };
+		4DDF164F2B397F9300EAA86C /* DateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,6 +117,7 @@
 		4D13AF992B2F584D007484AE = {
 			isa = PBXGroup;
 			children = (
+				4DAD6D262B3986BF0036F456 /* WeightTracker.xctestplan */,
 				4D13AFA42B2F584D007484AE /* WeightTracker */,
 				4D13AFBE2B2F584F007484AE /* WeightTrackerTests */,
 				4D13AFC82B2F584F007484AE /* WeightTrackerUITests */,
@@ -153,6 +157,7 @@
 			isa = PBXGroup;
 			children = (
 				4D13AFBF2B2F584F007484AE /* WeightTrackerTests.swift */,
+				4DDF164F2B397F9300EAA86C /* DateFormatter.swift */,
 			);
 			path = WeightTrackerTests;
 			sourceTree = "<group>";
@@ -430,6 +435,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4DDF16502B397F9300EAA86C /* DateFormatter.swift in Sources */,
 				4D13AFC02B2F584F007484AE /* WeightTrackerTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

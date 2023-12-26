@@ -69,8 +69,8 @@ class WeightMonitortViewControllerCell: UITableViewCell {
     
     func formatDate(date: Date) -> String {
         if date < Date().startOfYear() {
-            return date.formatShortFullDate()
+            return date.formatShortFullDate(locale: Locale.current)
         }
-        return date.formatDayMonth()
+        return date.formatDayMonth(locale: Locale.current)
     }
 }

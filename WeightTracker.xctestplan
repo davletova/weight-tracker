@@ -1,0 +1,35 @@
+{
+  "configurations" : [
+    {
+      "id" : "4E05A136-4A34-45EF-9A9C-937FEE9E3ADD",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:WeightTracker.xcodeproj",
+      "identifier" : "4D13AFA12B2F584D007484AE",
+      "name" : "WeightTracker"
+    }
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:WeightTracker.xcodeproj",
+        "identifier" : "4D13AFBA2B2F584F007484AE",
+        "name" : "WeightTrackerTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:WeightTracker.xcodeproj",
+        "identifier" : "4D13AFC42B2F584F007484AE",
+        "name" : "WeightTrackerUITests"
+      }
+    }
+  ],
+  "version" : 1
+}

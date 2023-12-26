@@ -97,7 +97,7 @@ class EditWeightRecordViewModel: WeightInputCollectionCellDelegate {
         if date >= Calendar.current.startOfDay(for: Date()) {
             return "Сегодня"
         }
-        return date.formatFullDate()
+        return date.formatFullDate(locale: Locale.current)
     }
 }
 
