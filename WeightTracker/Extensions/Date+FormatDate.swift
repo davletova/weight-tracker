@@ -3,7 +3,7 @@ import Foundation
 extension Date {
     func formatDayMonth() -> String {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd LLL"
+        dateFormatter.dateFormat = "dd MMM"
         let stringDate = dateFormatter.string(from: self)
         return stringDate
     }
@@ -16,7 +16,7 @@ extension Date {
     
     func formatFullDate() -> String {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd LLL YYYY"
+        dateFormatter.dateFormat = "dd MMM YYYY"
         return dateFormatter.string(from: self)
     }
     
