@@ -287,3 +287,32 @@ class FormatFullDateTests: XCTestCase {
         }
     }
 }
+
+class StartOfYearTests: XCTestCase {
+    func testDateIsBeginOfYear() {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd/MM/yy"
+        let date = dateFormatter.date(from: "01/01/2023")!
+        let expectedStartOdYear = dateFormatter.date(from: "01/01/2023")!
+        
+        XCTAssertEqual(date.startOfYear(), expectedStartOdYear)
+    }
+    
+    func testDateIsEndOfYear() {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd/MM/yy"
+        let date = dateFormatter.date(from: "31/12/2023")!
+        let expectedStartOdYear = dateFormatter.date(from: "01/01/2023")!
+        
+        XCTAssertEqual(date.startOfYear(), expectedStartOdYear)
+    }
+    
+    func testMidYearDate() {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd/MM/yy"
+        let date = dateFormatter.date(from: "12/06/2023")!
+        let expectedStartOdYear = dateFormatter.date(from: "01/01/2023")!
+        
+        XCTAssertEqual(date.startOfYear(), expectedStartOdYear)
+    }
+}
