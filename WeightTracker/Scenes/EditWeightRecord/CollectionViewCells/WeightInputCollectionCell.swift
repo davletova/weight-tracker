@@ -76,9 +76,7 @@ class WeightInputCollectionCell: UICollectionViewCell {
         if let weight {
             weightInput.text = weight.formatWeightWithoutUnit()
         }
-        let formatter = MeasurementFormatter()
-        formatter.locale = Locale.current
-        unitLabel.text = formatter.string(from: unit)
+        unitLabel.text = unit.symbol
         weightInput.becomeFirstResponder()
     }
 }
