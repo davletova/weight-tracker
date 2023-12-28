@@ -28,6 +28,7 @@
 		4D13AFFA2B31EC6F007484AE /* DateHeaderCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D13AFF92B31EC6F007484AE /* DateHeaderCollectionCell.swift */; };
 		4D13AFFC2B31EFA3007484AE /* DatePickerCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D13AFFB2B31EFA3007484AE /* DatePickerCollectionCell.swift */; };
 		4D1F55652B3C3060003A7B22 /* DecimalFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D1F55642B3C3060003A7B22 /* DecimalFormatter.swift */; };
+		4D1F55672B3D4B2B003A7B22 /* EditWeightRecordViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D1F55662B3D4B2B003A7B22 /* EditWeightRecordViewModelTests.swift */; };
 		4DDF163A2B32BEFF00EAA86C /* EditWeightRecordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDF16392B32BEFF00EAA86C /* EditWeightRecordViewModel.swift */; };
 		4DDF163D2B334C3E00EAA86C /* Decimal+FormatWeight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDF163C2B334C3E00EAA86C /* Decimal+FormatWeight.swift */; };
 		4DDF16422B3414D300EAA86C /* AlertPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDF16412B3414D300EAA86C /* AlertPresenter.swift */; };
@@ -80,6 +81,7 @@
 		4D13AFF92B31EC6F007484AE /* DateHeaderCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateHeaderCollectionCell.swift; sourceTree = "<group>"; };
 		4D13AFFB2B31EFA3007484AE /* DatePickerCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerCollectionCell.swift; sourceTree = "<group>"; };
 		4D1F55642B3C3060003A7B22 /* DecimalFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecimalFormatter.swift; sourceTree = "<group>"; };
+		4D1F55662B3D4B2B003A7B22 /* EditWeightRecordViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditWeightRecordViewModelTests.swift; sourceTree = "<group>"; };
 		4DAD6D262B3986BF0036F456 /* WeightTracker.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = WeightTracker.xctestplan; sourceTree = "<group>"; };
 		4DDF16392B32BEFF00EAA86C /* EditWeightRecordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditWeightRecordViewModel.swift; sourceTree = "<group>"; };
 		4DDF163C2B334C3E00EAA86C /* Decimal+FormatWeight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Decimal+FormatWeight.swift"; sourceTree = "<group>"; };
@@ -161,6 +163,7 @@
 				4D13AFBF2B2F584F007484AE /* WeightTrackerTests.swift */,
 				4DDF164F2B397F9300EAA86C /* DateFormatter.swift */,
 				4D1F55642B3C3060003A7B22 /* DecimalFormatter.swift */,
+				4D1F55662B3D4B2B003A7B22 /* EditWeightRecordViewModelTests.swift */,
 			);
 			path = WeightTrackerTests;
 			sourceTree = "<group>";
@@ -441,6 +444,7 @@
 				4DDF16502B397F9300EAA86C /* DateFormatter.swift in Sources */,
 				4D13AFC02B2F584F007484AE /* WeightTrackerTests.swift in Sources */,
 				4D1F55652B3C3060003A7B22 /* DecimalFormatter.swift in Sources */,
+				4D1F55672B3D4B2B003A7B22 /* EditWeightRecordViewModelTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

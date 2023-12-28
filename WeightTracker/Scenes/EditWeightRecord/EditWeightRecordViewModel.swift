@@ -1,5 +1,11 @@
 import Foundation
 
+enum EditWeightRecordErrorTitle: String {
+    case invalidInput = "Неверный формат данных"
+    case internalError = "Не удалось сохранить запись"
+    case duplicateData = "Запись в этот день уже существует"
+}
+
 protocol EditWeightRecordViewViewModelDelegate: AnyObject {
     func reloadData()
     func reloadRow(indexPathes: [IndexPath])
@@ -41,7 +47,7 @@ class EditWeightRecordViewModel: WeightInputCollectionCellDelegate {
             let weightDecimal = Decimal(string: weightInput, locale: Locale.current),
             weightDecimal > 0
         else {
-            delegate?.showError(message: "Неверный формат данных")
+            delegate?.showError(message: EditWeightRecordErrorTitle.invalidInput.rawValue)
             return
         }
         
@@ -51,12 +57,12 @@ class EditWeightRecordViewModel: WeightInputCollectionCellDelegate {
             try dataMutator.addRecord(record: WeightRecord(id: UUID(), weightValue: Decimal(massKg.value), date: date))
             delegate?.dismiss()
         } catch WeightsStoreError.unexpectedMultipleResult {
-            delegate?.showError(message: "Запись в этот день уже существует")
+            delegate?.showError(message: EditWeightRecordErrorTitle.duplicateData.rawValue)
             return
         } catch {
             let alertModel = AlertModel(
                 style: .alert,
-                title: "Не удалось сохранить запись"
+                title: EditWeightRecordErrorTitle.internalError.rawValue
             )
             delegate?.showAlert(alert: alertModel)
             return
@@ -72,7 +78,7 @@ class EditWeightRecordViewModel: WeightInputCollectionCellDelegate {
         }
         
         guard let weightDecimal = Decimal(string: weightInput, locale: Locale.current) else {
-            delegate?.showError(message: "Неверный формат данных")
+            delegate?.showError(message: EditWeightRecordErrorTitle.invalidInput.rawValue)
             return
         }
         
@@ -86,7 +92,7 @@ class EditWeightRecordViewModel: WeightInputCollectionCellDelegate {
         } catch {
             let alertModel = AlertModel(
                 style: .alert,
-                title: "Не удалось сохранить запись"
+                title: EditWeightRecordErrorTitle.internalError.rawValue
             )
             delegate?.showAlert(alert: alertModel)
             return
