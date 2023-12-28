@@ -2,17 +2,14 @@
 import Foundation
 
 extension Decimal {    
-    func formatWeightWithoutUnit() -> String {
+    func formatWeightWithoutUnit(in unit: UnitMass) -> String {
+        let measurement = Measurement(value: Double(truncating: self as NSNumber), unit: UnitMass.kilograms)
+        let poundsMeasurement = measurement.converted(to: unit)
+        
         let formatter = NumberFormatter()
         formatter.maximumFractionDigits = 1
         formatter.numberStyle = .decimal
-        return formatter.string(for: self) ?? ""
-    }
-    
-    func formatWeightDiff() -> String {
-        let formatter = MassFormatter()
-        formatter.numberFormatter.maximumFractionDigits = 1
-        return (self > 0 ? "+" : "") + formatter.string(fromValue: Double(truncating: self as NSNumber), unit: .kilogram)
+        return formatter.string(for: poundsMeasurement.value) ?? ""
     }
     
     func formatWeight(in unit: UnitMass) -> String {

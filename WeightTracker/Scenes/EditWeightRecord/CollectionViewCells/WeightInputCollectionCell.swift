@@ -74,7 +74,7 @@ class WeightInputCollectionCell: UICollectionViewCell {
     
     func configure(weight: Decimal? = nil, unit: UnitMass) {
         if let weight {
-            weightInput.text = weight.formatWeightWithoutUnit()
+            weightInput.text = weight.formatWeightWithoutUnit(in: unit)
         }
         unitLabel.text = unit.symbol
         weightInput.becomeFirstResponder()
@@ -87,7 +87,7 @@ extension WeightInputCollectionCell: UITextFieldDelegate {
         guard let stringRange = Range(range, in: currentText) else { return false }
         let updatedText = currentText.replacingCharacters(in: stringRange, with: string)
         
-        return updatedText.count <= 4
+        return updatedText.count <= 5
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {

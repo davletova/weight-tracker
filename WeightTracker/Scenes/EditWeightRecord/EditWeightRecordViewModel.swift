@@ -64,9 +64,7 @@ class EditWeightRecordViewModel: WeightInputCollectionCellDelegate {
     }
     
     func updateRecord() {
-        guard var updateWeight
-        else {
-            // TODO: показать здесь алерт
+        guard var updateWeight else {
             assertionFailure("updateWeightIndex is empty")
             return
         }
@@ -77,9 +75,11 @@ class EditWeightRecordViewModel: WeightInputCollectionCellDelegate {
         }
         
         do {
+            let mass = Measurement(value: Double(truncating: weightDecimal as NSNumber), unit: unit)
+            let massKg = mass.converted(to: .kilograms)
+            updateWeight.weightValue = Decimal(massKg.value)
             updateWeight.date = date
-            updateWeight.weightValue = weightDecimal
-
+            
             try dataMutator.updateRecord(updateRecord: updateWeight)
             
             delegate?.dismiss()
