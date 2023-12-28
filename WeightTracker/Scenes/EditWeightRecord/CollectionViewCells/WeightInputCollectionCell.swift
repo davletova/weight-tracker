@@ -74,7 +74,7 @@ class WeightInputCollectionCell: UICollectionViewCell {
     
     func configure(weight: Decimal? = nil, unit: UnitMass) {
         if let weight {
-            weightInput.text = weight.formatWeightWithoutUnit()
+            weightInput.text = weight.formatWeightWithoutUnit(locale: Locale.current)
         }
         let formatter = MeasurementFormatter()
         formatter.locale = Locale.current

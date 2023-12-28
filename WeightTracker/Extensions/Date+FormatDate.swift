@@ -36,14 +36,14 @@ extension Date {
     func formatShortFullDate(locale: Locale) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.locale = locale
-        dateFormatter.dateFormat = "dd.MM.YY"
+        dateFormatter.dateFormat = "dd.MM.yy"
         return dateFormatter.string(from: self)
     }
     
     func formatFullDate(locale: Locale) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.locale = locale
-        dateFormatter.dateFormat = "dd MMMM YYYY"
+        dateFormatter.dateFormat = "dd MMMM yyyy"
         return dateFormatter.string(from: self)
     }
     

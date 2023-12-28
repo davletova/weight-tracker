@@ -273,13 +273,13 @@ class FormatFullDateTests: XCTestCase {
                 expectedResult: "30 November 2016"
             ),
             testCase(
-                inputDate: "24/12/2010",
-                expectedResult: "24 December 2010"
+                inputDate: "31/12/2010",
+                expectedResult: "31 December 2010"
             ),
         ]
         
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd/MM/yy"
+        dateFormatter.dateFormat = "dd/MM/yyyy"
         
         for tc in testCases {
             let date = dateFormatter.date(from: tc.inputDate)!
@@ -291,7 +291,7 @@ class FormatFullDateTests: XCTestCase {
 class StartOfYearTests: XCTestCase {
     func testDateIsBeginOfYear() {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd/MM/yy"
+        dateFormatter.dateFormat = "dd/MM/yyyy"
         let date = dateFormatter.date(from: "01/01/2023")!
         let expectedStartOdYear = dateFormatter.date(from: "01/01/2023")!
         
@@ -300,7 +300,7 @@ class StartOfYearTests: XCTestCase {
     
     func testDateIsEndOfYear() {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd/MM/yy"
+        dateFormatter.dateFormat = "dd/MM/yyyy"
         let date = dateFormatter.date(from: "31/12/2023")!
         let expectedStartOdYear = dateFormatter.date(from: "01/01/2023")!
         
@@ -309,7 +309,7 @@ class StartOfYearTests: XCTestCase {
     
     func testMidYearDate() {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd/MM/yy"
+        dateFormatter.dateFormat = "dd/MM/yyyy"
         let date = dateFormatter.date(from: "12/06/2023")!
         let expectedStartOdYear = dateFormatter.date(from: "01/01/2023")!
         

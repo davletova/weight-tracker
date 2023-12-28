@@ -40,9 +40,9 @@ class WeightMonitortViewControllerCell: UITableViewCell {
     }()
     
     func configure(weight: WeightRecord, screenWidth: CGFloat, unit: UnitMass, diff: Decimal? = nil) {
-        weightLabel.text = weight.weightValue.formatWeight(in: unit)
+        weightLabel.text = weight.weightValue.formatWeight(in: unit, locale: Locale.current)
         dateLabel.text = formatDate(date: weight.date)
-        diffLabel.text = diff?.formatWeightDiff(in: unit) ?? ""
+        diffLabel.text = diff?.formatWeightDiff(in: unit, locale: Locale.current) ?? ""
         
         contentView.addSubview(weightLabel)
         contentView.addSubview(diffLabel)

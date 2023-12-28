@@ -216,8 +216,8 @@ class WeightMonitorViewController: UIViewController {
         
         viewModel.getUnitMass()
         
-        weightLabel.text = viewModel.currentWeight.formatWeight(in: viewModel.unit)
-        diffLabel.text = viewModel.currentDiff != nil ? viewModel.currentDiff!.formatWeightDiff(in: viewModel.unit) : ""
+        weightLabel.text = viewModel.currentWeight.formatWeight(in: viewModel.unit, locale: Locale.current)
+        diffLabel.text = viewModel.currentDiff != nil ? viewModel.currentDiff!.formatWeightDiff(in: viewModel.unit, locale: Locale.current) : ""
         
         measurementSwitcher.isOn = viewModel.unit == UnitMass.kilograms
         measurementSwitcher.addTarget(self, action: #selector(switchUnitMass), for: .valueChanged)
@@ -335,8 +335,8 @@ extension WeightMonitorViewController: UITableViewDelegate {
 
 extension WeightMonitorViewController: WeightMonitorViewModelDelegate {
     func updateCurrentWeight() {
-        weightLabel.text = viewModel.currentWeight.formatWeight(in: viewModel.unit)
-        diffLabel.text = viewModel.currentDiff != nil ? viewModel.currentDiff!.formatWeightDiff(in: viewModel.unit) : ""
+        weightLabel.text = viewModel.currentWeight.formatWeight(in: viewModel.unit, locale: Locale.current)
+        diffLabel.text = viewModel.currentDiff != nil ? viewModel.currentDiff!.formatWeightDiff(in: viewModel.unit, locale: Locale.current) : ""
     }
     
     func showAlert(alert: AlertModel) {
