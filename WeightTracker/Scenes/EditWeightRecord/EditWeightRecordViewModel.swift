@@ -70,9 +70,7 @@ class EditWeightRecordViewModel: WeightInputCollectionCellDelegate {
     }
     
     func updateRecord() {
-        guard var updateWeight
-        else {
-            // TODO: показать здесь алерт
+        guard var updateWeight else {
             assertionFailure("updateWeightIndex is empty")
             return
         }

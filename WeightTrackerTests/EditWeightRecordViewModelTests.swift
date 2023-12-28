@@ -4,6 +4,7 @@ import XCTest
 
 class WeightDataMutatorMock: WeightDataMutator {
     var addedRecord: WeightRecord?
+    var updatedRecord: WeightRecord?
     var error: Error?
     
     func addRecord(record: WeightRecord) throws {
@@ -17,6 +18,7 @@ class WeightDataMutatorMock: WeightDataMutator {
         if let error {
             throw error
         }
+        updatedRecord = updateRecord
     }
 }
 
@@ -35,9 +37,9 @@ class EditWeightRecordViewModelDelegateMock: EditWeightRecordViewViewModelDelega
 
 class AddRecordTests: XCTestCase {
     func testInvalidInput() {
-        var viewModel = EditWeightRecordViewModel(tableUpdater: WeightDataMutatorMock(), unit: UnitMass.kilograms)
+        let viewModel = EditWeightRecordViewModel(tableUpdater: WeightDataMutatorMock(), unit: UnitMass.kilograms)
         
-        var delegate = EditWeightRecordViewModelDelegateMock()
+        let delegate = EditWeightRecordViewModelDelegateMock()
         viewModel.delegate = delegate
         viewModel.weightInput = ""
         
@@ -47,8 +49,8 @@ class AddRecordTests: XCTestCase {
     }
     
     func testWeightValueInKg() {
-        var weightDataMutator = WeightDataMutatorMock()
-        var viewModel = EditWeightRecordViewModel(tableUpdater: weightDataMutator, unit: UnitMass.kilograms)
+        let weightDataMutator = WeightDataMutatorMock()
+        let viewModel = EditWeightRecordViewModel(tableUpdater: weightDataMutator, unit: UnitMass.kilograms)
         
         viewModel.weightInput = "34,87"
         
@@ -58,8 +60,8 @@ class AddRecordTests: XCTestCase {
     }
     
     func testWeightValueInLb() {
-        var weightDataMutator = WeightDataMutatorMock()
-        var viewModel = EditWeightRecordViewModel(tableUpdater: weightDataMutator, unit: UnitMass.pounds)
+        let weightDataMutator = WeightDataMutatorMock()
+        let viewModel = EditWeightRecordViewModel(tableUpdater: weightDataMutator, unit: UnitMass.pounds)
         
         viewModel.weightInput = "4,7"
         viewModel.addRecord()
@@ -68,8 +70,8 @@ class AddRecordTests: XCTestCase {
     }
     
     func testWeightRecordDate() {
-        var weightDataMutator = WeightDataMutatorMock()
-        var viewModel = EditWeightRecordViewModel(tableUpdater: weightDataMutator, unit: UnitMass.pounds)
+        let weightDataMutator = WeightDataMutatorMock()
+        let viewModel = EditWeightRecordViewModel(tableUpdater: weightDataMutator, unit: UnitMass.pounds)
         
         viewModel.weightInput = "4,7"
         let dateFormatter = DateFormatter()
@@ -82,10 +84,10 @@ class AddRecordTests: XCTestCase {
     }
     
     func testDismiss() {
-        var weightDataMutator = WeightDataMutatorMock()
-        var viewModel = EditWeightRecordViewModel(tableUpdater: weightDataMutator, unit: UnitMass.pounds)
+        let weightDataMutator = WeightDataMutatorMock()
+        let viewModel = EditWeightRecordViewModel(tableUpdater: weightDataMutator, unit: UnitMass.pounds)
         
-        var delegate = EditWeightRecordViewModelDelegateMock()
+        let delegate = EditWeightRecordViewModelDelegateMock()
         viewModel.delegate = delegate
         viewModel.weightInput = "4,7"
         viewModel.addRecord()
@@ -94,11 +96,11 @@ class AddRecordTests: XCTestCase {
     }
     
     func testErrorUnexpectedMultipleResult() {
-        var weightDataMutator = WeightDataMutatorMock()
+        let weightDataMutator = WeightDataMutatorMock()
         weightDataMutator.error = WeightsStoreError.unexpectedMultipleResult
-        var viewModel = EditWeightRecordViewModel(tableUpdater: weightDataMutator, unit: UnitMass.kilograms)
+        let viewModel = EditWeightRecordViewModel(tableUpdater: weightDataMutator, unit: UnitMass.kilograms)
         
-        var delegate = EditWeightRecordViewModelDelegateMock()
+        let delegate = EditWeightRecordViewModelDelegateMock()
         viewModel.delegate = delegate
         viewModel.weightInput = "34,87"
         
@@ -108,16 +110,72 @@ class AddRecordTests: XCTestCase {
     }
     
     func testInternalError() {
-        var weightDataMutator = WeightDataMutatorMock()
+        let weightDataMutator = WeightDataMutatorMock()
         weightDataMutator.error = WeightsStoreError.internalError
-        var viewModel = EditWeightRecordViewModel(tableUpdater: weightDataMutator, unit: UnitMass.kilograms)
+        let viewModel = EditWeightRecordViewModel(tableUpdater: weightDataMutator, unit: UnitMass.kilograms)
         
-        var delegate = EditWeightRecordViewModelDelegateMock()
+        let delegate = EditWeightRecordViewModelDelegateMock()
         viewModel.delegate = delegate
         viewModel.weightInput = "34,87"
         
         viewModel.addRecord()
         
         XCTAssertEqual(delegate.alertTitle, EditWeightRecordErrorTitle.internalError.rawValue)
+    }
+}
+
+class UpdaterecordTests: XCTestCase {
+    func testErrorInvalidInput() {
+        let weightDataMutator = WeightDataMutatorMock()
+        let viewModel = EditWeightRecordViewModel(tableUpdater: weightDataMutator, unit: UnitMass.kilograms)
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd/MM/yyyy"
+        let id = UUID()
+        viewModel.updateWeight = WeightRecord(id: id, weightValue: 34.87, date: dateFormatter.date(from: "27/12/2023")!)
+        
+        let delegate = EditWeightRecordViewModelDelegateMock()
+        viewModel.delegate = delegate
+        viewModel.weightInput = "foo"
+        
+        viewModel.updateRecord()
+        
+        XCTAssertEqual(delegate.errorTitle, EditWeightRecordErrorTitle.invalidInput.rawValue)
+    }
+    
+    func testWeightValueInKg() {
+        let weightDataMutator = WeightDataMutatorMock()
+        let viewModel = EditWeightRecordViewModel(tableUpdater: weightDataMutator, unit: UnitMass.kilograms)
+        
+        let delegate = EditWeightRecordViewModelDelegateMock()
+        viewModel.delegate = delegate
+
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd/MM/yyyy"
+        let id = UUID()
+        viewModel.updateWeight = WeightRecord(id: id, weightValue: 34.87, date: dateFormatter.date(from: "27/12/2023")!)
+        viewModel.weightInput = "35,6"
+        
+        viewModel.updateRecord()
+        
+        XCTAssertEqual(weightDataMutator.updatedRecord?.weightValue, Decimal(35.6))
+    }
+    
+    func testWeightValueInLb() {
+        let weightDataMutator = WeightDataMutatorMock()
+        let viewModel = EditWeightRecordViewModel(tableUpdater: weightDataMutator, unit: UnitMass.pounds)
+        
+        let delegate = EditWeightRecordViewModelDelegateMock()
+        viewModel.delegate = delegate
+
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd/MM/yyyy"
+        let id = UUID()
+        viewModel.updateWeight = WeightRecord(id: id, weightValue: 34.87, date: dateFormatter.date(from: "27/12/2023")!)
+        viewModel.weightInput = "4,7"
+        
+        viewModel.updateRecord()
+        
+        XCTAssertEqual(weightDataMutator.updatedRecord?.weightValue, Decimal(2.1318824))
     }
 }
