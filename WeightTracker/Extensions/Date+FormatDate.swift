@@ -10,13 +10,13 @@ extension Date {
     
     func formatShortFullDate() -> String {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd.MM.YY"
+        dateFormatter.dateFormat = "dd.MM.yy"
         return dateFormatter.string(from: self)
     }
     
     func formatFullDate() -> String {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd MMM YYYY"
+        dateFormatter.dateFormat = "dd MMM yyyy"
         return dateFormatter.string(from: self)
     }
     
