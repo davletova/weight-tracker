@@ -27,6 +27,46 @@
 		4D13AFF82B31B537007484AE /* WeightInputCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D13AFF72B31B537007484AE /* WeightInputCollectionCell.swift */; };
 		4D13AFFA2B31EC6F007484AE /* DateHeaderCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D13AFF92B31EC6F007484AE /* DateHeaderCollectionCell.swift */; };
 		4D13AFFC2B31EFA3007484AE /* DatePickerCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D13AFFB2B31EFA3007484AE /* DatePickerCollectionCell.swift */; };
+		4D3F8E302C9180AD00EDB692 /* Afrikaans.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4D3F8E072C9180AD00EDB692 /* Afrikaans.strings */; };
+		4D3F8E312C9180AD00EDB692 /* Arabic.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4D3F8E082C9180AD00EDB692 /* Arabic.strings */; };
+		4D3F8E322C9180AD00EDB692 /* Chinese Traditional, Hong Kong.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4D3F8E092C9180AD00EDB692 /* Chinese Traditional, Hong Kong.strings */; };
+		4D3F8E332C9180AD00EDB692 /* Chinese Traditional.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4D3F8E0A2C9180AD00EDB692 /* Chinese Traditional.strings */; };
+		4D3F8E342C9180AD00EDB692 /* Croatian.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4D3F8E0B2C9180AD00EDB692 /* Croatian.strings */; };
+		4D3F8E352C9180AD00EDB692 /* Dutch.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4D3F8E0C2C9180AD00EDB692 /* Dutch.strings */; };
+		4D3F8E362C9180AD00EDB692 /* Estonian.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4D3F8E0D2C9180AD00EDB692 /* Estonian.strings */; };
+		4D3F8E372C9180AD00EDB692 /* Filipino.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4D3F8E0E2C9180AD00EDB692 /* Filipino.strings */; };
+		4D3F8E382C9180AD00EDB692 /* Finnish.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4D3F8E0F2C9180AD00EDB692 /* Finnish.strings */; };
+		4D3F8E392C9180AD00EDB692 /* French.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4D3F8E102C9180AD00EDB692 /* French.strings */; };
+		4D3F8E3A2C9180AD00EDB692 /* Hebrew.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4D3F8E112C9180AD00EDB692 /* Hebrew.strings */; };
+		4D3F8E3B2C9180AD00EDB692 /* Hungarian.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4D3F8E122C9180AD00EDB692 /* Hungarian.strings */; };
+		4D3F8E3C2C9180AD00EDB692 /* Icelandic.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4D3F8E132C9180AD00EDB692 /* Icelandic.strings */; };
+		4D3F8E3D2C9180AD00EDB692 /* Indonesian.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4D3F8E142C9180AD00EDB692 /* Indonesian.strings */; };
+		4D3F8E3E2C9180AD00EDB692 /* Italian.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4D3F8E152C9180AD00EDB692 /* Italian.strings */; };
+		4D3F8E3F2C9180AD00EDB692 /* Japanese.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4D3F8E162C9180AD00EDB692 /* Japanese.strings */; };
+		4D3F8E402C9180AD00EDB692 /* Korean.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4D3F8E172C9180AD00EDB692 /* Korean.strings */; };
+		4D3F8E412C9180AD00EDB692 /* Latvian.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4D3F8E182C9180AD00EDB692 /* Latvian.strings */; };
+		4D3F8E422C9180AD00EDB692 /* Lithuanian.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4D3F8E192C9180AD00EDB692 /* Lithuanian.strings */; };
+		4D3F8E432C9180AD00EDB692 /* Malay.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4D3F8E1A2C9180AD00EDB692 /* Malay.strings */; };
+		4D3F8E442C9180AD00EDB692 /* Norwegian.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4D3F8E1B2C9180AD00EDB692 /* Norwegian.strings */; };
+		4D3F8E452C9180AD00EDB692 /* Persian.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4D3F8E1C2C9180AD00EDB692 /* Persian.strings */; };
+		4D3F8E462C9180AD00EDB692 /* Polish.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4D3F8E1D2C9180AD00EDB692 /* Polish.strings */; };
+		4D3F8E472C9180AD00EDB692 /* Portuguese.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4D3F8E1E2C9180AD00EDB692 /* Portuguese.strings */; };
+		4D3F8E482C9180AD00EDB692 /* Romanian.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4D3F8E1F2C9180AD00EDB692 /* Romanian.strings */; };
+		4D3F8E492C9180AD00EDB692 /* Russian.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4D3F8E202C9180AD00EDB692 /* Russian.strings */; };
+		4D3F8E4A2C9180AD00EDB692 /* Serbian (Latin).strings in Resources */ = {isa = PBXBuildFile; fileRef = 4D3F8E212C9180AD00EDB692 /* Serbian (Latin).strings */; };
+		4D3F8E4B2C9180AD00EDB692 /* Slovak.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4D3F8E222C9180AD00EDB692 /* Slovak.strings */; };
+		4D3F8E4C2C9180AD00EDB692 /* Slovenian.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4D3F8E232C9180AD00EDB692 /* Slovenian.strings */; };
+		4D3F8E4D2C9180AD00EDB692 /* Spanish.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4D3F8E242C9180AD00EDB692 /* Spanish.strings */; };
+		4D3F8E4E2C9180AD00EDB692 /* Swahili.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4D3F8E252C9180AD00EDB692 /* Swahili.strings */; };
+		4D3F8E4F2C9180AD00EDB692 /* Swedish.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4D3F8E262C9180AD00EDB692 /* Swedish.strings */; };
+		4D3F8E502C9180AD00EDB692 /* Tamil.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4D3F8E272C9180AD00EDB692 /* Tamil.strings */; };
+		4D3F8E512C9180AD00EDB692 /* Telugu.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4D3F8E282C9180AD00EDB692 /* Telugu.strings */; };
+		4D3F8E522C9180AD00EDB692 /* Thai.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4D3F8E292C9180AD00EDB692 /* Thai.strings */; };
+		4D3F8E532C9180AD00EDB692 /* Turkish.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4D3F8E2A2C9180AD00EDB692 /* Turkish.strings */; };
+		4D3F8E542C9180AD00EDB692 /* Ukrainian.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4D3F8E2B2C9180AD00EDB692 /* Ukrainian.strings */; };
+		4D3F8E552C9180AD00EDB692 /* Urdu (Pakistan).strings in Resources */ = {isa = PBXBuildFile; fileRef = 4D3F8E2C2C9180AD00EDB692 /* Urdu (Pakistan).strings */; };
+		4D3F8E562C9180AD00EDB692 /* Uzbek.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4D3F8E2D2C9180AD00EDB692 /* Uzbek.strings */; };
+		4D3F8E572C9180AD00EDB692 /* Vietnamese.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4D3F8E2E2C9180AD00EDB692 /* Vietnamese.strings */; };
 		4DDF163A2B32BEFF00EAA86C /* EditWeightRecordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDF16392B32BEFF00EAA86C /* EditWeightRecordViewModel.swift */; };
 		4DDF163D2B334C3E00EAA86C /* Decimal+FormatWeight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDF163C2B334C3E00EAA86C /* Decimal+FormatWeight.swift */; };
 		4DDF16422B3414D300EAA86C /* AlertPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDF16412B3414D300EAA86C /* AlertPresenter.swift */; };
@@ -77,6 +117,46 @@
 		4D13AFF72B31B537007484AE /* WeightInputCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightInputCollectionCell.swift; sourceTree = "<group>"; };
 		4D13AFF92B31EC6F007484AE /* DateHeaderCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateHeaderCollectionCell.swift; sourceTree = "<group>"; };
 		4D13AFFB2B31EFA3007484AE /* DatePickerCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerCollectionCell.swift; sourceTree = "<group>"; };
+		4D3F8E072C9180AD00EDB692 /* Afrikaans.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Afrikaans.strings; sourceTree = "<group>"; };
+		4D3F8E082C9180AD00EDB692 /* Arabic.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Arabic.strings; sourceTree = "<group>"; };
+		4D3F8E092C9180AD00EDB692 /* Chinese Traditional, Hong Kong.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = "Chinese Traditional, Hong Kong.strings"; sourceTree = "<group>"; };
+		4D3F8E0A2C9180AD00EDB692 /* Chinese Traditional.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = "Chinese Traditional.strings"; sourceTree = "<group>"; };
+		4D3F8E0B2C9180AD00EDB692 /* Croatian.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Croatian.strings; sourceTree = "<group>"; };
+		4D3F8E0C2C9180AD00EDB692 /* Dutch.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Dutch.strings; sourceTree = "<group>"; };
+		4D3F8E0D2C9180AD00EDB692 /* Estonian.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Estonian.strings; sourceTree = "<group>"; };
+		4D3F8E0E2C9180AD00EDB692 /* Filipino.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Filipino.strings; sourceTree = "<group>"; };
+		4D3F8E0F2C9180AD00EDB692 /* Finnish.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Finnish.strings; sourceTree = "<group>"; };
+		4D3F8E102C9180AD00EDB692 /* French.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = French.strings; sourceTree = "<group>"; };
+		4D3F8E112C9180AD00EDB692 /* Hebrew.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Hebrew.strings; sourceTree = "<group>"; };
+		4D3F8E122C9180AD00EDB692 /* Hungarian.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Hungarian.strings; sourceTree = "<group>"; };
+		4D3F8E132C9180AD00EDB692 /* Icelandic.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Icelandic.strings; sourceTree = "<group>"; };
+		4D3F8E142C9180AD00EDB692 /* Indonesian.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Indonesian.strings; sourceTree = "<group>"; };
+		4D3F8E152C9180AD00EDB692 /* Italian.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Italian.strings; sourceTree = "<group>"; };
+		4D3F8E162C9180AD00EDB692 /* Japanese.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Japanese.strings; sourceTree = "<group>"; };
+		4D3F8E172C9180AD00EDB692 /* Korean.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Korean.strings; sourceTree = "<group>"; };
+		4D3F8E182C9180AD00EDB692 /* Latvian.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Latvian.strings; sourceTree = "<group>"; };
+		4D3F8E192C9180AD00EDB692 /* Lithuanian.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Lithuanian.strings; sourceTree = "<group>"; };
+		4D3F8E1A2C9180AD00EDB692 /* Malay.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Malay.strings; sourceTree = "<group>"; };
+		4D3F8E1B2C9180AD00EDB692 /* Norwegian.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Norwegian.strings; sourceTree = "<group>"; };
+		4D3F8E1C2C9180AD00EDB692 /* Persian.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Persian.strings; sourceTree = "<group>"; };
+		4D3F8E1D2C9180AD00EDB692 /* Polish.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Polish.strings; sourceTree = "<group>"; };
+		4D3F8E1E2C9180AD00EDB692 /* Portuguese.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Portuguese.strings; sourceTree = "<group>"; };
+		4D3F8E1F2C9180AD00EDB692 /* Romanian.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Romanian.strings; sourceTree = "<group>"; };
+		4D3F8E202C9180AD00EDB692 /* Russian.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Russian.strings; sourceTree = "<group>"; };
+		4D3F8E212C9180AD00EDB692 /* Serbian (Latin).strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = "Serbian (Latin).strings"; sourceTree = "<group>"; };
+		4D3F8E222C9180AD00EDB692 /* Slovak.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Slovak.strings; sourceTree = "<group>"; };
+		4D3F8E232C9180AD00EDB692 /* Slovenian.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Slovenian.strings; sourceTree = "<group>"; };
+		4D3F8E242C9180AD00EDB692 /* Spanish.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Spanish.strings; sourceTree = "<group>"; };
+		4D3F8E252C9180AD00EDB692 /* Swahili.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Swahili.strings; sourceTree = "<group>"; };
+		4D3F8E262C9180AD00EDB692 /* Swedish.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Swedish.strings; sourceTree = "<group>"; };
+		4D3F8E272C9180AD00EDB692 /* Tamil.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Tamil.strings; sourceTree = "<group>"; };
+		4D3F8E282C9180AD00EDB692 /* Telugu.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Telugu.strings; sourceTree = "<group>"; };
+		4D3F8E292C9180AD00EDB692 /* Thai.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Thai.strings; sourceTree = "<group>"; };
+		4D3F8E2A2C9180AD00EDB692 /* Turkish.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Turkish.strings; sourceTree = "<group>"; };
+		4D3F8E2B2C9180AD00EDB692 /* Ukrainian.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Ukrainian.strings; sourceTree = "<group>"; };
+		4D3F8E2C2C9180AD00EDB692 /* Urdu (Pakistan).strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = "Urdu (Pakistan).strings"; sourceTree = "<group>"; };
+		4D3F8E2D2C9180AD00EDB692 /* Uzbek.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Uzbek.strings; sourceTree = "<group>"; };
+		4D3F8E2E2C9180AD00EDB692 /* Vietnamese.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Vietnamese.strings; sourceTree = "<group>"; };
 		4DDF16392B32BEFF00EAA86C /* EditWeightRecordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditWeightRecordViewModel.swift; sourceTree = "<group>"; };
 		4DDF163C2B334C3E00EAA86C /* Decimal+FormatWeight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Decimal+FormatWeight.swift"; sourceTree = "<group>"; };
 		4DDF16412B3414D300EAA86C /* AlertPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertPresenter.swift; sourceTree = "<group>"; };
@@ -134,6 +214,7 @@
 		4D13AFA42B2F584D007484AE /* WeightTracker */ = {
 			isa = PBXGroup;
 			children = (
+				4D3F8E2F2C9180AD00EDB692 /* Localization */,
 				4DDF164A2B35F4BB00EAA86C /* Helpers */,
 				4DDF16402B3414C100EAA86C /* Services */,
 				4D13AFEE2B30A855007484AE /* CoreData */,
@@ -229,6 +310,53 @@
 				4DDF16392B32BEFF00EAA86C /* EditWeightRecordViewModel.swift */,
 			);
 			path = EditWeightRecord;
+			sourceTree = "<group>";
+		};
+		4D3F8E2F2C9180AD00EDB692 /* Localization */ = {
+			isa = PBXGroup;
+			children = (
+				4D3F8E072C9180AD00EDB692 /* Afrikaans.strings */,
+				4D3F8E082C9180AD00EDB692 /* Arabic.strings */,
+				4D3F8E092C9180AD00EDB692 /* Chinese Traditional, Hong Kong.strings */,
+				4D3F8E0A2C9180AD00EDB692 /* Chinese Traditional.strings */,
+				4D3F8E0B2C9180AD00EDB692 /* Croatian.strings */,
+				4D3F8E0C2C9180AD00EDB692 /* Dutch.strings */,
+				4D3F8E0D2C9180AD00EDB692 /* Estonian.strings */,
+				4D3F8E0E2C9180AD00EDB692 /* Filipino.strings */,
+				4D3F8E0F2C9180AD00EDB692 /* Finnish.strings */,
+				4D3F8E102C9180AD00EDB692 /* French.strings */,
+				4D3F8E112C9180AD00EDB692 /* Hebrew.strings */,
+				4D3F8E122C9180AD00EDB692 /* Hungarian.strings */,
+				4D3F8E132C9180AD00EDB692 /* Icelandic.strings */,
+				4D3F8E142C9180AD00EDB692 /* Indonesian.strings */,
+				4D3F8E152C9180AD00EDB692 /* Italian.strings */,
+				4D3F8E162C9180AD00EDB692 /* Japanese.strings */,
+				4D3F8E172C9180AD00EDB692 /* Korean.strings */,
+				4D3F8E182C9180AD00EDB692 /* Latvian.strings */,
+				4D3F8E192C9180AD00EDB692 /* Lithuanian.strings */,
+				4D3F8E1A2C9180AD00EDB692 /* Malay.strings */,
+				4D3F8E1B2C9180AD00EDB692 /* Norwegian.strings */,
+				4D3F8E1C2C9180AD00EDB692 /* Persian.strings */,
+				4D3F8E1D2C9180AD00EDB692 /* Polish.strings */,
+				4D3F8E1E2C9180AD00EDB692 /* Portuguese.strings */,
+				4D3F8E1F2C9180AD00EDB692 /* Romanian.strings */,
+				4D3F8E202C9180AD00EDB692 /* Russian.strings */,
+				4D3F8E212C9180AD00EDB692 /* Serbian (Latin).strings */,
+				4D3F8E222C9180AD00EDB692 /* Slovak.strings */,
+				4D3F8E232C9180AD00EDB692 /* Slovenian.strings */,
+				4D3F8E242C9180AD00EDB692 /* Spanish.strings */,
+				4D3F8E252C9180AD00EDB692 /* Swahili.strings */,
+				4D3F8E262C9180AD00EDB692 /* Swedish.strings */,
+				4D3F8E272C9180AD00EDB692 /* Tamil.strings */,
+				4D3F8E282C9180AD00EDB692 /* Telugu.strings */,
+				4D3F8E292C9180AD00EDB692 /* Thai.strings */,
+				4D3F8E2A2C9180AD00EDB692 /* Turkish.strings */,
+				4D3F8E2B2C9180AD00EDB692 /* Ukrainian.strings */,
+				4D3F8E2C2C9180AD00EDB692 /* Urdu (Pakistan).strings */,
+				4D3F8E2D2C9180AD00EDB692 /* Uzbek.strings */,
+				4D3F8E2E2C9180AD00EDB692 /* Vietnamese.strings */,
+			);
+			path = Localization;
 			sourceTree = "<group>";
 		};
 		4DDF163B2B3307F400EAA86C /* CollectionViewCells */ = {
@@ -377,8 +505,48 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4D3F8E3B2C9180AD00EDB692 /* Hungarian.strings in Resources */,
+				4D3F8E442C9180AD00EDB692 /* Norwegian.strings in Resources */,
+				4D3F8E392C9180AD00EDB692 /* French.strings in Resources */,
+				4D3F8E3D2C9180AD00EDB692 /* Indonesian.strings in Resources */,
+				4D3F8E322C9180AD00EDB692 /* Chinese Traditional, Hong Kong.strings in Resources */,
+				4D3F8E342C9180AD00EDB692 /* Croatian.strings in Resources */,
+				4D3F8E312C9180AD00EDB692 /* Arabic.strings in Resources */,
+				4D3F8E572C9180AD00EDB692 /* Vietnamese.strings in Resources */,
 				4D13AFB52B2F584F007484AE /* LaunchScreen.storyboard in Resources */,
+				4D3F8E482C9180AD00EDB692 /* Romanian.strings in Resources */,
 				4D13AFB22B2F584F007484AE /* Assets.xcassets in Resources */,
+				4D3F8E352C9180AD00EDB692 /* Dutch.strings in Resources */,
+				4D3F8E4A2C9180AD00EDB692 /* Serbian (Latin).strings in Resources */,
+				4D3F8E512C9180AD00EDB692 /* Telugu.strings in Resources */,
+				4D3F8E302C9180AD00EDB692 /* Afrikaans.strings in Resources */,
+				4D3F8E522C9180AD00EDB692 /* Thai.strings in Resources */,
+				4D3F8E532C9180AD00EDB692 /* Turkish.strings in Resources */,
+				4D3F8E4C2C9180AD00EDB692 /* Slovenian.strings in Resources */,
+				4D3F8E562C9180AD00EDB692 /* Uzbek.strings in Resources */,
+				4D3F8E492C9180AD00EDB692 /* Russian.strings in Resources */,
+				4D3F8E4E2C9180AD00EDB692 /* Swahili.strings in Resources */,
+				4D3F8E552C9180AD00EDB692 /* Urdu (Pakistan).strings in Resources */,
+				4D3F8E4F2C9180AD00EDB692 /* Swedish.strings in Resources */,
+				4D3F8E502C9180AD00EDB692 /* Tamil.strings in Resources */,
+				4D3F8E412C9180AD00EDB692 /* Latvian.strings in Resources */,
+				4D3F8E332C9180AD00EDB692 /* Chinese Traditional.strings in Resources */,
+				4D3F8E3E2C9180AD00EDB692 /* Italian.strings in Resources */,
+				4D3F8E402C9180AD00EDB692 /* Korean.strings in Resources */,
+				4D3F8E372C9180AD00EDB692 /* Filipino.strings in Resources */,
+				4D3F8E432C9180AD00EDB692 /* Malay.strings in Resources */,
+				4D3F8E452C9180AD00EDB692 /* Persian.strings in Resources */,
+				4D3F8E462C9180AD00EDB692 /* Polish.strings in Resources */,
+				4D3F8E3F2C9180AD00EDB692 /* Japanese.strings in Resources */,
+				4D3F8E422C9180AD00EDB692 /* Lithuanian.strings in Resources */,
+				4D3F8E3C2C9180AD00EDB692 /* Icelandic.strings in Resources */,
+				4D3F8E3A2C9180AD00EDB692 /* Hebrew.strings in Resources */,
+				4D3F8E4B2C9180AD00EDB692 /* Slovak.strings in Resources */,
+				4D3F8E362C9180AD00EDB692 /* Estonian.strings in Resources */,
+				4D3F8E4D2C9180AD00EDB692 /* Spanish.strings in Resources */,
+				4D3F8E382C9180AD00EDB692 /* Finnish.strings in Resources */,
+				4D3F8E542C9180AD00EDB692 /* Ukrainian.strings in Resources */,
+				4D3F8E472C9180AD00EDB692 /* Portuguese.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
