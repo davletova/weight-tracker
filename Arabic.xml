@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="basalTemperature">درجة الحرارة القاعدية</string>
+  <string name="addMeasurement">أضف القياس</string>
+  <string name="edit">تعديل</string>
+  <string name="deleteMeasurement">حذف القياس</string>
+  <string name="toast.dataChanged">تغيرت البيانات</string>
+  <string name="lastMeasurement">آخر قياس:</string>
+  <string name="measurementsPerCycle">القياسات لكل دورة</string>
+  <string name="history">السجل</string>
+  <string name="value">القيمة</string>
+  <string name="noMeasurementsInThisCycle">لم تكن هناك قياسات في هذه الدورة</string>
+  <string name="notEnoughData">لا توجد بيانات كافية</string>
+  <string name="addMeasurementToSeeChart">أضيفي القياس الأول لرؤية الرسم البياني لدرجة الحرارة</string>
+  <string name="notification.message">حان الوقت لقياس درجة حرارتك</string>
+  <string name="temperature">درجة الحرارة</string>
+  <string name="addTemperature">إضافة درجة الحرارة</string>
+  <string name="add">اضافة</string>
+  <string name="date">التاريخ</string>
+  <string name="period">فترة الحيض</string>
+  <string name="ovulation">التبويض</string>
+  <string name="late">تأخير</string>
+  <string name="statistics">الإحصائيات</string>
+</resources>
