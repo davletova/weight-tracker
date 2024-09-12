@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="basalTemperature">Базальная температура</string>
+  <string name="addMeasurement">Добавить измерение</string>
+  <string name="edit">Редактировать</string>
+  <string name="deleteMeasurement">Удалить измерение</string>
+  <string name="toast.dataChanged">Данные изменены</string>
+  <string name="lastMeasurement">Последнее измерение:</string>
+  <string name="measurementsPerCycle">Измерения за цикл</string>
+  <string name="history">История</string>
+  <string name="value">Значение</string>
+  <string name="noMeasurementsInThisCycle">В этом цикле не было измерений</string>
+  <string name="notEnoughData">Данных недостаточно</string>
+  <string name="addMeasurementToSeeChart">Добавь первое измерение, чтобы увидеть график температуры</string>
+  <string name="notification.message">Пора измерить температуру</string>
+  <string name="temperature">Температура</string>
+  <string name="addTemperature">Добавить температуру</string>
+  <string name="add">Добавить</string>
+  <string name="date">Дата</string>
+  <string name="period">Месячные</string>
+  <string name="ovulation">Овуляция</string>
+  <string name="late">Задержка</string>
+  <string name="statistics">Статистика</string>
+</resources>
