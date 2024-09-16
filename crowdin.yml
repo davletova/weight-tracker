@@ -1,2 +1,5 @@
 bundles:
   - 6
+files:
+  - source: /WeightTracker/Localization/Goals/en.lproj/*.strings
+    translation: /WeightTracker/Localization/Goals/%osx_code%/%original_file_name%
