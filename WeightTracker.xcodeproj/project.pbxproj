@@ -28,9 +28,10 @@
 		4D13AFFA2B31EC6F007484AE /* DateHeaderCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D13AFF92B31EC6F007484AE /* DateHeaderCollectionCell.swift */; };
 		4D13AFFC2B31EFA3007484AE /* DatePickerCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D13AFFB2B31EFA3007484AE /* DatePickerCollectionCell.swift */; };
 		4D3F8E592C91816F00EDB692 /* crowdin.yml in Resources */ = {isa = PBXBuildFile; fileRef = 4D3F8E582C91816F00EDB692 /* crowdin.yml */; };
-		4D3F8E602C92CFC600EDB692 /* Arabic.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4D3F8E5C2C92CFC600EDB692 /* Arabic.strings */; };
-		4D3F8E612C92CFC600EDB692 /* French.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4D3F8E5D2C92CFC600EDB692 /* French.strings */; };
-		4D3F8E622C92CFC600EDB692 /* Russian.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4D3F8E5E2C92CFC600EDB692 /* Russian.strings */; };
+		4D3F8F9B2C98A10900EDB692 /* GoalsLocalization.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4D3F8F932C98A10900EDB692 /* GoalsLocalization.strings */; };
+		4D3F8F9C2C98A10900EDB692 /* GoalsLocalization.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4D3F8F952C98A10900EDB692 /* GoalsLocalization.strings */; };
+		4D3F8F9D2C98A10900EDB692 /* GoalsLocalization.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4D3F8F972C98A10900EDB692 /* GoalsLocalization.strings */; };
+		4D3F8F9E2C98A10900EDB692 /* GoalsLocalization.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4D3F8F992C98A10900EDB692 /* GoalsLocalization.strings */; };
 		4DDF163A2B32BEFF00EAA86C /* EditWeightRecordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDF16392B32BEFF00EAA86C /* EditWeightRecordViewModel.swift */; };
 		4DDF163D2B334C3E00EAA86C /* Decimal+FormatWeight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDF163C2B334C3E00EAA86C /* Decimal+FormatWeight.swift */; };
 		4DDF16422B3414D300EAA86C /* AlertPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDF16412B3414D300EAA86C /* AlertPresenter.swift */; };
@@ -82,9 +83,10 @@
 		4D13AFF92B31EC6F007484AE /* DateHeaderCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateHeaderCollectionCell.swift; sourceTree = "<group>"; };
 		4D13AFFB2B31EFA3007484AE /* DatePickerCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerCollectionCell.swift; sourceTree = "<group>"; };
 		4D3F8E582C91816F00EDB692 /* crowdin.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; path = crowdin.yml; sourceTree = "<group>"; };
-		4D3F8E5C2C92CFC600EDB692 /* Arabic.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Arabic.strings; sourceTree = "<group>"; };
-		4D3F8E5D2C92CFC600EDB692 /* French.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = French.strings; sourceTree = "<group>"; };
-		4D3F8E5E2C92CFC600EDB692 /* Russian.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Russian.strings; sourceTree = "<group>"; };
+		4D3F8F922C98A10900EDB692 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/GoalsLocalization.strings; sourceTree = "<group>"; };
+		4D3F8F942C98A10900EDB692 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/GoalsLocalization.strings; sourceTree = "<group>"; };
+		4D3F8F962C98A10900EDB692 /* bg */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = bg; path = bg.lproj/GoalsLocalization.strings; sourceTree = "<group>"; };
+		4D3F8F982C98A10900EDB692 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/GoalsLocalization.strings; sourceTree = "<group>"; };
 		4DDF16392B32BEFF00EAA86C /* EditWeightRecordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditWeightRecordViewModel.swift; sourceTree = "<group>"; };
 		4DDF163C2B334C3E00EAA86C /* Decimal+FormatWeight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Decimal+FormatWeight.swift"; sourceTree = "<group>"; };
 		4DDF16412B3414D300EAA86C /* AlertPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertPresenter.swift; sourceTree = "<group>"; };
@@ -143,7 +145,7 @@
 		4D13AFA42B2F584D007484AE /* WeightTracker */ = {
 			isa = PBXGroup;
 			children = (
-				4D3F8E5F2C92CFC600EDB692 /* Localization */,
+				4D3F8F912C989F4800EDB692 /* Localization */,
 				4DDF164A2B35F4BB00EAA86C /* Helpers */,
 				4DDF16402B3414C100EAA86C /* Services */,
 				4D13AFEE2B30A855007484AE /* CoreData */,
@@ -241,14 +243,23 @@
 			path = EditWeightRecord;
 			sourceTree = "<group>";
 		};
-		4D3F8E5F2C92CFC600EDB692 /* Localization */ = {
+		4D3F8F912C989F4800EDB692 /* Localization */ = {
 			isa = PBXGroup;
 			children = (
-				4D3F8E5C2C92CFC600EDB692 /* Arabic.strings */,
-				4D3F8E5D2C92CFC600EDB692 /* French.strings */,
-				4D3F8E5E2C92CFC600EDB692 /* Russian.strings */,
+				4D3F8F9A2C98A10900EDB692 /* Goals */,
 			);
 			path = Localization;
+			sourceTree = "<group>";
+		};
+		4D3F8F9A2C98A10900EDB692 /* Goals */ = {
+			isa = PBXGroup;
+			children = (
+				4D3F8F932C98A10900EDB692 /* GoalsLocalization.strings */,
+				4D3F8F952C98A10900EDB692 /* GoalsLocalization.strings */,
+				4D3F8F972C98A10900EDB692 /* GoalsLocalization.strings */,
+				4D3F8F992C98A10900EDB692 /* GoalsLocalization.strings */,
+			);
+			path = Goals;
 			sourceTree = "<group>";
 		};
 		4DDF163B2B3307F400EAA86C /* CollectionViewCells */ = {
@@ -376,6 +387,54 @@
 				en,
 				Base,
 				ru,
+				de,
+				ur,
+				he,
+				ar,
+				el,
+				ja,
+				fa,
+				"zh-TW",
+				uk,
+				"zh-HK",
+				nb,
+				es,
+				sw,
+				is,
+				sl,
+				da,
+				et,
+				it,
+				bg,
+				sk,
+				sr,
+				ms,
+				ta,
+				sv,
+				te,
+				cs,
+				ko,
+				fil,
+				hu,
+				tr,
+				pl,
+				vi,
+				lv,
+				lt,
+				"zh-CN",
+				af,
+				uz,
+				fr,
+				fi,
+				id,
+				nl,
+				th,
+				az,
+				pt,
+				bn,
+				ro,
+				hr,
+				ca,
 			);
 			mainGroup = 4D13AF992B2F584D007484AE;
 			packageReferences = (
@@ -397,11 +456,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4D3F8E602C92CFC600EDB692 /* Arabic.strings in Resources */,
-				4D3F8E612C92CFC600EDB692 /* French.strings in Resources */,
-				4D3F8E622C92CFC600EDB692 /* Russian.strings in Resources */,
+				4D3F8F9B2C98A10900EDB692 /* GoalsLocalization.strings in Resources */,
+				4D3F8F9E2C98A10900EDB692 /* GoalsLocalization.strings in Resources */,
 				4D13AFB52B2F584F007484AE /* LaunchScreen.storyboard in Resources */,
 				4D13AFB22B2F584F007484AE /* Assets.xcassets in Resources */,
+				4D3F8F9C2C98A10900EDB692 /* GoalsLocalization.strings in Resources */,
+				4D3F8F9D2C98A10900EDB692 /* GoalsLocalization.strings in Resources */,
 				4D3F8E592C91816F00EDB692 /* crowdin.yml in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -490,6 +550,38 @@
 				4DDF16432B35A5DE00EAA86C /* ru */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		4D3F8F932C98A10900EDB692 /* GoalsLocalization.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4D3F8F922C98A10900EDB692 /* en */,
+			);
+			name = GoalsLocalization.strings;
+			sourceTree = "<group>";
+		};
+		4D3F8F952C98A10900EDB692 /* GoalsLocalization.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4D3F8F942C98A10900EDB692 /* uk */,
+			);
+			name = GoalsLocalization.strings;
+			sourceTree = "<group>";
+		};
+		4D3F8F972C98A10900EDB692 /* GoalsLocalization.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4D3F8F962C98A10900EDB692 /* bg */,
+			);
+			name = GoalsLocalization.strings;
+			sourceTree = "<group>";
+		};
+		4D3F8F992C98A10900EDB692 /* GoalsLocalization.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4D3F8F982C98A10900EDB692 /* ru */,
+			);
+			name = GoalsLocalization.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

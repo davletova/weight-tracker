@@ -1,0 +1,16 @@
+/* 
+  GoalsLocalization.strings
+  WomanCalendar
+
+  Created by Alexandra Bashkirova on 19.09.2023.
+  Copyright © 2023 Wachanga. All rights reserved.
+*/
+
+
+goal.title = "Do you plan to become pregnant in the future?";
+goal.later = "Yes, I plan to, but not right now";
+goal.soon = "Yes, I plan to in the near future";
+goal.cycleTracking = "No, I am here to track my cycle";
+goal.select = "Select";
+
+selected = "Selected";

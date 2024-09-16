@@ -1,0 +1,16 @@
+/* 
+  GoalsLocalization.strings
+  WomanCalendar
+
+  Created by Alexandra Bashkirova on 19.09.2023.
+  Copyright © 2023 Wachanga. All rights reserved.
+*/
+
+
+goal.title = "Планирате ли да забременеете в бъдеще?";
+goal.later = "Да, планирам, но не сега";
+goal.soon = "Да, планирам в близко бъдеще";
+goal.cycleTracking = "Не, аз съм тук, за да следя цикъла си";
+goal.select = "Изберете";
+
+selected = "Избрано";
