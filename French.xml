@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="basalTemperature">Température basale</string>
+  <string name="addMeasurement">Ajouter une mesure</string>
+  <string name="edit">Modifier</string>
+  <string name="deleteMeasurement">Supprimer la mesure</string>
+  <string name="toast.dataChanged">Données modifiées</string>
+  <string name="lastMeasurement">Dernière mesure:</string>
+  <string name="measurementsPerCycle">Mesures par cycle</string>
+  <string name="history">Histoire</string>
+  <string name="value">Valeur</string>
+  <string name="noMeasurementsInThisCycle">Il n\'y a eu aucune mesure dans ce cycle</string>
+  <string name="notEnoughData">Données insuffisantes</string>
+  <string name="addMeasurementToSeeChart">Ajoutez la première mesure pour voir le graphique de température</string>
+  <string name="notification.message">Il est temps de prendre votre température</string>
+  <string name="temperature">Température</string>
+  <string name="addTemperature">Ajouter la température</string>
+  <string name="add">Ajouter</string>
+  <string name="date">Date</string>
+  <string name="period">Règles</string>
+  <string name="ovulation">Ovulation</string>
+  <string name="late">En retard</string>
+  <string name="statistics">Statistiques</string>
+</resources>
